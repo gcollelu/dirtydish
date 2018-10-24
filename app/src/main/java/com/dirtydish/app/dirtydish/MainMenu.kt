@@ -1,5 +1,6 @@
 package com.dirtydish.app.dirtydish
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.design.widget.NavigationView
@@ -67,8 +68,9 @@ class MainMenu : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
             R.id.nav_slideshow -> {
 
             }
-            R.id.nav_manage -> {
-
+            R.id.nav_login -> {
+                val intent = Intent(this, AuthActivity::class.java)
+                startActivity(intent)
             }
             R.id.nav_share -> {
 
