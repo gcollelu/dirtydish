@@ -12,7 +12,6 @@ import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main_menu.*
 import kotlinx.android.synthetic.main.app_bar_main_menu.*
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 
 class MainMenu : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -21,13 +20,10 @@ class MainMenu : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
         setContentView(R.layout.activity_main_menu)
         setSupportActionBar(toolbar)
 
-        if (FirebaseAuth.getInstance().currentUser == null)
+        val loggedIn = FirebaseAuth.getInstance().currentUser == null
+        if (!loggedIn)
             startActivity(Intent(this, AuthActivity::class.java))
 
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
-        }
 
         val toggle = ActionBarDrawerToggle(
                 this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
@@ -73,15 +69,10 @@ class MainMenu : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
             R.id.nav_shared_supplies -> {
 
             }
-            R.id.nav_login -> {
+            R.id.nav_logout -> {
+                FirebaseAuth.getInstance().signOut()
                 val intent = Intent(this, AuthActivity::class.java)
                 startActivity(intent)
-            }
-            R.id.nav_share -> {
-
-            }
-            R.id.nav_send -> {
-
             }
         }
 

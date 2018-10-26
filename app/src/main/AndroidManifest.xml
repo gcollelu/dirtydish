@@ -22,7 +22,24 @@
         <activity
             android:name=".AuthActivity"
             android:parentActivityName=".MainMenu"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".SetupHouse"
+            android:label="@string/title_activity_setup_house"
+            android:parentActivityName=".MainMenu"
             android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.dirtydish.app.dirtydish.MainMenu" />
+        </activity>
+        <activity
+            android:name=".SelectHouse"
+            android:label="@string/title_activity_select_house"
+            android:parentActivityName=".AuthActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.dirtydish.app.dirtydish.AuthActivity" />
         </activity>
     </application>
 

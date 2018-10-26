@@ -1,5 +1,6 @@
 package com.dirtydish.app.dirtydish
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
@@ -30,7 +31,7 @@ class AuthActivity : AppCompatActivity() {
     // Changes the layout UI when the activity is created
     private fun setupUIOnCreate() {
         btnLogin.setOnClickListener { login() }
-        btnSignup.setOnClickListener { register() }
+        btnNewHouse.setOnClickListener { register() }
     }
 
     // Changes the layout UI elements based on if the user is logged in
@@ -61,6 +62,7 @@ class AuthActivity : AppCompatActivity() {
                 .addOnCompleteListener {
                     if (it.isComplete && it.isSuccessful) {
                         Toast.makeText(this, "Registered successfully.", Toast.LENGTH_SHORT).show()
+                        startActivity(Intent(this, SelectHouse::class.java))
                         finish()
                     } else {
                         Toast.makeText(this, "Registration failed.", Toast.LENGTH_SHORT).show()
