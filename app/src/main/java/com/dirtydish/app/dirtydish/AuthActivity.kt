@@ -37,9 +37,9 @@ class AuthActivity : AppCompatActivity() {
     // Changes the layout UI elements based on if the user is logged in
     private fun updateUIPostAuth(currentUser: FirebaseUser?) {
         if (currentUser == null) {
-            displayUser.text = "None"
+            //displayUser.text = "None"
         } else {
-            displayUser.text = "${currentUser.email}"
+           // displayUser.text = "${currentUser.email}"
         }
     }
 
