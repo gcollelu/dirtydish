@@ -21,7 +21,9 @@
         </activity>
         <activity
             android:name=".AuthActivity"
-            android:parentActivityName=".MainMenu"></activity>
+            android:parentActivityName=".MainMenu"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
     </application>
 
 </manifest>

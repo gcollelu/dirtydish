@@ -16,7 +16,6 @@ class AuthActivity : AppCompatActivity() {
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_auth)
-
         auth = FirebaseAuth.getInstance()
         setupUIOnCreate()
     }
@@ -62,6 +61,7 @@ class AuthActivity : AppCompatActivity() {
                 .addOnCompleteListener {
                     if (it.isComplete && it.isSuccessful) {
                         Toast.makeText(this, "Registered successfully.", Toast.LENGTH_SHORT).show()
+                        finish()
                     } else {
                         Toast.makeText(this, "Registration failed.", Toast.LENGTH_SHORT).show()
                         Log.d(tag, "Signup fail ${it.exception.toString()}")
@@ -80,6 +80,7 @@ class AuthActivity : AppCompatActivity() {
                     if (it.isComplete && it.isSuccessful) {
                         Toast.makeText(this, "Logged in.", Toast.LENGTH_SHORT).show()
                         updateUIPostAuth(auth.currentUser)
+                        finish()
                     } else {
                         Toast.makeText(this, "Login failed.", Toast.LENGTH_SHORT).show()
                         Log.d(tag, "Login fail ${it.exception.toString()}")
