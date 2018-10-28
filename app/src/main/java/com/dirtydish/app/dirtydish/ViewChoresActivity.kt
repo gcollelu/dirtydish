@@ -10,8 +10,16 @@ import kotlinx.android.synthetic.main.activity_view_chores.*
 
 class ViewChoresActivity : AppCompatActivity() {
 
-    private lateinit var db : FirebaseDatabase
-    private lateinit var choreRef : DatabaseReference
+    companion object {
+        private val db = FirebaseDatabase.getInstance()
+
+        init {
+            db.setPersistenceEnabled(true)
+        }
+    }
+
+    private lateinit var choreRef: DatabaseReference
+    private lateinit var listener: ValueEventListener
     private val context = this
     private val tag = "VIEW_CHORES"
 
@@ -19,32 +27,47 @@ class ViewChoresActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_chores)
 
-        db = FirebaseDatabase.getInstance()
         choreRef = db.getReference("chores")
+        choreRef.keepSynced(true)
 
         val viewManager = LinearLayoutManager(this)
         recyclerView.layoutManager = viewManager
 
+        setupFAB()
+        attachListenerForChanges()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        choreRef.removeEventListener(listener)
+    }
+
+    private fun attachListenerForChanges() {
+        listener = object : ValueEventListener {
+
+            override fun onDataChange(snap: DataSnapshot) {
+                val list = mutableListOf<Chore>()
+                snap.children.mapNotNullTo(list) {
+                    it.getValue<Chore>(Chore::class.java)
+                }
+                recyclerView.adapter = ChoreAdapter(list, context)
+            }
+
+            override fun onCancelled(err: DatabaseError) {
+                // Failed to connect to database
+                Log.d(tag, err.message)
+            }
+
+        }
+
+        choreRef.addValueEventListener(listener)
+    }
+
+    private fun setupFAB() {
         fab.setOnClickListener {
             val intent = Intent(this, AddChoreActivity::class.java)
             startActivity(intent)
         }
-
-        choreRef.addValueEventListener(object : ValueEventListener{
-            override fun onDataChange(snap: DataSnapshot) {
-                val list = mutableListOf<Chore>()
-                snap.children.mapNotNullTo(list){
-                    it.getValue<Chore>(Chore::class.java)
-                }
-                recyclerView.adapter = ChoreAdapter(list, context)
-                Log.d(tag, list.toString())
-            }
-
-            override fun onCancelled(p0: DatabaseError) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
-
-        })
-
     }
+
 }
