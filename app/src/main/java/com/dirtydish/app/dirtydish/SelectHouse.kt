@@ -19,9 +19,10 @@ class SelectHouse : AppCompatActivity() {
         }
 
         btnJoinHouse.setOnClickListener{
+            startActivity(Intent(this, JoinHouse::class.java))
             finish()
         }
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        //supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
 }

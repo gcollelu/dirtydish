@@ -41,6 +41,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.dirtydish.app.dirtydish.AuthActivity" />
         </activity>
+        <activity
+            android:name=".JoinHouse"
+            android:label="@string/title_activity_join_house"
+            android:parentActivityName=".SelectHouse"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.dirtydish.app.dirtydish.SelectHouse" />
+        </activity>
     </application>
 
 </manifest>
