@@ -21,26 +21,10 @@ class AuthActivity : AppCompatActivity() {
         setupUIOnCreate()
     }
 
-    public override fun onStart() {
-        super.onStart()
-
-        val currentUser = auth.currentUser
-        updateUIPostAuth(currentUser)
-    }
-
     // Changes the layout UI when the activity is created
     private fun setupUIOnCreate() {
         btnLogin.setOnClickListener { login() }
         btnNewHouse.setOnClickListener { register() }
-    }
-
-    // Changes the layout UI elements based on if the user is logged in
-    private fun updateUIPostAuth(currentUser: FirebaseUser?) {
-        if (currentUser == null) {
-            //displayUser.text = "None"
-        } else {
-           // displayUser.text = "${currentUser.email}"
-        }
     }
 
     private fun verifyEmail(email: String): Boolean {
@@ -81,7 +65,6 @@ class AuthActivity : AppCompatActivity() {
                 .addOnCompleteListener {
                     if (it.isComplete && it.isSuccessful) {
                         Toast.makeText(this, "Logged in.", Toast.LENGTH_SHORT).show()
-                        updateUIPostAuth(auth.currentUser)
                         finish()
                     } else {
                         Toast.makeText(this, "Login failed.", Toast.LENGTH_SHORT).show()

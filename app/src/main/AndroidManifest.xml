@@ -50,6 +50,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.dirtydish.app.dirtydish.SelectHouse" />
         </activity>
+        <activity
+            android:name=".AddChoreActivity"
+            android:parentActivityName=".ChoreMenuActivity" />
+        <activity
+            android:name=".ViewChoresActivity"
+            android:parentActivityName=".ChoreMenuActivity" />
+        <activity android:name=".ChoreMenuActivity"></activity>
     </application>
 
 </manifest>
