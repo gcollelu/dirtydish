@@ -64,7 +64,7 @@ class MainMenu : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
                 // Handle the camera action
             }
             R.id.nav_chores -> {
-                val intent = Intent(this, ViewChoresActivity::class.java)
+                val intent = Intent(this, ChoreMenuActivity::class.java)
                 startActivity(intent)
             }
             R.id.nav_shared_supplies -> {
