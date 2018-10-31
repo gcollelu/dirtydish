@@ -15,12 +15,14 @@ import com.google.firebase.auth.FirebaseAuth
 
 class MainMenu : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
+    val loggedIn = FirebaseAuth.getInstance().currentUser == null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_menu)
         setSupportActionBar(toolbar)
 
-        val loggedIn = FirebaseAuth.getInstance().currentUser == null
+
         if (!loggedIn)
             startActivity(Intent(this, AuthActivity::class.java))
 
