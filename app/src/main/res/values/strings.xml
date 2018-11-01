@@ -10,4 +10,5 @@
     <string name="title_activity_setup_house">SetupHouse</string>
     <string name="title_activity_select_house">SelectHouse</string>
     <string name="title_activity_join_house">JoinHouse</string>
+    <string name="title_activity_chore_menu_drawer">ChoreMenuDrawer</string>
 </resources>

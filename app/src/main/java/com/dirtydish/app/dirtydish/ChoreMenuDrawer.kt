@@ -2,29 +2,26 @@ package com.dirtydish.app.dirtydish
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import kotlinx.android.synthetic.main.activity_main_menu.*
-import kotlinx.android.synthetic.main.app_bar_main_menu.*
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.android.synthetic.main.activity_main_menu.*
+import kotlinx.android.synthetic.main.app_bar_chore_page.*
+import kotlinx.android.synthetic.main.activity_chore_home.*
 
-class MainMenu : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
-
-    val loggedIn = FirebaseAuth.getInstance().currentUser == null
+class ChoreMenuDrawer : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main_menu)
+        setContentView(R.layout.activity_chore_menu)
         setSupportActionBar(toolbar)
 
-
-        if (!loggedIn)
-            startActivity(Intent(this, AuthActivity::class.java))
+        Log.i("LOGIN/USER", "User: " + FirebaseAuth.getInstance().currentUser)
 
 
         val toggle = ActionBarDrawerToggle(
@@ -33,6 +30,20 @@ class MainMenu : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
+        setupUIOnCreate()
+    }
+
+    // Changes the layout UI when the activity is created
+    private fun setupUIOnCreate() {
+        btnAddNewChore.setOnClickListener {
+            val intent = Intent(this, AddChoreActivity::class.java)
+            startActivity(intent)
+        }
+
+        btnViewChoreSchedule.setOnClickListener {
+            val intent = Intent(this, ViewChoresActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onBackPressed() {
@@ -63,11 +74,10 @@ class MainMenu : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
         // Handle navigation view item clicks here.
         when (item.itemId) {
             R.id.nav_home -> {
-                // Handle the camera action
+                val intent = Intent(this, MainMenuDrawer::class.java)
+                startActivity(intent)
             }
             R.id.nav_chores -> {
-                val intent = Intent(this, ChoreMenuActivity::class.java)
-                startActivity(intent)
             }
             R.id.nav_shared_supplies -> {
 

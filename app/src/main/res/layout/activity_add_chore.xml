@@ -33,6 +33,7 @@
         </LinearLayout>
 
         <LinearLayout
+            style="?android:attr/buttonBarButtonStyle"
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -40,18 +41,24 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <Button
+                style="?android:attr/buttonBarButtonStyle"
                 android:id="@+id/btnDone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Done" />
+                android:background="@drawable/button_red"
+                android:text="Done"
+                android:textColor="@color/colorWhite" />
 
             <Button
+                style="?android:attr/buttonBarButtonStyle"
                 android:id="@+id/btnCancel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Cancel" />
+                android:background="@drawable/button_red"
+                android:text="Cancel"
+                android:textColor="@color/colorWhite" />
 
         </LinearLayout>
     </LinearLayout>
