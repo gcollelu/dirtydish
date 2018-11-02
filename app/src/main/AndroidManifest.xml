@@ -85,7 +85,7 @@
                 android:resource="@xml/provider_paths" />
         </provider>
 
-        <activity android:name=".modify_chore"></activity>
+        <activity android:name=".modifyChore"></activity>
     </application>
 
 </manifest>
