@@ -15,8 +15,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btn_delete"
-        app:layout_constraintTop_toBottomOf="@+id/modify_chore_text"
-        app:layout_constraintVertical_bias="0.275" />
+        app:layout_constraintTop_toBottomOf="@+id/modify_chore_text" />
 
     <Button
         android:id="@+id/btn_delete"
@@ -27,18 +26,17 @@
         app:layout_constraintEnd_toStartOf="@+id/btn_submit"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/modify_chore_text"
-        app:layout_constraintVertical_bias="0.275" />
+        app:layout_constraintTop_toBottomOf="@+id/modify_chore_text" />
 
     <EditText
         android:id="@+id/modify_chore_text"
-        android:layout_width="363dp"
-        android:layout_height="47dp"
-        android:layout_marginTop="96dp"
+        android:layout_width="375dp"
+        android:layout_height="46dp"
         android:ems="10"
         android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/btn_submit"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.523"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
