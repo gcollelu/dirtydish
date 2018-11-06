@@ -18,7 +18,6 @@ class ViewHouse : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_menu)
-        setSupportActionBar(toolbar)
 
         //TODO: check if house has been setup
         var house_setup= false

@@ -17,4 +17,9 @@
     <string name="house">House</string>
     <string name="home">Home</string>
     <string name="shared_supplies">Shared Supplies</string>
+    <string name="title_activity_invite_house_mates">InviteHouseMates</string>
+    <string name="create">Create</string>
+    <string name="house_name">House name</string>
+    <string name="address">Address</string>
+    <string name="next">Next</string>
 </resources>

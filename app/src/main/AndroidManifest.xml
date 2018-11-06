@@ -43,8 +43,7 @@
         <activity
             android:name=".SetupHouse"
             android:label="@string/title_activity_setup_house"
-            android:parentActivityName=".MainMenuDrawer"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:parentActivityName=".MainMenuDrawer">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.dirtydish.app.dirtydish.MainMenuDrawer" />
@@ -90,8 +89,16 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ViewHouse"
-            android:label="@string/title_activity_view_house"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:label="@string/title_activity_view_house" />
+        <activity
+            android:name=".InviteHouseMates"
+            android:label="@string/title_activity_invite_house_mates"
+            android:parentActivityName=".SetupHouse"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.dirtydish.app.dirtydish.SetupHouse" />
+        </activity>
     </application>
 
 </manifest>

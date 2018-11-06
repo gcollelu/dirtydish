@@ -13,6 +13,9 @@ import android.view.ActionMode
 import android.view.Menu
 import android.view.MenuItem
 import com.dirtydish.app.dirtydish.R.attr.*
+import android.R.attr.startX
+
+
 
 
 class PinEntryEditText : AppCompatEditText {
@@ -124,7 +127,7 @@ class PinEntryEditText : AppCompatEditText {
         }
 
         var startX = paddingLeft.toFloat()
-        val bottom = height - paddingBottom
+        val bottom = (height - paddingBottom).toFloat()
 
         //Text width
         val text = text
@@ -133,12 +136,18 @@ class PinEntryEditText : AppCompatEditText {
         paint.getTextWidths(getText(), 0, textLength, textWidths)
 
 
-        for (i in 0..mNumChars.toInt()) {
-            updateColorForLines(i == textLength)
-            canvas.drawLine(startX, bottom.toFloat(), startX + mCharSize, bottom.toFloat(), paint)
-            if (text.length > i) {
+        for (i in 0 until mNumChars.toInt()) {
+            canvas.drawLine(
+                    startX, bottom, startX + mCharSize, bottom, paint)
+
+            if (getText()!!.length > i) {
                 val middle = startX + mCharSize / 2
-                canvas.drawText(text, i,i + 1, middle - textWidths[0] / 2, (bottom - mLineSpacing), paint)
+                canvas.drawText(text,
+                        i,
+                        i + 1,
+                        middle - textWidths[0] / 2,
+                        bottom - mLineSpacing,
+                        paint)
             }
 
             if (mSpace < 0) {

@@ -74,6 +74,8 @@ class MainMenuDrawer : AppCompatActivity(), NavigationView.OnNavigationItemSelec
             }
             R.id.nav_shared_supplies -> {
                 //for testing purposes
+                val intent = Intent(this, SetupHouse::class.java)
+                startActivity(intent)
             }
             R.id.nav_logout -> {
                 FirebaseAuth.getInstance().signOut()
