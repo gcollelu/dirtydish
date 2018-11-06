@@ -50,9 +50,7 @@
         </activity>
         <activity
             android:name=".SelectHouse"
-            android:label="@string/title_activity_select_house"
-            android:parentActivityName=".AuthActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:label="House Setup">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.dirtydish.app.dirtydish.AuthActivity" />
