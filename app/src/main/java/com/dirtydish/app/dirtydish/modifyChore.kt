@@ -14,7 +14,7 @@ class ModifyChore : AppCompatActivity() {
     private val tag = "CHORE_MODIFY"
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        Log.d(tag, "SWITCHING SUCCESSFUL")
+        Log.d(tag, "Activity Started")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_modify_chore)
 
@@ -23,7 +23,6 @@ class ModifyChore : AppCompatActivity() {
 
         var tv1:TextView = findViewById(R.id.modify_chore_text)
         tv1.text = intent.getStringExtra("name")
-
 
         btn_delete.setOnClickListener {
             deleteChore(intent.getStringExtra("id"))

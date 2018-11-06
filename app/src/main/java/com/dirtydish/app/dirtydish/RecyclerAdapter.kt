@@ -57,13 +57,13 @@ class RecyclerAdapter(private val listData: List<Chore>, private val context: Co
             override fun onClick(view: View, position: Int, isLongClick: Boolean) {
                 if (isLongClick) {
                     Toast.makeText(context, "Long Click" + listData[position].name, Toast.LENGTH_SHORT).show()
-                    val intent = Intent(context,ModifyChore::class.java).putExtra("id",
+                    val intent = Intent(context.applicationContext,ModifyChore::class.java).putExtra("id",
                             listData[position].id).putExtra("name", listData[position].name)
                     Log.d(tag, context.toString())
                     context.startActivity(intent)
                 } else
                     Toast.makeText(context, "Short Click" + listData[position].name, Toast.LENGTH_SHORT).show()
-                    val intent = Intent(context,ModifyChore::class.java).putExtra("id",
+                    val intent = Intent(context.applicationContext,ModifyChore::class.java).putExtra("id",
                             listData[position].id).putExtra("name", listData[position].name)
                     Log.d(tag, context.toString())
                     context.startActivity(intent)
