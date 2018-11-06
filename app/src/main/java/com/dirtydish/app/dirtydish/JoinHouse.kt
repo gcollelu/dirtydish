@@ -14,17 +14,17 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
-import android.support.v4.content.FileProvider
 import android.support.v4.content.FileProvider.getUriForFile
 import android.support.v7.app.AppCompatActivity
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
+import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import android.widget.Toast
-import com.google.android.gms.vision.CameraSource
 import com.google.android.gms.vision.Frame
 import com.google.android.gms.vision.barcode.Barcode
 import com.google.android.gms.vision.barcode.BarcodeDetector
-import kotlinx.android.synthetic.main.content_join_house.*
 import kotlinx.android.synthetic.main.activity_join_house.*
 import java.io.File
 import java.io.FileNotFoundException
@@ -49,6 +49,28 @@ class JoinHouse : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_join_house)
         setSupportActionBar(toolbar)
+
+        val context = this
+        val  txtPinEntry : PinEntryEditText = pin_entry_edit as PinEntryEditText
+        txtPinEntry.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                //TODO: add check for actual house pin
+                if (s.toString().equals("1234")) {
+                    Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+                } else if (s?.length == "1234".length) {
+                    Toast.makeText(context, "Incorrect", Toast.LENGTH_SHORT).show()
+                    txtPinEntry.text = null
+                }
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+        })
+
+        txtPinEntry.setOnFocusChangeListener { _, b -> hideSoftKeyboard(this@JoinHouse) }
 
         btnScanCode.setOnClickListener { ActivityCompat.requestPermissions(this@JoinHouse, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission_group.CAMERA, Manifest.permission.CAMERA), REQUEST_WRITE_PERMISSION) }
 
@@ -208,5 +230,11 @@ class JoinHouse : AppCompatActivity() {
 
     return listPermissionsNeeded
 }
+    fun hideSoftKeyboard(activity: Activity) {
+        val inputMethodManager = activity.getSystemService(
+                Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(
+                activity.currentFocus!!.windowToken, 0)
+    }
 
 }

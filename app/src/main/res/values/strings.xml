@@ -11,4 +11,10 @@
     <string name="title_activity_select_house">SelectHouse</string>
     <string name="title_activity_join_house">JoinHouse</string>
     <string name="title_activity_chore_menu_drawer">ChoreMenuDrawer</string>
+    <string name="scan_code_text">Scan Code</string>
+    <string name="or_text">OR</string>
+    <string name="title_activity_view_house">ViewHouse</string>
+    <string name="house">House</string>
+    <string name="home">Home</string>
+    <string name="shared_supplies">Shared Supplies</string>
 </resources>

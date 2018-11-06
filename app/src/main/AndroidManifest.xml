@@ -87,6 +87,10 @@
         <activity
             android:name=".ChoreMenuDrawer"
             android:label="@string/title_activity_chore_menu_drawer"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ViewHouse"
+            android:label="@string/title_activity_view_house"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

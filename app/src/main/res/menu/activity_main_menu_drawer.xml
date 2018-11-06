@@ -7,15 +7,19 @@
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/app_logo"
-            android:title="Home" />
+            android:title="@string/home" />
+        <item
+            android:id="@+id/nav_house"
+            android:icon="@drawable/home"
+            android:title="@string/house" />
         <item
             android:id="@+id/nav_chores"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_local_laundry_service"
             android:title="Chores" />
         <item
             android:id="@+id/nav_shared_supplies"
-            android:icon="@android:drawable/ic_menu_sort_by_size"
-            android:title="Shared Supplies" />
+            android:icon="@drawable/ic_shared_supplies"
+            android:title="@string/shared_supplies" />
         <item
             android:id="@+id/nav_logout"
             android:icon="@android:drawable/ic_lock_idle_lock"

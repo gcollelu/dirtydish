@@ -1,27 +1,31 @@
 package com.dirtydish.app.dirtydish
 
 import android.content.Intent
-import android.graphics.Paint
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.design.widget.NavigationView
+import android.support.design.widget.Snackbar
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
-import android.support.v7.app.AppCompatActivity
-import android.util.Log
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu
 import android.view.MenuItem
-import kotlinx.android.synthetic.main.activity_main_menu.*
-import kotlinx.android.synthetic.main.app_bar_main_menu.*
 import com.google.firebase.auth.FirebaseAuth
 
-class MainMenuDrawer : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+import kotlinx.android.synthetic.main.activity_view_house.*
 
+class ViewHouse : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_menu)
         setSupportActionBar(toolbar)
+
+        //TODO: check if house has been setup
+        var house_setup= false
+
+        //If house is not setup --> redirect to setup house
+        if (!house_setup)
+            startActivity(Intent(this, SelectHouse::class.java))
 
         if (FirebaseAuth.getInstance().currentUser == null)
             startActivity(Intent(this, AuthActivity::class.java))
@@ -64,16 +68,14 @@ class MainMenuDrawer : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         when (item.itemId) {
             R.id.nav_home -> {
             }
-            R.id.nav_house -> {
-                val intent = Intent(this, ViewHouse::class.java)
-                startActivity(intent)
-            }
             R.id.nav_chores -> {
                 val intent = Intent(this, ChoreMenuDrawer::class.java)
                 startActivity(intent)
             }
             R.id.nav_shared_supplies -> {
                 //for testing purposes
+                val intent = Intent(this, JoinHouse::class.java)
+                startActivity(intent)
             }
             R.id.nav_logout -> {
                 FirebaseAuth.getInstance().signOut()
