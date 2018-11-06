@@ -12,6 +12,7 @@ import android.widget.Toast
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 
+private val tag = "RECYCLER_ADAPTER"
 
 class RecyclerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener, View.OnLongClickListener {
 
@@ -58,13 +59,13 @@ class RecyclerAdapter(private val listData: List<Chore>, private val context: Co
                     Toast.makeText(context, "Long Click" + listData[position].name, Toast.LENGTH_SHORT).show()
                     val intent = Intent(context,ModifyChore::class.java).putExtra("id",
                             listData[position].id).putExtra("name", listData[position].name)
-                    Log.d("ADAPTER_INTENT", context.toString())
+                    Log.d(tag, context.toString())
                     context.startActivity(intent)
                 } else
                     Toast.makeText(context, "Short Click" + listData[position].name, Toast.LENGTH_SHORT).show()
                     val intent = Intent(context,ModifyChore::class.java).putExtra("id",
                             listData[position].id).putExtra("name", listData[position].name)
-                    Log.d("ADAPTER_INTENT", context.toString())
+                    Log.d(tag, context.toString())
                     context.startActivity(intent)
 
             }
