@@ -31,11 +31,15 @@ class InviteHouseMates : AppCompatActivity() {
         btnCreateHouse.setOnClickListener {
             var validInput = true
 
-            for (i in 0 until housematesCount)
+            for (i in 0 until housematesCount){
+                housematesArray[i] = adapter.getHousmate(i)
                 validInput = (Utilities.isEmailValid(housematesArray[i].email) && housematesArray[i].name.isNotEmpty())
+            }
+
 
             if (validInput){
                 //TODO: actually create the house in the database
+                Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
             }else{
                 Toast.makeText(this, "Please input all housemates information.", Toast.LENGTH_SHORT).show()
             }

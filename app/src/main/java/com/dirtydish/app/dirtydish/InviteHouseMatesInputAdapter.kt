@@ -35,15 +35,37 @@ class InviteHouseMatesInputAdapter(private val context: Activity, private val ho
         val inputName = rowView.findViewById(R.id.editName) as EditText
         val inputEmail = rowView.findViewById(R.id.editEmail) as EditText
 
-        inputName.setOnFocusChangeListener { _, hasFocus ->
-            housematesArray[position].name = inputName.text.toString()
-        }
+        inputEmail.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                housematesArray[position].email = inputEmail.text.toString()
+            }
 
-        inputName.setOnFocusChangeListener { _, hasFocus ->
-            housematesArray[position].email = inputEmail.text.toString()
-        }
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+        })
+
+        inputName.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                housematesArray[position].name = inputName.text.toString()
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+        })
 
 
         return rowView
     }
+
+    fun getHousmate(position: Int) : HouseMate{
+        return housematesArray[position]
+    }
+
+
 }
