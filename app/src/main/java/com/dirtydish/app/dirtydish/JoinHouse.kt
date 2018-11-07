@@ -57,6 +57,8 @@ class JoinHouse : AppCompatActivity() {
                 //TODO: add check for actual house pin
                 if (s.toString().equals("1234")) {
                     Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+                    //TODO: get house
+                    Session.userHouse = House()
                 } else if (s?.length == "1234".length) {
                     Toast.makeText(context, "Incorrect", Toast.LENGTH_SHORT).show()
                     txtPinEntry.text = null

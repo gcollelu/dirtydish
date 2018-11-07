@@ -4,11 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
-import kotlinx.android.synthetic.main.activity_setup_house.*
 import kotlinx.android.synthetic.main.content_setup_house.*
 
 
-class SetupHouse : AppCompatActivity() {
+class SetupHouseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,7 +21,7 @@ class SetupHouse : AppCompatActivity() {
                     && editHouseMateCount.text.isNotEmpty()
                     && (editHouseMateCount.text.toString().toIntOrNull() is Int)){
                 //Go to next page
-                val intent = Intent(this, InviteHouseMates::class.java)
+                val intent = Intent(this, InviteHouseMatesActivity::class.java)
                 intent.putExtra("house_name", editHouseName.text.toString())
                 intent.putExtra("house_address", editAddress.text.toString())
                 intent.putExtra("housemates_count", editHouseMateCount.text.toString().toInt())

@@ -5,4 +5,4 @@ import kotlinx.android.parcel.Parcelize
 
 
 @Parcelize
-data class House(val name: String = "", val address: String = "", var id: String = "", var houseMates : Array<HouseMate> = arrayOf()) : Parcelable
+data class House(var name: String = "", var address: String = "", var id: String = "", var houseMates: MutableList<HouseMate> = mutableListOf()) : Parcelable

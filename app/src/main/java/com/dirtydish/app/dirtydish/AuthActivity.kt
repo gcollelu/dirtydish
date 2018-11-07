@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import kotlinx.android.synthetic.main.activity_auth.*
 
 class AuthActivity : AppCompatActivity() {
@@ -46,7 +45,7 @@ class AuthActivity : AppCompatActivity() {
                 .addOnCompleteListener {
                     if (it.isComplete && it.isSuccessful) {
                         Toast.makeText(this, "Registered successfully.", Toast.LENGTH_SHORT).show()
-                        startActivity(Intent(this, SelectHouse::class.java))
+                        startActivity(Intent(this, SelectHouseActivity::class.java))
                         finish()
                     } else {
                         Toast.makeText(this, "Registration failed.", Toast.LENGTH_SHORT).show()

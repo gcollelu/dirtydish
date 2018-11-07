@@ -74,7 +74,7 @@ class ChoreMenuDrawer : AppCompatActivity(), NavigationView.OnNavigationItemSele
         // Handle navigation view item clicks here.
         when (item.itemId) {
             R.id.nav_home -> {
-                val intent = Intent(this, MainMenuDrawer::class.java)
+                val intent = Intent(this, HomeActivity::class.java)
                 startActivity(intent)
             }
             R.id.nav_chores -> {
