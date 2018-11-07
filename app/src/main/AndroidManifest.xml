@@ -97,6 +97,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.dirtydish.app.dirtydish.SetupHouseActivity" />
         </activity>
+        <activity android:name=".ModifyChore"></activity>
     </application>
 
 </manifest>
