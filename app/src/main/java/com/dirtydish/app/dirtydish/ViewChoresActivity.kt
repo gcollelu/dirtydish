@@ -50,7 +50,7 @@ class ViewChoresActivity : AppCompatActivity() {
                 snap.children.mapNotNullTo(list) {
                     it.getValue<Chore>(Chore::class.java)
                 }
-                recyclerView.adapter = ChoreAdapter(list, context)
+                recyclerView.adapter = RecyclerAdapter(list, context)
             }
 
             override fun onCancelled(err: DatabaseError) {
