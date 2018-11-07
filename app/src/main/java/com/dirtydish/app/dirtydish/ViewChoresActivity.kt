@@ -10,14 +10,8 @@ import kotlinx.android.synthetic.main.activity_view_chores.*
 
 class ViewChoresActivity : AppCompatActivity() {
 
-    companion object {
-        private val db = FirebaseDatabase.getInstance()
 
-        init {
-            db.setPersistenceEnabled(true)
-        }
-    }
-
+    private lateinit var db: FirebaseDatabase
     private lateinit var choreRef: DatabaseReference
     private lateinit var listener: ValueEventListener
     private val context = this
@@ -27,6 +21,7 @@ class ViewChoresActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_chores)
 
+        db = FirebaseDatabase.getInstance()
         choreRef = db.getReference("chores")
         choreRef.keepSynced(true)
 
