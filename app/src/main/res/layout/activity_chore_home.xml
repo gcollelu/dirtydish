@@ -4,9 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ChoreMenuDrawer"
-    tools:showIn="@layout/app_bar_chore_page"
-    >
+    tools:context=".ChoresFragment">
 
     <Button
         android:id="@+id/btnAddNewChore"
@@ -21,7 +19,7 @@
         android:drawableLeft="@android:drawable/ic_menu_add"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        android:text="Add New Chore"
+        android:text="@string/add_new_chore"
         android:textColor="@color/colorWhite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,7 +41,7 @@
         android:drawableLeft="@android:drawable/ic_menu_delete"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        android:text="Remove Chore"
+        android:text="@string/remove_chore"
         android:textColor="@color/colorWhite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -65,7 +63,7 @@
         android:drawableLeft="@android:drawable/ic_menu_edit"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        android:text="Edit Chore"
+        android:text="@string/edit_chore"
         android:textColor="@color/colorWhite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -86,7 +84,7 @@
         android:drawableLeft="@android:drawable/ic_menu_today"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        android:text="Chore Schedule"
+        android:text="@string/chore_schedule"
         android:textColor="@color/colorWhite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

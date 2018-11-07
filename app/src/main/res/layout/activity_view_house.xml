@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    android:id="@+id/view_house_layout"
-    tools:context=".ViewHouseActivity">
+    tools:context=".ViewHouseFragment">
 
     <ImageView
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="50dp"
-        android:layout_marginLeft="50dp"
         android:layout_marginTop="300dp"
         android:src="@drawable/dd_logo_png"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
+
+

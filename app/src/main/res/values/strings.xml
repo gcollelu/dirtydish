@@ -22,4 +22,8 @@
     <string name="house_name">House name</string>
     <string name="address">Address</string>
     <string name="next">Next</string>
+    <string name="add_new_chore">Add New Chore</string>
+    <string name="remove_chore">Remove Chore</string>
+    <string name="edit_chore">Edit Chore</string>
+    <string name="chore_schedule">Chore Schedule</string>
 </resources>

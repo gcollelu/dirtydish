@@ -19,7 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity
-            android:name=".HomeActivity"
+            android:name=".MainMenu"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter tools:ignore="AppLinkUrlError">
@@ -38,15 +38,15 @@
         </activity>
         <activity
             android:name=".AuthActivity"
-            android:parentActivityName=".HomeActivity"
+            android:parentActivityName=".MainMenu"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".SetupHouseActivity"
             android:label="@string/title_activity_setup_house"
-            android:parentActivityName=".HomeActivity">
+            android:parentActivityName=".MainMenu">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dirtydish.app.dirtydish.HomeActivity" />
+                android:value="com.dirtydish.app.dirtydish.MainMenu" />
         </activity>
         <activity
             android:name=".SelectHouseActivity"
@@ -64,12 +64,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.dirtydish.app.dirtydish.SelectHouseActivity" />
         </activity>
-        <activity
-            android:name=".AddChoreActivity"
-            android:parentActivityName=".ChoreMenuDrawer" />
-        <activity
-            android:name=".ViewChoresActivity"
-            android:parentActivityName=".ChoreMenuDrawer" />
+        <activity android:name=".AddChoreActivity" />
+        <activity android:name=".ViewChoresActivity" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -81,13 +77,7 @@
                 android:resource="@xml/provider_paths" />
         </provider>
 
-        <activity
-            android:name=".ChoreMenuDrawer"
-            android:label="@string/title_activity_chore_menu_drawer"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".ViewHouseActivity"
-            android:label="@string/title_activity_view_house" />
+
         <activity
             android:name=".InviteHouseMatesActivity"
             android:label="@string/title_activity_invite_house_mates"
@@ -97,7 +87,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.dirtydish.app.dirtydish.SetupHouseActivity" />
         </activity>
-        <activity android:name=".ModifyChore"></activity>
+        <activity android:name=".ModifyChore" />
     </application>
 
 </manifest>

@@ -46,7 +46,7 @@ class InviteHouseMatesActivity : AppCompatActivity() {
                 house.houseMates = housematesArray
                 Session.userHouse = house
 
-                val intent = Intent(this, ViewHouseActivity::class.java)
+                val intent = Intent(this, ViewHouseFragment::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
                 finish()
