@@ -16,5 +16,5 @@ In order to create an account, you must have an "@ucsc.edu" email
 * **Giulio Colleluori**
 * **Abdurrahman Alomari**
 * **Alexander Kiryukhin**
-
+* **Sean Odnert**
 
