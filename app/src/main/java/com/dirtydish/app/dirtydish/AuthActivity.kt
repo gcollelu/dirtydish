@@ -55,6 +55,7 @@ class AuthActivity : AppCompatActivity() {
                     if (it.isComplete && it.isSuccessful) {
                         Toast.makeText(this, "Registered successfully.", Toast.LENGTH_SHORT).show()
                         createHouseMate(email, auth.currentUser?.uid)
+                        Session.init()
                         startActivity(Intent(this, SelectHouseActivity::class.java))
                         finish()
                     } else {
@@ -81,6 +82,7 @@ class AuthActivity : AppCompatActivity() {
                 .addOnCompleteListener {
                     if (it.isComplete && it.isSuccessful) {
                         Toast.makeText(this, "Logged in.", Toast.LENGTH_SHORT).show()
+                        Session.init()
                         finish()
                     } else {
                         Toast.makeText(this, "Login failed.", Toast.LENGTH_SHORT).show()

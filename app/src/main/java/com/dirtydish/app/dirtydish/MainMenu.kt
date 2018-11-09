@@ -92,6 +92,7 @@ class MainMenu : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
 
         if (item.itemId == R.id.nav_logout) {
             FirebaseAuth.getInstance().signOut()
+            Session.clear()
             val intent = Intent(this, AuthActivity::class.java)
             startActivity(intent)
         }
