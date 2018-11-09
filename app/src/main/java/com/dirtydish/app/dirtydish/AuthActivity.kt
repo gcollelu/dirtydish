@@ -6,17 +6,26 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_auth.*
 
 class AuthActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
+    private lateinit var db: FirebaseDatabase
+    private lateinit var housemateRef: DatabaseReference
     private val tag = "AUTH"
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_auth)
+
         auth = FirebaseAuth.getInstance()
+        db = FirebaseDatabase.getInstance()
+        housemateRef = db.getReference("housemates")
+
+
         setupUIOnCreate()
     }
 
@@ -45,6 +54,7 @@ class AuthActivity : AppCompatActivity() {
                 .addOnCompleteListener {
                     if (it.isComplete && it.isSuccessful) {
                         Toast.makeText(this, "Registered successfully.", Toast.LENGTH_SHORT).show()
+                        createHouseMate(email, auth.currentUser?.uid)
                         startActivity(Intent(this, SelectHouseActivity::class.java))
                         finish()
                     } else {
@@ -52,6 +62,13 @@ class AuthActivity : AppCompatActivity() {
                         Log.d(tag, "Signup fail ${it.exception.toString()}")
                     }
                 }
+    }
+
+    private fun createHouseMate(email: String, id: String?) {
+        if (id != null) {
+            val user = HouseMate(email = email, id = id)
+            housemateRef.child(id).setValue(user)
+        }
     }
 
     private fun login() {
