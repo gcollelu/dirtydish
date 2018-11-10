@@ -88,6 +88,10 @@
                 android:value="com.dirtydish.app.dirtydish.SetupHouseActivity" />
         </activity>
         <activity android:name=".ModifyChore" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

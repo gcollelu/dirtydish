@@ -1,15 +1,11 @@
 package com.dirtydish.app.dirtydish
 
-import android.content.Context
 import android.os.Bundle
-import android.support.constraint.ConstraintLayout
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
-import kotlinx.android.synthetic.main.activity_view_house.*
-import kotlinx.android.synthetic.main.app_bar_main_menu.*
+import android.widget.ListView
 
 class ViewHouseFragment : Fragment() {
 
@@ -19,6 +15,20 @@ class ViewHouseFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.activity_view_house,
                 container, false)
+
+        val housematesArray: MutableList<HouseMate> = mutableListOf<HouseMate>()
+
+        //TODO: add actual housemates
+        for (i in 0 until 10) {
+            val housemate = HouseMate("John Smith " + i.toString(), "lmao@lmao.com", i.toString())
+            housematesArray.add(housemate)
+        }
+
+        val list = view.findViewById<ListView>(R.id.housematesList)
+        val adapter = ViewHouseMatesAdapter(activity!!, housematesArray)
+        list.adapter = adapter
+
+
 
         return view
     }
