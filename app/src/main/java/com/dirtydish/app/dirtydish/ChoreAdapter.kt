@@ -12,6 +12,7 @@ class ChoreAdapter(private val data: List<Chore>, val context: Context) : Recycl
 
     class ChoreHolder(view: View) : RecyclerView.ViewHolder(view) {
         val choreName: TextView? = view.chore_name
+        val choreFrequency: TextView? = view.chore_frequency
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChoreAdapter.ChoreHolder {
@@ -22,6 +23,7 @@ class ChoreAdapter(private val data: List<Chore>, val context: Context) : Recycl
 
     override fun onBindViewHolder(holder: ChoreAdapter.ChoreHolder, position: Int) {
         holder.choreName?.text = data[position].name
+        holder.choreFrequency?.text = data[position].frequency.toString()
     }
 
 }
