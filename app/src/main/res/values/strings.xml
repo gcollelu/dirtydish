@@ -27,4 +27,6 @@
     <string name="edit_chore">Edit Chore</string>
     <string name="chore_schedule">Chore Schedule</string>
     <string name="edit">Edit</string>
+    <string name="save">Save</string>
+    <string name="logout">Logout</string>
 </resources>

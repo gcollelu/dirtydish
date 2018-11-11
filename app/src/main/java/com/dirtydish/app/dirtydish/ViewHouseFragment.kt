@@ -5,7 +5,9 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ListView
+import androidx.navigation.findNavController
 
 class ViewHouseFragment : Fragment() {
 
@@ -28,8 +30,12 @@ class ViewHouseFragment : Fragment() {
         val adapter = ViewHouseMatesAdapter(activity!!, housematesArray)
         list.adapter = adapter
 
+        val btnEditHouse = view.findViewById<Button>(R.id.btnEditHouse)
 
-
+        btnEditHouse.setOnClickListener {
+            view.findNavController().navigate(R.id.action_viewHouseFragment_to_editHouseFragment2)
+        }
         return view
     }
+
 }

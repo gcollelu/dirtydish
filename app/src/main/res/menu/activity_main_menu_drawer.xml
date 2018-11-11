@@ -1,30 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:showIn="navigation_view">
-
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_home"
-            android:icon="@drawable/ic_dirtydish_logo"
-            android:title="@string/home" />
-        <item
-            android:id="@+id/nav_house"
-            android:icon="@drawable/home"
-            android:title="@string/house" />
-        <item
-            android:id="@+id/nav_chores"
-            android:icon="@drawable/ic_local_laundry_service"
-            android:title="Chores" />
-        <item
-            android:id="@+id/nav_shared_supplies"
-            android:icon="@drawable/ic_shared_supplies"
-            android:title="@string/shared_supplies" />
-        <item
-            android:id="@+id/nav_logout"
-            android:icon="@android:drawable/ic_lock_idle_lock"
-            android:title="Logout" />
-    </group>
-
-
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/homeFragment"
+        android:icon="@drawable/ic_dirtydish_logo"
+        android:title="@string/home" />
+    <item
+        android:id="@+id/viewHouseFragment"
+        android:icon="@drawable/home"
+        android:title="@string/house" />
+    <item
+        android:id="@+id/choresFragment"
+        android:icon="@drawable/ic_local_laundry_service"
+        android:title="Chores" />
+    <item
+        android:id="@+id/nav_shared_supplies"
+        android:icon="@drawable/ic_shared_supplies"
+        android:title="@string/shared_supplies" />
+    <item
+        android:id="@+id/nav_logout"
+        android:icon="@android:drawable/ic_lock_idle_lock"
+        android:title="@string/logout" />
 </menu>
+

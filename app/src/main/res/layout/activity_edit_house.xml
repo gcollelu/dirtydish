@@ -8,11 +8,10 @@
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintBottom_toBottomOf="parent"
     android:background="@drawable/gradient_bg"
-    android:id="@+id/view_house_fragment"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".ViewHouseFragment">
+    tools:context=".EditHouseFragment">
 
-    <TextView
+    <EditText
         android:id="@+id/houseName"
         android:layout_width="0dp"
         android:layout_height="60dp"
@@ -24,6 +23,7 @@
         android:background="@drawable/textview_red_top_round"
         android:gravity="center_vertical|center_horizontal"
         android:text="Slug Castle"
+        android:inputType="textCapWords"
         android:textColor="@color/colorWhite"
         android:textColorLink="@color/colorWhite"
         android:textSize="20sp"
@@ -33,7 +33,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
+    <EditText
         android:id="@+id/houseAddress"
         android:layout_width="0dp"
         android:layout_height="60dp"
@@ -43,6 +43,7 @@
         android:layout_marginEnd="20dp"
         android:layout_marginRight="20dp"
         android:background="@drawable/textview_white_squared"
+        android:inputType="text"
         android:gravity="center_vertical|center_horizontal"
         android:text="115 Mission St, Santa Cruz, CA"
         android:textColor="@color/colorPrimary"
@@ -54,7 +55,7 @@
         app:layout_constraintTop_toBottomOf="@id/houseName" />
 
     <ListView
-        android:id="@+id/housematesList"
+        android:id="@+id/housematesEditList"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="20dp"
@@ -83,11 +84,11 @@
         android:layout_marginEnd="30dp"
         android:layout_marginRight="30dp"
         android:background="@drawable/button_white"
-        android:text="@string/edit"
+        android:text="@string/save"
         android:textColor="@color/colorPrimary"
         app:layout_constraintEnd_toStartOf="parent"
         app:layout_constraintStart_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/housematesList" />
+        app:layout_constraintTop_toBottomOf="@id/housematesEditList" />
 
 </android.support.constraint.ConstraintLayout>
 

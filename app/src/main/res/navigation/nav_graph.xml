@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/viewHouseFragment"
+        android:name="com.dirtydish.app.dirtydish.ViewHouseFragment"
+        android:label="View House"
+        tools:layout="@layout/activity_view_house">
+        <action
+            android:id="@+id/action_viewHouseFragment_to_editHouseFragment2"
+            app:destination="@id/editHouseFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/editHouseFragment"
+        android:name="com.dirtydish.app.dirtydish.EditHouseFragment"
+        android:label="Edit House"
+        tools:layout="@layout/activity_edit_house">
+        <action
+            android:id="@+id/action_viewHouseFragment_to_editHouseFragment2"
+            app:destination="@id/editHouseFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.dirtydish.app.dirtydish.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/homepage" />
+    <fragment
+        android:id="@+id/choresFragment"
+        android:name="com.dirtydish.app.dirtydish.ChoresFragment"
+        android:label="Chores"
+        tools:layout="@layout/activity_chore_home" />
+</navigation>
