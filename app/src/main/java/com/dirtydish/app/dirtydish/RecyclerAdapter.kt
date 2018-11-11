@@ -17,11 +17,13 @@ private val tag = "RECYCLER_ADAPTER"
 class RecyclerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener, View.OnLongClickListener {
 
     var chore_name: TextView
+    var frequency: TextView
 
     private var itemClickListener: ItemClickListener? = null
 
     init {
         chore_name = itemView.findViewById<View>(R.id.chore_name) as TextView
+        frequency = itemView.findViewById<View>(R.id.chore_frequency) as TextView
 
         itemView.setOnClickListener(this)
         itemView.setOnLongClickListener(this)
@@ -51,20 +53,27 @@ class RecyclerAdapter(private val listData: List<Chore>, private val context: Co
 
     override fun onBindViewHolder(holder: RecyclerViewHolder, position: Int) {
         //TODO pass chore object to ModifyChore instead of just id
-        holder.chore_name.text = listData[position].name
+        val currentChore = listData[position]
+        holder.chore_name.text = currentChore.name
+        holder.frequency.text = currentChore.frequency.toString()
 
         holder.setItemClickListener(object : ItemClickListener {
             override fun onClick(view: View, position: Int, isLongClick: Boolean) {
+                Log.i("FREQUENCY", "frequency=" + currentChore.frequency)
                 if (isLongClick) {
-                    Toast.makeText(context, "Long Click" + listData[position].name, Toast.LENGTH_SHORT).show()
-                    val intent = Intent(context.applicationContext,ModifyChore::class.java).putExtra("id",
-                            listData[position].id).putExtra("name", listData[position].name)
+                    Toast.makeText(context, "Long Click" + currentChore.name, Toast.LENGTH_SHORT).show()
+                    val intent = Intent(context.applicationContext,ModifyChore::class.java)
+                            .putExtra("id", currentChore.id)
+                            .putExtra("name", currentChore.name)
+                            .putExtra("frequency", currentChore.frequency)
                     Log.d(tag, context.toString())
                     context.startActivity(intent)
                 } else {
-                    Toast.makeText(context, "Short Click" + listData[position].name, Toast.LENGTH_SHORT).show()
-                    val intent = Intent(context.applicationContext, ModifyChore::class.java).putExtra("id",
-                            listData[position].id).putExtra("name", listData[position].name)
+                    Toast.makeText(context, "Short Click" + currentChore.name, Toast.LENGTH_SHORT).show()
+                    val intent = Intent(context.applicationContext, ModifyChore::class.java)
+                            .putExtra("id", currentChore.id)
+                            .putExtra("name", currentChore.name)
+                            .putExtra("frequency", currentChore.frequency)
                     Log.d(tag, context.toString())
                     context.startActivity(intent)
                 }

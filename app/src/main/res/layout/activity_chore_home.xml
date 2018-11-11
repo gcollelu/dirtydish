@@ -6,13 +6,25 @@
     android:layout_height="match_parent"
     tools:context=".ChoresFragment">
 
+    <TextView
+        android:id="@+id/choreHomeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Chores"
+        android:textColor="@android:color/black"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <Button
         android:id="@+id/btnAddNewChore"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
         android:background="@drawable/button_red"
         android:drawableStart="@android:drawable/ic_menu_add"
@@ -23,51 +35,8 @@
         android:textColor="@color/colorWhite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/choreHomeLabel" />
 
-
-    <Button
-        android:id="@+id/btnRemoveChore"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:background="@drawable/button_red"
-        android:drawableStart="@android:drawable/ic_menu_delete"
-        android:drawableLeft="@android:drawable/ic_menu_delete"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:text="@string/remove_chore"
-        android:textColor="@color/colorWhite"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnEditChore" />
-
-    <Button
-        android:id="@+id/btnEditChore"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:background="@drawable/button_red"
-        android:drawableStart="@android:drawable/ic_menu_edit"
-        android:drawableLeft="@android:drawable/ic_menu_edit"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:text="@string/edit_chore"
-        android:textColor="@color/colorWhite"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnAddNewChore" />
 
     <Button
         android:id="@+id/btnViewChoreSchedule"
@@ -76,7 +45,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:background="@drawable/button_red"
@@ -88,6 +57,6 @@
         android:textColor="@color/colorWhite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnRemoveChore" />
+        app:layout_constraintTop_toBottomOf="@+id/btnAddNewChore" />
 
 </android.support.constraint.ConstraintLayout>

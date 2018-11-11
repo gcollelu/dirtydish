@@ -21,8 +21,8 @@ class ModifyChore : AppCompatActivity() {
         db = FirebaseDatabase.getInstance()
         choreRef = db.getReference("chores")
 
-        var tv1:TextView = findViewById(R.id.modify_chore_text)
-        tv1.text = intent.getStringExtra("name")
+        modify_chore_text.setText(intent.getStringExtra("name"))
+        modify_chore_frequency.setText(intent.getIntExtra("frequency", 1).toString())
 
         btn_delete.setOnClickListener {
             deleteChore(intent.getStringExtra("id"))
@@ -36,7 +36,9 @@ class ModifyChore : AppCompatActivity() {
 
     private fun editChore(key:String) {
         Log.d(tag, key)
-        val chore = Chore(name = modify_chore_text.text.toString(), id = key)
+        val chore = Chore(name = modify_chore_text.text.toString(),
+                id = key,
+                frequency = Integer.parseInt(modify_chore_frequency.text.toString()))
         choreRef.child(key).setValue(chore)
     }
 

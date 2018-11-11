@@ -33,7 +33,8 @@ class AddChoreActivity : AppCompatActivity() {
         val key = choreRef.push().key
         Log.d(tag, key)
         if (key != null) {
-            val chore = Chore(name = editText.text.toString(), id = key)
+            val chore = Chore(name = editName.text.toString(), id = key,
+                    frequency = Integer.parseInt(editFrequency.text.toString()))
             choreRef.child(key).setValue(chore)
         }
     }
