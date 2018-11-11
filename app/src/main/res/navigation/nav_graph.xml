@@ -73,13 +73,7 @@
         android:label="Edit Housemate"
         tools:layout="@layout/edit_housemate_fragment">
         <argument
-            android:name="id"
-            app:argType="string" />
-        <argument
-            android:name="name"
-            app:argType="string" />
-        <argument
-            android:name="email"
-            app:argType="string" />
+            android:name="housemate"
+            app:argType="com.dirtydish.app.dirtydish.HouseMate" />
     </fragment>
 </navigation>

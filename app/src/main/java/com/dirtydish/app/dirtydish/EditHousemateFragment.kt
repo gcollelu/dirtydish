@@ -27,9 +27,9 @@ class EditHousemateFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val id: String = EditHousemateFragmentArgs.fromBundle(arguments).id
-        val name: String = EditHousemateFragmentArgs.fromBundle(arguments).name
-        val email: String = EditHousemateFragmentArgs.fromBundle(arguments).email
+        val id: String = EditHousemateFragmentArgs.fromBundle(arguments).housemate.id
+        val name: String = EditHousemateFragmentArgs.fromBundle(arguments).housemate.name
+        val email: String = EditHousemateFragmentArgs.fromBundle(arguments).housemate.email
 
 
         editHousemateEmail.setText(email, TextView.BufferType.EDITABLE)

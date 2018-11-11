@@ -44,7 +44,7 @@ class EditHouseFragment : Fragment() {
 
         housematesEditList.setOnItemClickListener { parent, view, position, id ->
             val housemate = housematesArray.get(position)
-            val directions = EditHouseFragmentDirections.ActionEditHouseFragmentToEditHousemateFragment(housemate.id, housemate.name, housemate.email)
+            val directions = EditHouseFragmentDirections.ActionEditHouseFragmentToEditHousemateFragment(housemate)
             view.findNavController().navigate(directions)
         }
     }
