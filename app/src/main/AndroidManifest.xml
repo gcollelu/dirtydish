@@ -82,7 +82,8 @@
             android:name=".InviteHouseMatesActivity"
             android:label="@string/title_activity_invite_house_mates"
             android:parentActivityName=".SetupHouseActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.dirtydish.app.dirtydish.SetupHouseActivity" />
