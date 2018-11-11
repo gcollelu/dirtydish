@@ -13,7 +13,7 @@
         android:icon="@drawable/ic_local_laundry_service"
         android:title="Chores" />
     <item
-        android:id="@+id/nav_shared_supplies"
+        android:id="@+id/sharedSuppliesFragment"
         android:icon="@drawable/ic_shared_supplies"
         android:title="@string/shared_supplies" />
     <item

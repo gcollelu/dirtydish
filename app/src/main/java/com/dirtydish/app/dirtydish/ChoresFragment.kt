@@ -3,7 +3,10 @@ package com.dirtydish.app.dirtydish
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.navigation.findNavController
 import kotlinx.android.synthetic.main.activity_chore_home.*
 
 class ChoresFragment : Fragment() {
@@ -18,7 +21,7 @@ class ChoresFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        btnAddNewChore.setOnClickListener { startActivity(Intent(activity, AddChoreActivity::class.java)) }
+        btnAddNewChore.setOnClickListener { view.findNavController().navigate(R.id.action_choresFragment_to_addChoreFragment) }
         btnViewChoreSchedule.setOnClickListener { startActivity(Intent(activity, ViewChoresActivity::class.java)) }
     }
 

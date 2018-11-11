@@ -1,8 +1,8 @@
 package com.dirtydish.app.dirtydish
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import com.google.firebase.database.*
@@ -60,7 +60,7 @@ class ViewChoresActivity : AppCompatActivity() {
 
     private fun setupFAB() {
         fab.setOnClickListener {
-            val intent = Intent(this, AddChoreActivity::class.java)
+            val intent = Intent(this, AddChoreFragment::class.java)
             startActivity(intent)
         }
     }

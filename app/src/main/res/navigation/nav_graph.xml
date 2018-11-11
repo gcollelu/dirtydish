@@ -30,6 +30,14 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_editHouseFragment_to_editHousemateFragment"
+            app:destination="@id/editHousemateFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
@@ -40,5 +48,38 @@
         android:id="@+id/choresFragment"
         android:name="com.dirtydish.app.dirtydish.ChoresFragment"
         android:label="Chores"
-        tools:layout="@layout/activity_chore_home" />
+        tools:layout="@layout/activity_chore_home">
+        <action
+            android:id="@+id/action_choresFragment_to_addChoreFragment"
+            app:destination="@id/addChoreFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/sharedSuppliesFragment"
+        android:name="com.dirtydish.app.dirtydish.SharedSuppliesFragment"
+        android:label="Shared Supplies"
+        tools:layout="@layout/shared_supplies_fragment" />
+    <fragment
+        android:id="@+id/addChoreFragment"
+        android:name="com.dirtydish.app.dirtydish.AddChoreFragment"
+        android:label="New Chore"
+        tools:layout="@layout/activity_add_chore" />
+    <fragment
+        android:id="@+id/editHousemateFragment"
+        android:name="com.dirtydish.app.dirtydish.EditHousemateFragment"
+        android:label="Edit Housemate"
+        tools:layout="@layout/edit_housemate_fragment">
+        <argument
+            android:name="id"
+            app:argType="string" />
+        <argument
+            android:name="name"
+            app:argType="string" />
+        <argument
+            android:name="email"
+            app:argType="string" />
+    </fragment>
 </navigation>

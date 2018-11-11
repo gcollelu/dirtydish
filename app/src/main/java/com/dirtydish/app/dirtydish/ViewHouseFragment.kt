@@ -10,6 +10,7 @@ import android.widget.ListView
 import androidx.navigation.findNavController
 
 class ViewHouseFragment : Fragment() {
+    val housematesArray: MutableList<HouseMate> = mutableListOf<HouseMate>()
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -18,7 +19,6 @@ class ViewHouseFragment : Fragment() {
         val view = inflater.inflate(R.layout.activity_view_house,
                 container, false)
 
-        val housematesArray: MutableList<HouseMate> = mutableListOf<HouseMate>()
 
         //TODO: add actual housemates
         for (i in 0 until 10) {

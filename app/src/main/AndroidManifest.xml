@@ -64,7 +64,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.dirtydish.app.dirtydish.SelectHouseActivity" />
         </activity>
-        <activity android:name=".AddChoreActivity" />
         <activity android:name=".ViewChoresActivity" />
 
         <provider

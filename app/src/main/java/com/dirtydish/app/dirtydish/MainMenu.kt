@@ -44,9 +44,7 @@ class MainMenu : AppCompatActivity() {
         val binding: ActivityMainMenuBinding = DataBindingUtil.setContentView(this,
                 R.layout.activity_main_menu)
         drawerLayout = binding.drawerLayout
-
         navController = Navigation.findNavController(this, R.id.content_frame)
-
         appBarConfiguration = AppBarConfiguration(navController.graph, drawerLayout)
 
         // Set up ActionBar
