@@ -1,18 +1,14 @@
 package com.dirtydish.app.dirtydish
 
 import android.app.Activity
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import android.widget.EditText
-import android.widget.Toast
+import kotlinx.android.synthetic.main.housemate_input_row.view.*
 
 class InviteHouseMatesInputAdapter(private val context: Activity, private val housematesArray: MutableList<HouseMate>) : BaseAdapter() {
     private val inflater = context.layoutInflater
-
-
+    private lateinit var parent: ViewGroup
     //1
     override fun getCount(): Int {
         return housematesArray.size
@@ -30,41 +26,15 @@ class InviteHouseMatesInputAdapter(private val context: Activity, private val ho
 
     //4
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+        this.parent = parent
         // Get view for row item
-        val rowView = inflater.inflate(R.layout.housemate_input_row, parent, false)
-        val inputName = rowView.findViewById(R.id.editName) as EditText
-        val inputEmail = rowView.findViewById(R.id.editEmail) as EditText
 
-        inputEmail.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-                housematesArray[position].email = inputEmail.text.toString()
-            }
-
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-        })
-
-        inputName.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-                housematesArray[position].name = inputName.text.toString()
-            }
-
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-        })
-
-
-        return rowView
+        return inflater.inflate(R.layout.housemate_input_row, parent, false)
     }
 
-    fun getHousmate(position: Int) : HouseMate{
-        return housematesArray[position]
+    fun getHousemate(position: Int): HouseMate {
+        val row = parent.getChildAt(position)
+        return HouseMate(name = row.editName.text.toString(), email = row.editEmail.text.toString())
     }
 
 
