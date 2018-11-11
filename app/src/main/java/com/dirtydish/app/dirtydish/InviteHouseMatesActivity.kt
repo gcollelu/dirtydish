@@ -31,13 +31,13 @@ class InviteHouseMatesActivity : AppCompatActivity() {
         btnCreateHouse.setOnClickListener {
             var validInput = true
 
-            for (i in 0 until housematesCount){
+            for (i in 0 until housematesCount) {
                 housematesArray[i] = adapter.getHousmate(i)
-                validInput = (Utilities.isEmailValid(housematesArray[i].email) && housematesArray[i].name.isNotEmpty())
+                validInput = validInput && (Utilities.isEmailValid(housematesArray[i].email) && housematesArray[i].name.isNotEmpty())
             }
 
 
-            if (validInput){
+            if (validInput) {
                 //TODO: actually create the house in the database
                 Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
                 val house = House()
@@ -50,7 +50,7 @@ class InviteHouseMatesActivity : AppCompatActivity() {
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
                 finish()
-            }else{
+            } else {
                 Toast.makeText(this, "Please input all housemates information.", Toast.LENGTH_SHORT).show()
             }
         }
