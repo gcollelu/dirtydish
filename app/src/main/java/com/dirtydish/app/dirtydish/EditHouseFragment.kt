@@ -11,32 +11,33 @@ import androidx.navigation.findNavController
 import kotlinx.android.synthetic.main.activity_edit_house.*
 
 class EditHouseFragment : Fragment() {
-    val housematesArray: MutableList<HouseMate> = mutableListOf<HouseMate>()
-
+    var housematesArray: MutableList<HouseMate> = mutableListOf<HouseMate>()
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.activity_edit_house,
+        return inflater.inflate(R.layout.activity_edit_house,
                 container, false)
-
-
-        //TODO: add actual housemates
-        for (i in 0 until 10) {
-            val housemate = HouseMate("John Smith " + i.toString(), "lmao@lmao.com", i.toString())
-            housematesArray.add(housemate)
-        }
-
-        val list = view.findViewById<ListView>(R.id.housematesEditList)
-        val adapter = ViewHouseMatesAdapter(activity!!, housematesArray)
-        list.adapter = adapter
-
-        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        if (Session.userHouse != null) {
+            housematesArray = Session.userHouse!!.houseMates
+            houseName.setText(Session.userHouse!!.name)
+            houseAddress.setText(Session.userHouse!!.address)
+        } else { // use sample data for now
+            //TODO redirect user to house join/create page
+            for (i in 0 until 10) {
+                val housemate = HouseMate("John Smith " + i.toString(), "lmao@lmao.com", i.toString())
+                housematesArray.add(housemate)
+            }
+        }
+
+        val adapter = ViewHouseMatesAdapter(activity!!, housematesArray)
+        housematesEditList.adapter = adapter
 
         btnSave.setOnClickListener {
             view.findNavController().navigateUp()

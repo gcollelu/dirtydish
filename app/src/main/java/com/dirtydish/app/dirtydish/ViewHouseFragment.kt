@@ -27,15 +27,16 @@ class ViewHouseFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //TODO: add actual housemates
-        for (i in 0 until 10) {
-            val housemate = HouseMate("John Smith " + i.toString(), "lmao@lmao.com", i.toString())
-            housematesArray.add(housemate)
-        }
         if (Session.userHouse != null) {
             housematesArray = Session.userHouse!!.houseMates
             houseName.text = Session.userHouse!!.name
             houseAddress.text = Session.userHouse!!.address
+        } else { // use sample data for now
+            //TODO redirect user to house join/create page
+            for (i in 0 until 10) {
+                val housemate = HouseMate("John Smith " + i.toString(), "lmao@lmao.com", i.toString())
+                housematesArray.add(housemate)
+            }
         }
         
         val adapter = ViewHouseMatesAdapter(activity!!, housematesArray)
