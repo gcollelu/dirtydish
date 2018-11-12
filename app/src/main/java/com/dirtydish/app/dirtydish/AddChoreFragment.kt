@@ -26,12 +26,9 @@ class AddChoreFragment : Fragment() {
         choreRef = db.getReference("chores")
 
         val btnDone = view.findViewById<Button>(R.id.btnDone)
-        val btnCancel = view.findViewById<Button>(R.id.btnCancel)
 
         btnDone.setOnClickListener {
             createChore()
-        }
-        btnCancel.setOnClickListener {
         }
 
         return view
@@ -42,7 +39,7 @@ class AddChoreFragment : Fragment() {
         Log.d(tag_local, key)
         if (key != null) {
             val chore = Chore(name = editName.text.toString(), id = key,
-                    frequency = Integer.parseInt(editFrequency.text.toString()))
+                    frequency = Integer.parseInt(editFrequency.selectedItem.toString()))
             choreRef.child(key).setValue(chore)
         }
     }
