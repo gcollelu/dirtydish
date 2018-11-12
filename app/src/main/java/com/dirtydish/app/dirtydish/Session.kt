@@ -25,7 +25,7 @@ object Session {
             housemate = p0.getValue<HouseMate>(HouseMate::class.java)
             val hm = housemate
             if (userHouse == null && hm != null && !hm.houseId.isEmpty()) {
-                getHouseInfo(hm.houseId)
+                //getHouseInfo(hm.houseId)
             }
         }
     }
