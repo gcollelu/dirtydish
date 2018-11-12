@@ -26,7 +26,7 @@ class ViewHouseMatesAdapter(private val context: FragmentActivity, private val h
     //4
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         // Get view for row item
-        val rowView = inflater.inflate(R.layout.housemate_edit_row, parent, false)
+        val rowView = inflater.inflate(R.layout.housemate_view_row, parent, false)
         rowView.nameField.text = getHousmate(position).name
 
         return rowView

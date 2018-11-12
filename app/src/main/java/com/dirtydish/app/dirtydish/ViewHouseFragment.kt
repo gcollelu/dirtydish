@@ -20,10 +20,10 @@ class ViewHouseFragment : Fragment() {
 
 
         //TODO: add actual housemates
-//        for (i in 0 until 10) {
-//            val housemate = HouseMate("John Smith " + i.toString(), "lmao@lmao.com", i.toString())
-//            housematesArray.add(housemate)
-//        }
+        for (i in 0 until 10) {
+            val housemate = HouseMate("John Smith " + i.toString(), "lmao@lmao.com", i.toString())
+            housematesArray.add(housemate)
+        }
         if (Session.userHouse != null) {
             housematesArray = Session.userHouse!!.houseMates
             houseName.text = Session.userHouse!!.name
@@ -48,5 +48,6 @@ class ViewHouseFragment : Fragment() {
         inflater?.inflate(R.menu.menu_options, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
+
 
 }

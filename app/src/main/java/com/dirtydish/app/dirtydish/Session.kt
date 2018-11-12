@@ -80,7 +80,8 @@ object Session {
     }
 
     fun logout() {
-        return FirebaseAuth.getInstance().signOut()
+        FirebaseAuth.getInstance().signOut()
+        Session.clear()
     }
 
 
