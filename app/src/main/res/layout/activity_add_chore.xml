@@ -131,7 +131,7 @@
                 android:layout_marginRight="20dp"
                 android:background="@drawable/textview_red_top_round"
                 android:gravity="center_vertical|center_horizontal"
-                android:text="Partecipants"
+                android:text="Participants"
                 android:textColor="@color/colorWhite"
                 android:textColorLink="@color/colorWhite"
                 android:textSize="20sp"
