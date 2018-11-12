@@ -124,6 +124,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="shareHouseFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="380" />
+                            <option name="y" value="-399" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="sharedSuppliesFragment">
                     <value>
                       <LayoutPositions>
@@ -148,6 +160,11 @@
                         <option name="myPositions">
                           <map>
                             <entry key="action_viewHouseFragment_to_editHouseFragment2">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_viewHouseFragment_to_shareHouseFragment">
                               <value>
                                 <LayoutPositions />
                               </value>

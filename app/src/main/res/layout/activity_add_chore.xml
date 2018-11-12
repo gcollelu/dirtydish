@@ -94,6 +94,8 @@
                 android:layout_marginTop="10dp"
                 android:background="@color/colorWhite"
                 android:entries="@array/freq_vals"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:gravity="center_horizontal|center"
                 android:textColor="@color/colorPrimary"
                 app:layout_constraintEnd_toStartOf="@+id/freq_type"

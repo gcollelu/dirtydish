@@ -5,12 +5,12 @@ import android.support.v4.app.Fragment
 import android.view.*
 import android.widget.Button
 import android.widget.ListView
-import android.widget.Toast
 import androidx.navigation.findNavController
 import kotlinx.android.synthetic.main.activity_view_house.*
 
 class ViewHouseFragment : Fragment() {
     var housematesArray: MutableList<HouseMate> = mutableListOf<HouseMate>()
+    var myView: View? = null
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -19,6 +19,7 @@ class ViewHouseFragment : Fragment() {
         val view = inflater.inflate(R.layout.activity_view_house,
                 container, false)
 
+        myView = view
 
         //TODO: add actual housemates
         for (i in 0 until 10) {
@@ -54,7 +55,7 @@ class ViewHouseFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.shareHouse -> {
-                Toast.makeText(activity, "Share House clicked.", Toast.LENGTH_SHORT).show()
+                myView!!.findNavController().navigate(R.id.action_viewHouseFragment_to_shareHouseFragment)
                 true
             }
             else -> super.onOptionsItemSelected(item)
