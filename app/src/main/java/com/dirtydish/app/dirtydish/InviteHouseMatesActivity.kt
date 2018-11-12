@@ -87,20 +87,26 @@ class InviteHouseMatesActivity : AppCompatActivity() {
                     }
 
                     override fun onDataChange(snap: DataSnapshot) {
+
                         val list = mutableListOf<HouseMate>()
                         snap.children.mapNotNullTo(list) {
                             it.getValue<HouseMate>(HouseMate::class.java)
                         }
+
+                        val currentUser = Session.housemate
+                        if (currentUser != null) {
+                            houseMates.add(currentUser)
+                        }
+
                         for (housemate in houseMates) {
                             val id: String? = registeredId(housemate, list)
                             if (id != null) { // User is already registered
                                 val existingUser = snap.child(id).getValue<HouseMate>(HouseMate::class.java)
                                 if (existingUser != null) {
-                                    val userRef = houseRef.child("houseMates").child(existingUser.id)
-                                    if(existingUser.name.isNotEmpty()){
+                                    if (existingUser.name.isNotEmpty()) {
                                         housemate.name = existingUser.name
                                     }
-                                    housemate.id =  existingUser.id
+                                    housemate.id = existingUser.id
                                 }
                             } else { // User is not yet registered
                                 //TODO sendRegistrationEmail()
@@ -110,10 +116,10 @@ class InviteHouseMatesActivity : AppCompatActivity() {
                                 }
                             }
                             housemate.houseId = house.id
-                            houseRef.child("houseMates").child(housemate.id).setValue(housemate)
                             hmRef.child(housemate.id).setValue(housemate)
-
                         }
+
+                        houseRef.child("houseMates").setValue(houseMates)
                     }
 
                 }
