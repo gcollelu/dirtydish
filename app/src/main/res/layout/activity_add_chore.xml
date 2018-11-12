@@ -195,6 +195,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/imageLabel"
+                app:srcCompat="@drawable/dd_logo_png"
                 tools:src="@drawable/dd_logo_png" />
 
             <Button
