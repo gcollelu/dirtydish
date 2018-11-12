@@ -47,7 +47,6 @@ class InviteHouseMatesActivity : AppCompatActivity() {
 
 
             if (validInput) {
-                //TODO: actually create the house in the database
                 Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
                 val house = House()
                 house.name = houseName
