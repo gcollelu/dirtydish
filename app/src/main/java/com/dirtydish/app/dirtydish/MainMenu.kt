@@ -25,6 +25,7 @@ class MainMenu : AppCompatActivity() {
 
         checkLoggedIn()
         checkHasHouse()
+        Session.init()
         setupNav()
 
     }
@@ -64,6 +65,7 @@ class MainMenu : AppCompatActivity() {
         //        if (!Session.hasHouse())
 //            startActivity(Intent(this, SelectHouseActivity::class.java))
     }
+
 
 }
 

@@ -2,15 +2,14 @@ package com.dirtydish.app.dirtydish
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Button
 import android.widget.ListView
 import androidx.navigation.findNavController
+import kotlinx.android.synthetic.main.activity_view_house.*
 
 class ViewHouseFragment : Fragment() {
-    val housematesArray: MutableList<HouseMate> = mutableListOf<HouseMate>()
+    var housematesArray: MutableList<HouseMate> = mutableListOf<HouseMate>()
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -21,12 +20,18 @@ class ViewHouseFragment : Fragment() {
 
 
         //TODO: add actual housemates
-        for (i in 0 until 10) {
-            val housemate = HouseMate("John Smith " + i.toString(), "lmao@lmao.com", i.toString())
-            housematesArray.add(housemate)
+//        for (i in 0 until 10) {
+//            val housemate = HouseMate("John Smith " + i.toString(), "lmao@lmao.com", i.toString())
+//            housematesArray.add(housemate)
+//        }
+        if (Session.userHouse != null) {
+            housematesArray = Session.userHouse!!.houseMates
+            houseName.text = Session.userHouse!!.name
+            houseAddress.text = Session.userHouse!!.address
         }
 
-        val list = view.findViewById<ListView>(R.id.housematesList)
+
+        val list = view.findViewById<View>(R.id.housematesList) as ListView
         val adapter = ViewHouseMatesAdapter(activity!!, housematesArray)
         list.adapter = adapter
 
@@ -35,7 +40,13 @@ class ViewHouseFragment : Fragment() {
         btnEditHouse.setOnClickListener {
             view.findNavController().navigate(R.id.action_viewHouseFragment_to_editHouseFragment2)
         }
+        setHasOptionsMenu(true)
         return view
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        inflater?.inflate(R.menu.menu_options, menu)
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
 }
