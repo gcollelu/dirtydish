@@ -18,8 +18,14 @@ class ViewHouseFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.activity_view_house,
                 container, false)
-
         myView = view
+
+        setHasOptionsMenu(true)
+        return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         //TODO: add actual housemates
         for (i in 0 until 10) {
@@ -31,19 +37,13 @@ class ViewHouseFragment : Fragment() {
             houseName.text = Session.userHouse!!.name
             houseAddress.text = Session.userHouse!!.address
         }
-
-
-        val list = view.findViewById<View>(R.id.housematesList) as ListView
+        
         val adapter = ViewHouseMatesAdapter(activity!!, housematesArray)
-        list.adapter = adapter
-
-        val btnEditHouse = view.findViewById<Button>(R.id.btnEditHouse)
+        housematesList.adapter = adapter
 
         btnEditHouse.setOnClickListener {
             view.findNavController().navigate(R.id.action_viewHouseFragment_to_editHouseFragment2)
         }
-        setHasOptionsMenu(true)
-        return view
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
