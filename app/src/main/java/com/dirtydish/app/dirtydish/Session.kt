@@ -1,6 +1,5 @@
 package com.dirtydish.app.dirtydish
 
-import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import org.jetbrains.anko.doAsync
@@ -78,6 +77,10 @@ object Session {
 
     fun hasHouse(): Boolean {
         return userHouse != null
+    }
+
+    fun logout() {
+        return FirebaseAuth.getInstance().signOut()
     }
 
 

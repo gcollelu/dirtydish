@@ -26,6 +26,7 @@ class MainMenu : AppCompatActivity() {
         checkLoggedIn()
         checkHasHouse()
         setupNav()
+
     }
 
     override fun onSupportNavigateUp(): Boolean {

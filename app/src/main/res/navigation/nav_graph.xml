@@ -76,4 +76,9 @@
             android:name="housemate"
             app:argType="com.dirtydish.app.dirtydish.HouseMate" />
     </fragment>
+    <fragment
+        android:id="@+id/logoutFragment"
+        android:name="com.dirtydish.app.dirtydish.LogoutFragment"
+        android:label="fragment_logout"
+        tools:layout="@layout/fragment_logout" />
 </navigation>

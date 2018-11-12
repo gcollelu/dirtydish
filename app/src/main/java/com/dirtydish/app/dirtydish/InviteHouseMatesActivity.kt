@@ -1,14 +1,12 @@
 package com.dirtydish.app.dirtydish
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
-
+import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_invite_house_mates.*
 import kotlinx.android.synthetic.main.content_invite_house_mates.*
-import android.content.Intent
-import android.util.Log
-import com.google.firebase.database.*
 import org.jetbrains.anko.doAsync
 
 
@@ -57,7 +55,7 @@ class InviteHouseMatesActivity : AppCompatActivity() {
                 house.houseMates = housematesArray
                 storeHouseToDB(house)
 
-                val intent = Intent(this, ViewHouseFragment::class.java)
+                val intent = Intent(this, MainMenu::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
                 finish()

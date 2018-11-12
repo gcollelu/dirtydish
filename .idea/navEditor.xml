@@ -52,6 +52,11 @@
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_editHouseFragment_to_editHousemateFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_viewHouseFragment_to_editHouseFragment2">
                               <value>
                                 <LayoutPositions />
@@ -81,6 +86,18 @@
                           <Point>
                             <option name="x" value="75" />
                             <option name="y" value="306" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="logoutFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="281" />
+                            <option name="y" value="948" />
                           </Point>
                         </option>
                       </LayoutPositions>
