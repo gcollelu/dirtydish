@@ -97,22 +97,22 @@ class InviteHouseMatesActivity : AppCompatActivity() {
                                 val existingUser = snap.child(id).getValue<HouseMate>(HouseMate::class.java)
                                 if (existingUser != null) {
                                     val userRef = houseRef.child("houseMates").child(existingUser.id)
-                                    userRef.setValue(housemate)
-                                    if (existingUser.name.isNotEmpty()) {
-                                        userRef.child("name").setValue(existingUser.name)
+                                    if(existingUser.name.isNotEmpty()){
+                                        housemate.name = existingUser.name
                                     }
-                                    userRef.child("id").setValue(existingUser.id)
-                                    userRef.child("houseId").setValue(house.id)
+                                    housemate.id =  existingUser.id
                                 }
                             } else { // User is not yet registered
                                 //TODO sendRegistrationEmail()
                                 val key = houseRef.child("houseMates").push().key
                                 if (key != null) {
                                     housemate.id = key
-                                    housemate.houseId = house.id
-                                    houseRef.child("houseMates").child(key).setValue(housemate)
                                 }
                             }
+                            housemate.houseId = house.id
+                            houseRef.child("houseMates").child(housemate.id).setValue(housemate)
+                            hmRef.child(housemate.id).setValue(housemate)
+
                         }
                     }
 
