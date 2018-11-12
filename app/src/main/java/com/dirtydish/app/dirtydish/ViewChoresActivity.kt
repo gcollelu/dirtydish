@@ -28,7 +28,6 @@ class ViewChoresActivity : AppCompatActivity() {
         val viewManager = LinearLayoutManager(this)
         recyclerView.layoutManager = viewManager
 
-        setupFAB()
         attachListenerForChanges()
     }
 
@@ -56,13 +55,6 @@ class ViewChoresActivity : AppCompatActivity() {
         }
 
         choreRef.addValueEventListener(listener)
-    }
-
-    private fun setupFAB() {
-        fab.setOnClickListener {
-            val intent = Intent(this, AddChoreFragment::class.java)
-            startActivity(intent)
-        }
     }
 
 }
