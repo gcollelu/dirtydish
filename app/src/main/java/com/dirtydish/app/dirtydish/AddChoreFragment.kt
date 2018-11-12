@@ -38,8 +38,15 @@ class AddChoreFragment : Fragment() {
         val key = choreRef.push().key
         Log.d(tag_local, key)
         if (key != null) {
+            var frequency = Integer.parseInt(editFrequency.selectedItem.toString())
+            var frequencyType = freq_type.selectedItemPosition
+            if (frequencyType == 1){
+                frequency *= 7
+            } else if (frequencyType == 2){
+                frequency *= 30
+            }
             val chore = Chore(name = editName.text.toString(), id = key,
-                    frequency = Integer.parseInt(editFrequency.selectedItem.toString()))
+                    frequency = frequency)
             choreRef.child(key).setValue(chore)
         }
     }

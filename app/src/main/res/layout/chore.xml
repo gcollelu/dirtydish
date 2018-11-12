@@ -15,15 +15,19 @@
         android:layout_height="wrap_content"
         android:layout_weight=".5"
         android:textColor="@color/colorWhite"
+        android:paddingLeft="2dp"
+        android:paddingStart="2dp"
         android:textSize="20sp" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/everyLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight=".1"
+        android:layout_weight=".05"
         android:text="every"
         android:textColor="@color/colorWhite"
+        android:paddingLeft="2dp"
+        android:paddingStart="2dp"
         android:textSize="18sp" />
 
     <TextView
@@ -35,11 +39,10 @@
         android:textSize="18sp" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/chore_time_frame"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight=".1"
-        android:text="days"
+        android:layout_weight=".05"
         android:textColor="@color/colorWhite"
         android:textSize="18sp" />
 
