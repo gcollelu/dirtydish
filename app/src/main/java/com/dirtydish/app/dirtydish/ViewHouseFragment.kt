@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment
 import android.view.*
 import android.widget.Button
 import android.widget.ListView
+import android.widget.Toast
 import androidx.navigation.findNavController
 import kotlinx.android.synthetic.main.activity_view_house.*
 
@@ -45,9 +46,19 @@ class ViewHouseFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-        inflater?.inflate(R.menu.menu_options, menu)
+        inflater?.inflate(R.menu.menu_view_house, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.shareHouse -> {
+                Toast.makeText(activity, "Share House clicked.", Toast.LENGTH_SHORT).show()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
 
 }
