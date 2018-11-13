@@ -1,16 +1,14 @@
 package com.dirtydish.app.dirtydish
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
-import android.support.v7.app.AppCompatActivity
-import android.util.Log
 
 private val tag = "RECYCLER_ADAPTER"
 
@@ -59,13 +57,13 @@ class RecyclerAdapter(private val listData: List<Chore>, private val context: Co
         val currentChore = listData[position]
         holder.chore_name.text = currentChore.name
 
-        val freq  = currentChore.frequency
-        if (freq % 7 == 0){
+        val freq = currentChore.frequency
+        if (freq % 7 == 0) {
             holder.frequency.text = (freq / 7).toString()
             if (freq == 7) holder.choreTimeFrame.text = "week"
             else holder.choreTimeFrame.text = "weeks"
 
-        } else if (freq % 30 == 0){
+        } else if (freq % 30 == 0) {
             holder.frequency.text = (freq / 30).toString()
             if (freq == 30) holder.choreTimeFrame.text = "month"
             else holder.choreTimeFrame.text = "months"

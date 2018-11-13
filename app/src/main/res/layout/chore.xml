@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
@@ -34,8 +33,8 @@
             android:id="@+id/assigneeLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
             android:paddingStart="4dp"
             android:paddingLeft="4dp"
             android:text="Assignee: "
@@ -46,8 +45,8 @@
             android:id="@+id/chore_assignee"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/assigneeLabel"
             android:layout_toEndOf="@+id/assigneeLabel"
+            android:layout_toRightOf="@+id/assigneeLabel"
             android:textColor="@color/colorWhite"
             android:textSize="18sp" />
 
@@ -55,8 +54,8 @@
             android:id="@+id/everyLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@+id/chore_frequency"
             android:layout_toStartOf="@+id/chore_frequency"
+            android:layout_toLeftOf="@+id/chore_frequency"
             android:paddingStart="10dp"
             android:paddingLeft="10dp"
             android:text="every "
@@ -69,8 +68,8 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="4dp"
             android:layout_marginRight="4dp"
-            android:layout_toLeftOf="@+id/chore_time_frame"
             android:layout_toStartOf="@+id/chore_time_frame"
+            android:layout_toLeftOf="@+id/chore_time_frame"
             android:textColor="@color/colorWhite"
             android:textSize="18sp" />
 
@@ -78,10 +77,10 @@
             android:id="@+id/chore_time_frame"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:paddingRight="4dp"
+            android:layout_alignParentRight="true"
             android:paddingEnd="4dp"
+            android:paddingRight="4dp"
             android:textColor="@color/colorWhite"
             android:textSize="18sp" />
 

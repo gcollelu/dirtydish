@@ -3,8 +3,6 @@ package com.dirtydish.app.dirtydish
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.*
-import android.widget.Button
-import android.widget.ListView
 import androidx.navigation.findNavController
 import kotlinx.android.synthetic.main.activity_view_house.*
 

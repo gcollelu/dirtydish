@@ -4,16 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient_bg"
     tools:context=".ChoresFragment">
 
-    <TextView
-        android:id="@+id/choreHomeLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Chores"
-        android:textColor="@android:color/black"
-        android:textSize="30sp"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/choresList"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="30dp"
+        android:background="@color/colorWhite"
+        android:dividerHeight="0dp"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintBottom_toTopOf="@+id/btnAddNewChore"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -24,39 +31,17 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="20dp"
         android:background="@drawable/button_red"
-        android:drawableStart="@android:drawable/ic_menu_add"
-        android:drawableLeft="@android:drawable/ic_menu_add"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        android:text="@string/add_new_chore"
+        android:text="Add Chore"
         android:textColor="@color/colorWhite"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/choreHomeLabel" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 
-    <Button
-        android:id="@+id/btnViewChoreSchedule"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:background="@drawable/button_red"
-        android:drawableStart="@android:drawable/ic_menu_today"
-        android:drawableLeft="@android:drawable/ic_menu_today"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:text="@string/chore_schedule"
-        android:textColor="@color/colorWhite"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnAddNewChore" />
 
 </android.support.constraint.ConstraintLayout>

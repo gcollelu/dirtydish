@@ -7,9 +7,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.google.firebase.database.*
+import android.widget.Toast
+import androidx.navigation.findNavController
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_add_chore.*
-import org.jetbrains.anko.doAsync
 
 class AddChoreFragment : Fragment() {
 
@@ -55,7 +57,7 @@ class AddChoreFragment : Fragment() {
 
         participants.setOnItemClickListener { parent, itemView, position, id ->
             val housemate = housematesArray.get(position)
-            if (!participantsList.contains(housemate)){
+            if (!participantsList.contains(housemate)) {
                 itemView.background = ContextCompat.getDrawable(this.requireContext(), R.drawable.view_rectangle_light)
                 participantsList.add(housemate)
             } else {
@@ -66,6 +68,8 @@ class AddChoreFragment : Fragment() {
 
         btnDone.setOnClickListener {
             createChore()
+            view.findNavController().navigate(R.id.action_addChoreFragment_to_choresFragment)
+            Toast.makeText(activity, "Chore created.", Toast.LENGTH_SHORT).show()
         }
 
     }
@@ -77,9 +81,9 @@ class AddChoreFragment : Fragment() {
         if (Session.hasHouse()) {
             var frequency = Integer.parseInt(editFrequency.selectedItem.toString())
             var frequencyType = freq_type.selectedItemPosition
-            if (frequencyType == 1){
+            if (frequencyType == 1) {
                 frequency *= 7
-            } else if (frequencyType == 2){
+            } else if (frequencyType == 2) {
                 frequency *= 30
             }
 
@@ -96,5 +100,6 @@ class AddChoreFragment : Fragment() {
             choreRef.child("chores").setValue(choreArray)
         }
 
+        //TODO: this fnction should return success/failure
     }
 }
