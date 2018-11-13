@@ -10,7 +10,9 @@ import java.util.*
 class ModifyChore : AppCompatActivity() {
 
     private lateinit var db: FirebaseDatabase
-    private lateinit var choreRef: DatabaseReference
+    //private lateinit var choreRef: DatabaseReference
+    private lateinit var houseRef: DatabaseReference
+    var choreArray: MutableList<Chore> = mutableListOf<Chore>()
     private val tag = "CHORE_MODIFY"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,7 +21,9 @@ class ModifyChore : AppCompatActivity() {
         setContentView(R.layout.activity_modify_chore)
 
         db = FirebaseDatabase.getInstance()
-        choreRef = db.getReference("chores")
+        //choreRef = db.getReference("chores")
+        houseRef = db.getReference("houses").child(Session.userHouse!!.id)
+        choreArray = Session.userHouse!!.chores
 
         modify_chore_text.setText(intent.getStringExtra("name"))
         modify_chore_frequency.setText(intent.getIntExtra("frequency", 1).toString())
@@ -45,15 +49,23 @@ class ModifyChore : AppCompatActivity() {
 
     private fun editChore(key:String) {
         Log.d(tag, key)
+        val id = Integer.parseInt(key)
         val chore = Chore(name = modify_chore_text.text.toString(),
                 id = key,
+                houseId = Session.userHouse!!.chores.get(id).houseId,
                 frequency = Integer.parseInt(modify_chore_frequency.text.toString()))
-        choreRef.child(key).setValue(chore)
+        //choreRef.child(key).setValue(chore)
+        choreArray[id] = chore
+        houseRef.child("chores").setValue(choreArray)
+
     }
 
-    private fun deleteChore(key:String) {
+    private fun deleteChore(key: String) {
         Log.d(tag, key)
-        choreRef.child(key).removeValue()
+        val id = Integer.parseInt(key)
+        //choreRef.child(key).removeValue()
+        choreArray.removeAt(id)
+        houseRef.child("chores").setValue(choreArray)
     }
 
 }
