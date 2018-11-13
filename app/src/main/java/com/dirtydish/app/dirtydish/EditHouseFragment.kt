@@ -12,6 +12,7 @@ import kotlinx.android.synthetic.main.activity_edit_house.*
 
 class EditHouseFragment : Fragment() {
     var housematesArray: MutableList<HouseMate> = mutableListOf<HouseMate>()
+    var choreArray: MutableList<Chore> = mutableListOf<Chore>()
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -26,6 +27,7 @@ class EditHouseFragment : Fragment() {
 
         if (Session.userHouse != null) {
             housematesArray = Session.userHouse!!.houseMates
+            choreArray = Session.userHouse!!.chores
             houseName.setText(Session.userHouse!!.name)
             houseAddress.setText(Session.userHouse!!.address)
         } else { // use sample data for now

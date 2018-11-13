@@ -29,9 +29,13 @@ class InviteHouseMatesActivity : AppCompatActivity() {
         val houseAddress = intent.getStringExtra("house_address")
 
         val housematesArray: MutableList<HouseMate> = mutableListOf<HouseMate>()
+        var choreArray: MutableList<Chore> = mutableListOf<Chore>()
 
         for (i in 0 until housematesCount) {
             housematesArray.add(HouseMate())
+        }
+        for (i in 0 until 5) {
+            choreArray.add(Chore())
         }
 
         val adapter = InviteHouseMatesInputAdapter(this, housematesArray)
@@ -52,6 +56,7 @@ class InviteHouseMatesActivity : AppCompatActivity() {
                 house.name = houseName
                 house.address = houseAddress
                 house.houseMates = housematesArray
+                house.chores = choreArray
                 storeHouseToDB(house)
 
                 val intent = Intent(this, MainMenu::class.java)

@@ -18,6 +18,7 @@ class AddChoreFragment : Fragment() {
     private val tag_local = "CHORE_ADD"
     var participantsList: MutableList<HouseMate> = mutableListOf<HouseMate>()
     var housematesArray: MutableList<HouseMate> = mutableListOf<HouseMate>()
+    var choreArray: MutableList<Chore> = mutableListOf<Chore>()
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -25,8 +26,8 @@ class AddChoreFragment : Fragment() {
                 container, false)
 
         db = FirebaseDatabase.getInstance()
-        choreRef = db.getReference("chores")
 
+        choreRef = db.getReference("houses").child(Session.userHouse!!.id)
         return view
     }
 
@@ -40,6 +41,12 @@ class AddChoreFragment : Fragment() {
         if (Session.userHouse != null) {
             housematesArray = Session.userHouse!!.houseMates
         }
+
+        if (Session.userHouse != null) {
+            choreArray = Session.userHouse!!.chores
+
+        }
+
 
         val adapter = ViewHouseMatesAdapter(activity!!, housematesArray)
         participants.adapter = adapter
@@ -62,9 +69,9 @@ class AddChoreFragment : Fragment() {
     }
 
     private fun createChore() {
-        val key = choreRef.push().key
-        Log.d(tag_local, key)
-        if (key != null) {
+        //val key = choreRef.push().key
+        //Log.d(tag_local, key)
+        if (Session.hasHouse()) {
             var frequency = Integer.parseInt(editFrequency.selectedItem.toString())
             var frequencyType = freq_type.selectedItemPosition
             if (frequencyType == 1){
@@ -72,9 +79,16 @@ class AddChoreFragment : Fragment() {
             } else if (frequencyType == 2){
                 frequency *= 30
             }
-            val chore = Chore(name = editName.text.toString(), id = key,
-                    frequency = frequency, participants = participantsList)
-            choreRef.child(key).setValue(chore)
+            var houseKey = Session.userHouse!!.id;
+            val chore = Chore(name = editName.text.toString(), id = houseKey,
+                    frequency = frequency, participants = participantsList, houseId = houseKey)
+            //choreRef.child(key).setValue(chore)
+
+            Log.d("ADD_CHORE_NEW", chore.toString())
+            choreArray.add(chore)
+            //choreRef.child("choresList").setValue("xzcv")
+            Log.d("ADD_CHORE_NEW", Session.userHouse!!.chores.toString())
         }
+
     }
 }

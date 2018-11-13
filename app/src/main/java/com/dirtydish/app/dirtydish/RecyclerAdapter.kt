@@ -54,7 +54,6 @@ class RecyclerAdapter(private val listData: List<Chore>, private val context: Co
     }
 
     override fun onBindViewHolder(holder: RecyclerViewHolder, position: Int) {
-        //TODO pass chore object to ModifyChore instead of just id
         val currentChore = listData[position]
         holder.chore_name.text = currentChore.name
 
