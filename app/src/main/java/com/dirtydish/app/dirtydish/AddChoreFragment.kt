@@ -83,14 +83,14 @@ class AddChoreFragment : Fragment() {
                 frequency *= 30
             }
 
-            var id = Session!!.userHouse!!.chores.lastIndex + 1
+            var id = Session.userHouse!!.chores.lastIndex + 1
 
             var houseKey = Session.userHouse!!.id;
             val chore = Chore(name = editName.text.toString(), id = id.toString(),
                     frequency = frequency, participants = participantsList, houseId = houseKey)
 
 
-            Log.d("ADD_CHORE_NEW", chore.toString())
+            Log.d(tag_local, chore.toString())
             choreArray.add(chore)
 
             choreRef.child("chores").setValue(choreArray)
