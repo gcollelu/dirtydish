@@ -54,7 +54,8 @@ class ModifyChore : AppCompatActivity() {
         val chore = Chore(name = modify_chore_text.text.toString(),
                 id = key,
                 houseId = Session.userHouse!!.chores.get(id).houseId,
-                frequency = Integer.parseInt(modify_chore_frequency.text.toString()))
+                frequency = Integer.parseInt(modify_chore_frequency.text.toString()),
+                participants = Session.userHouse!!.chores.get(id).participants)
         //choreRef.child(key).setValue(chore)
         choreArray[id] = chore
         houseRef.child("chores").setValue(choreArray)
