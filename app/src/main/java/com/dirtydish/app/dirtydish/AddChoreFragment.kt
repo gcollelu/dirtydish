@@ -29,7 +29,7 @@ class AddChoreFragment : Fragment() {
         db = FirebaseDatabase.getInstance()
         houseListRef = db.getReference("houses")
 
-        choreRef = db.getReference("houses").child(Session.userHouse!!.id).child("chores")
+        choreRef = db.getReference("houses").child(Session.userHouse!!.id)
         return view
     }
 
@@ -73,8 +73,8 @@ class AddChoreFragment : Fragment() {
     private fun createChore() {
         //val key = choreRef.push().key
         //Log.d(tag_local, key)
-        val key = choreRef.push().key
-        if (key != null) {
+        //val key = choreRef.push().key
+        if (Session.hasHouse()) {
             var frequency = Integer.parseInt(editFrequency.selectedItem.toString())
             var frequencyType = freq_type.selectedItemPosition
             if (frequencyType == 1){
@@ -82,18 +82,18 @@ class AddChoreFragment : Fragment() {
             } else if (frequencyType == 2){
                 frequency *= 30
             }
-            var houseKey = Session.userHouse!!.id;
-            val chore = Chore(name = editName.text.toString(), id = key,
-                    frequency = frequency, participants = participantsList, houseId = houseKey)
-            //choreRef.child(key).setValue(chore)
 
-            //Log.d("ADD_CHORE_NEW", chore.toString())
-            //choreArray.add(chore)
-            //Session.userHouse!!.chores.add(chore)
-            //choreRef.child("chores")
-            //choreRef.child("choresList").setValue("xzcv")
-            //Log.d("ADD_CHORE_NEW", Session.userHouse!!.chores.toString())
-            choreRef.child(key).setValue(chore)
+            var id = Session!!.userHouse!!.chores.lastIndex + 1
+
+            var houseKey = Session.userHouse!!.id;
+            val chore = Chore(name = editName.text.toString(), id = id.toString(),
+                    frequency = frequency, participants = participantsList, houseId = houseKey)
+
+
+            Log.d("ADD_CHORE_NEW", chore.toString())
+            choreArray.add(chore)
+
+            choreRef.child("chores").setValue(choreArray)
         }
 
     }
