@@ -22,8 +22,9 @@ class ChoreAdapter(private val data: List<Chore>, val context: Context) : Recycl
     override fun getItemCount(): Int = data.size
 
     override fun onBindViewHolder(holder: ChoreAdapter.ChoreHolder, position: Int) {
-        holder.choreName?.text = data[position].name
-        holder.choreFrequency?.text = data[position].frequency.toString()
+        var currChore = data[position]
+        holder.choreName?.text = currChore.name
+        holder.choreFrequency?.text = currChore.frequency.toString()
     }
 
 }

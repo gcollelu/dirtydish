@@ -4,46 +4,87 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
-    android:padding="5dp"
     android:background="@drawable/view_round_primary"
     android:gravity="center_vertical|center_horizontal"
+    android:orientation="vertical"
+    android:padding="5dp"
     android:textColor="@color/colorWhite">
 
-    <TextView
-        android:id="@+id/chore_name"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight=".5"
-        android:textColor="@color/colorWhite"
-        android:paddingLeft="2dp"
-        android:paddingStart="2dp"
-        android:textSize="20sp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/everyLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight=".05"
-        android:text="every"
-        android:textColor="@color/colorWhite"
-        android:paddingLeft="2dp"
-        android:paddingStart="2dp"
-        android:textSize="18sp" />
+        <TextView
+            android:id="@+id/chore_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorWhite"
+            android:textSize="22sp" />
 
-    <TextView
-        android:id="@+id/chore_frequency"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight=".1"
-        android:textColor="@color/colorWhite"
-        android:textSize="18sp" />
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/chore_time_frame"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight=".05"
-        android:textColor="@color/colorWhite"
-        android:textSize="18sp" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/assigneeLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:paddingStart="4dp"
+            android:paddingLeft="4dp"
+            android:text="Assignee: "
+            android:textColor="@color/colorWhite"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/chore_assignee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/assigneeLabel"
+            android:layout_toEndOf="@+id/assigneeLabel"
+            android:textColor="@color/colorWhite"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/everyLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/chore_frequency"
+            android:layout_toStartOf="@+id/chore_frequency"
+            android:paddingStart="10dp"
+            android:paddingLeft="10dp"
+            android:text="every "
+            android:textColor="@color/colorWhite"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/chore_frequency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_toLeftOf="@+id/chore_time_frame"
+            android:layout_toStartOf="@+id/chore_time_frame"
+            android:textColor="@color/colorWhite"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/chore_time_frame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:paddingRight="4dp"
+            android:paddingEnd="4dp"
+            android:textColor="@color/colorWhite"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
 
 </LinearLayout>
