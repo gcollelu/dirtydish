@@ -1,42 +1,45 @@
 package com.dirtydish.app.dirtydish
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_chore_home.*
 
 class ChoresFragment : Fragment() {
-
+    private lateinit var houseRef: DatabaseReference
+    private lateinit var listener: ValueEventListener
     private lateinit var db: FirebaseDatabase
     private lateinit var choreRef: DatabaseReference
-    private lateinit var listener: ValueEventListener
     var recyclerView: RecyclerView? = null
-    //private val context = getContext()!!
+    private var thisContext: Context? = null
     //private val tag = "VIEW_CHORES"
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        //Session.userHouse!!.chores
-        //choreRef.keepSynced(true)
+        db = FirebaseDatabase.getInstance()
+
+        thisContext = context
+        houseRef = db.getReference("houses").child(Session.userHouse!!.id)
+        houseRef.keepSynced(true)
         val view = inflater.inflate(R.layout.activity_chore_home,
                 container, false)
 
         val chores = Session.userHouse!!.chores
-        recyclerView = view!!.findViewById(R.id.choresList) as RecyclerView
-        recyclerView!!.adapter = RecyclerAdapter(chores, getContext()!!)
+        recyclerView = view!!.findViewById<RecyclerView>(R.id.choresList) as RecyclerView
+//        recyclerView!!.adapter = RecyclerAdapter(chores, getContext()!!)
 
         recyclerView!!.layoutManager = LinearLayoutManager(activity)
 
-
+        attachListenerForChanges()
         return view
     }
 
@@ -47,5 +50,24 @@ class ChoresFragment : Fragment() {
         //btnViewChoreSchedule.setOnClickListener { startActivity(Intent(activity, ViewChoresActivity::class.java)) }
     }
 
+
+    private fun attachListenerForChanges() {
+        listener = object : ValueEventListener {
+
+            override fun onDataChange(snap: DataSnapshot) {
+                val list = Session.userHouse!!.chores
+                recyclerView!!.adapter = RecyclerAdapter(list, thisContext!!)
+            }
+
+            override fun onCancelled(err: DatabaseError) {
+                // Failed to connect to database
+                Log.d(tag, err.message)
+            }
+
+        }
+
+        //choreRef.addValueEventListener(listener)
+        houseRef.addValueEventListener(listener)
+    }
 
 }
