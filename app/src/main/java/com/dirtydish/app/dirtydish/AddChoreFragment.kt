@@ -1,10 +1,12 @@
 package com.dirtydish.app.dirtydish
 
 import android.Manifest
+import android.app.Activity
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
@@ -14,6 +16,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
+import android.widget.Toast
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_add_chore.*
@@ -27,6 +31,8 @@ class AddChoreFragment : Fragment() {
     private val READ_REQUEST_CODE = 101
     private var myContext: Context? = null
     val PICK_IMAGE = 1
+    val CAMERA_REQUEST_CODE = 0
+    var previewImage: ImageView? = null
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -38,6 +44,7 @@ class AddChoreFragment : Fragment() {
 
         val btnDone = view.findViewById<Button>(R.id.btnDone)
         val btnPickImage = view.findViewById<Button>(R.id.btnPickImage)
+        previewImage = view.findViewById<ImageView>(R.id.choreImagePreview)
 
         setupPermissions()
         btnDone.setOnClickListener {
@@ -61,6 +68,17 @@ class AddChoreFragment : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
         super.onActivityResult(requestCode, resultCode, data)
+        Toast.makeText(activity, "Image picked.", Toast.LENGTH_SHORT).show()
+        when (requestCode) {
+            CAMERA_REQUEST_CODE -> {
+                if (resultCode == Activity.RESULT_OK) {
+                    previewImage!!.setImageBitmap(data.extras.get("data") as Bitmap)
+                }
+            }
+            else -> {
+                Toast.makeText(activity, "Unrecognized request code", Toast.LENGTH_SHORT)
+            }
+        }
     }
 
     private fun createChore() {
