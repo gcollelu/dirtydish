@@ -34,9 +34,6 @@ class InviteHouseMatesActivity : AppCompatActivity() {
         for (i in 0 until housematesCount) {
             housematesArray.add(HouseMate())
         }
-        for (i in 0 until 5) {
-            choreArray.add(Chore())
-        }
 
         val adapter = InviteHouseMatesInputAdapter(this, housematesArray)
         inputList.adapter = adapter

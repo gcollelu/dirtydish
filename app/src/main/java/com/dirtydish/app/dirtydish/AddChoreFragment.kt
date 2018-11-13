@@ -7,14 +7,15 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_add_chore.*
+import org.jetbrains.anko.doAsync
 
 class AddChoreFragment : Fragment() {
 
     private lateinit var db: FirebaseDatabase
     private lateinit var choreRef: DatabaseReference
+    private lateinit var houseListRef: DatabaseReference
     private val tag_local = "CHORE_ADD"
     var participantsList: MutableList<HouseMate> = mutableListOf<HouseMate>()
     var housematesArray: MutableList<HouseMate> = mutableListOf<HouseMate>()
@@ -26,8 +27,9 @@ class AddChoreFragment : Fragment() {
                 container, false)
 
         db = FirebaseDatabase.getInstance()
+        houseListRef = db.getReference("houses")
 
-        choreRef = db.getReference("houses").child(Session.userHouse!!.id)
+        choreRef = db.getReference("houses").child(Session.userHouse!!.id).child("chores")
         return view
     }
 
@@ -71,7 +73,8 @@ class AddChoreFragment : Fragment() {
     private fun createChore() {
         //val key = choreRef.push().key
         //Log.d(tag_local, key)
-        if (Session.hasHouse()) {
+        val key = choreRef.push().key
+        if (key != null) {
             var frequency = Integer.parseInt(editFrequency.selectedItem.toString())
             var frequencyType = freq_type.selectedItemPosition
             if (frequencyType == 1){
@@ -80,14 +83,17 @@ class AddChoreFragment : Fragment() {
                 frequency *= 30
             }
             var houseKey = Session.userHouse!!.id;
-            val chore = Chore(name = editName.text.toString(), id = houseKey,
+            val chore = Chore(name = editName.text.toString(), id = key,
                     frequency = frequency, participants = participantsList, houseId = houseKey)
             //choreRef.child(key).setValue(chore)
 
-            Log.d("ADD_CHORE_NEW", chore.toString())
-            choreArray.add(chore)
+            //Log.d("ADD_CHORE_NEW", chore.toString())
+            //choreArray.add(chore)
+            //Session.userHouse!!.chores.add(chore)
+            //choreRef.child("chores")
             //choreRef.child("choresList").setValue("xzcv")
-            Log.d("ADD_CHORE_NEW", Session.userHouse!!.chores.toString())
+            //Log.d("ADD_CHORE_NEW", Session.userHouse!!.chores.toString())
+            choreRef.child(key).setValue(chore)
         }
 
     }
