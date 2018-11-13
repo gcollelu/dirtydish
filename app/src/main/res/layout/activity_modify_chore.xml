@@ -77,4 +77,26 @@
         app:layout_constraintStart_toEndOf="@+id/modify_chore_frequency"
         app:layout_constraintTop_toBottomOf="@+id/modify_chore_text" />
 
+    <TextView
+        android:id="@+id/participantLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="40dp"
+        android:text="Participants:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/participantsList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="7dp"
+        android:layout_marginLeft="7dp"
+        android:layout_marginTop="40dp"
+        android:text="none"
+        app:layout_constraintStart_toEndOf="@+id/participantLabel"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </android.support.constraint.ConstraintLayout>

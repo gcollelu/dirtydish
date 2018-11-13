@@ -18,12 +18,16 @@ class RecyclerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), Vi
 
     var chore_name: TextView
     var frequency: TextView
+    val choreTimeFrame: TextView
+    val choreAssignee: TextView
 
     private var itemClickListener: ItemClickListener? = null
 
     init {
         chore_name = itemView.findViewById<View>(R.id.chore_name) as TextView
         frequency = itemView.findViewById<View>(R.id.chore_frequency) as TextView
+        choreTimeFrame = itemView.findViewById<View>(R.id.chore_time_frame) as TextView
+        choreAssignee = itemView.findViewById<View>(R.id.chore_assignee) as TextView
 
         itemView.setOnClickListener(this)
         itemView.setOnLongClickListener(this)
@@ -52,10 +56,32 @@ class RecyclerAdapter(private val listData: List<Chore>, private val context: Co
     }
 
     override fun onBindViewHolder(holder: RecyclerViewHolder, position: Int) {
-        //TODO pass chore object to ModifyChore instead of just id
         val currentChore = listData[position]
         holder.chore_name.text = currentChore.name
-        holder.frequency.text = currentChore.frequency.toString()
+
+        val freq  = currentChore.frequency
+        if (freq % 7 == 0){
+            holder.frequency.text = (freq / 7).toString()
+            if (freq == 7) holder.choreTimeFrame.text = "week"
+            else holder.choreTimeFrame.text = "weeks"
+
+        } else if (freq % 30 == 0){
+            holder.frequency.text = (freq / 30).toString()
+            if (freq == 30) holder.choreTimeFrame.text = "month"
+            else holder.choreTimeFrame.text = "months"
+
+        } else {
+            holder.frequency.text = freq.toString()
+            if (freq == 1) holder.choreTimeFrame.text = "day"
+            else holder.choreTimeFrame.text = "days"
+        }
+
+        if (currentChore.participants.size > 0) {
+            //TODO: ACTUALLY ROTATE BETWEEN ALL CHORE PARTICIPANTS
+            holder.choreAssignee.text = currentChore.participants[0].name
+        } else {
+            holder.choreAssignee.text = "none"
+        }
 
         holder.setItemClickListener(object : ItemClickListener {
             override fun onClick(view: View, position: Int, isLongClick: Boolean) {
@@ -66,6 +92,7 @@ class RecyclerAdapter(private val listData: List<Chore>, private val context: Co
                             .putExtra("id", currentChore.id)
                             .putExtra("name", currentChore.name)
                             .putExtra("frequency", currentChore.frequency)
+                            .putExtra("participants", currentChore.participants.toTypedArray())
                     Log.d(tag, context.toString())
                     context.startActivity(intent)
                 } else {
@@ -74,6 +101,7 @@ class RecyclerAdapter(private val listData: List<Chore>, private val context: Co
                             .putExtra("id", currentChore.id)
                             .putExtra("name", currentChore.name)
                             .putExtra("frequency", currentChore.frequency)
+                            .putExtra("participants", currentChore.participants.toTypedArray())
                     Log.d(tag, context.toString())
                     context.startActivity(intent)
                 }
@@ -84,4 +112,5 @@ class RecyclerAdapter(private val listData: List<Chore>, private val context: Co
     override fun getItemCount(): Int {
         return listData.size
     }
+
 }
