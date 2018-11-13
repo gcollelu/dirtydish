@@ -3,9 +3,9 @@ package com.dirtydish.app.dirtydish
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.TextView
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_modify_chore.*
+import java.util.*
 
 class ModifyChore : AppCompatActivity() {
 
@@ -23,6 +23,15 @@ class ModifyChore : AppCompatActivity() {
 
         modify_chore_text.setText(intent.getStringExtra("name"))
         modify_chore_frequency.setText(intent.getIntExtra("frequency", 1).toString())
+
+        var parcelableArray = intent.getParcelableArrayExtra("participants")
+        var participants = Arrays.copyOf(parcelableArray, parcelableArray.size, Array<HouseMate>::class.java)
+
+        var particString = ""
+        for (i in 0 until participants.size){
+            particString += (participants[i].name + ", ")
+        }
+        participantsList.text = (particString)
 
         btn_delete.setOnClickListener {
             deleteChore(intent.getStringExtra("id"))

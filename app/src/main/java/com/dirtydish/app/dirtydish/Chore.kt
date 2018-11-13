@@ -4,6 +4,6 @@ import java.util.*
 
 data class Chore(val name: String = "chore",
                  var id: String = "",
-                 var frequency: Int = 1)  {
-    //TODO: add extra fields (frequency, responsible people)
+                 var frequency: Int = 1,
+                 var participants: MutableList<HouseMate> = mutableListOf())  {
 }

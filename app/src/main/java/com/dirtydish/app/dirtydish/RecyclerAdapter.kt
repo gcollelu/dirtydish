@@ -84,6 +84,7 @@ class RecyclerAdapter(private val listData: List<Chore>, private val context: Co
                             .putExtra("id", currentChore.id)
                             .putExtra("name", currentChore.name)
                             .putExtra("frequency", currentChore.frequency)
+                            .putExtra("participants", currentChore.participants.toTypedArray())
                     Log.d(tag, context.toString())
                     context.startActivity(intent)
                 } else {
@@ -92,6 +93,7 @@ class RecyclerAdapter(private val listData: List<Chore>, private val context: Co
                             .putExtra("id", currentChore.id)
                             .putExtra("name", currentChore.name)
                             .putExtra("frequency", currentChore.frequency)
+                            .putExtra("participants", currentChore.participants.toTypedArray())
                     Log.d(tag, context.toString())
                     context.startActivity(intent)
                 }
