@@ -1,14 +1,12 @@
 package com.dirtydish.app.dirtydish
 
 import android.content.Context
-import android.content.Intent
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
+import androidx.navigation.findNavController
 
 private val tag = "RECYCLER_ADAPTER"
 
@@ -68,26 +66,8 @@ class RecyclerAdapter(private val listData: List<Chore>, private val context: Co
 
         holder.setItemClickListener(object : ItemClickListener {
             override fun onClick(view: View, position: Int, isLongClick: Boolean) {
-                Log.i("FREQUENCY", "frequency=" + currentChore.frequency)
-                if (isLongClick) {
-                    Toast.makeText(context, "Long Click" + currentChore.name, Toast.LENGTH_SHORT).show()
-                    val intent = Intent(context.applicationContext,ModifyChore::class.java)
-                            .putExtra("id", currentChore.id)
-                            .putExtra("name", currentChore.name)
-                            .putExtra("frequency", currentChore.frequency)
-                            .putExtra("participants", currentChore.participants.toTypedArray())
-                    Log.d(tag, context.toString())
-                    context.startActivity(intent)
-                } else {
-                    Toast.makeText(context, "Short Click" + currentChore.name, Toast.LENGTH_SHORT).show()
-                    val intent = Intent(context.applicationContext, ModifyChore::class.java)
-                            .putExtra("id", currentChore.id)
-                            .putExtra("name", currentChore.name)
-                            .putExtra("frequency", currentChore.frequency)
-                            .putExtra("participants", currentChore.participants.toTypedArray())
-                    Log.d(tag, context.toString())
-                    context.startActivity(intent)
-                }
+                val directions = ChoresFragmentDirections.ActionChoresFragmentToChoreDetailFragment(currentChore)
+                view.findNavController().navigate(directions)
             }
         })
     }

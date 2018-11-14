@@ -68,7 +68,7 @@ class AddChoreFragment : Fragment() {
 
         btnDone.setOnClickListener {
             createChore()
-            view.findNavController().navigate(R.id.action_addChoreFragment_to_choresFragment)
+            view.findNavController().navigateUp()
             Toast.makeText(activity, "Chore created.", Toast.LENGTH_SHORT).show()
         }
 

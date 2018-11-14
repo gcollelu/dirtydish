@@ -17,14 +17,17 @@
                             <option name="y" value="350" />
                           </Point>
                         </option>
-                        <option name="myPositions">
-                          <map>
-                            <entry key="action_addChoreFragment_to_choresFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                          </map>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="choreDetailFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="748" />
+                            <option name="y" value="346" />
+                          </Point>
                         </option>
                       </LayoutPositions>
                     </value>
@@ -41,6 +44,11 @@
                         <option name="myPositions">
                           <map>
                             <entry key="action_choresFragment_to_addChoreFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_choresFragment_to_choreDetailFragment">
                               <value>
                                 <LayoutPositions />
                               </value>

@@ -60,9 +60,17 @@
         android:name="com.dirtydish.app.dirtydish.ChoresFragment"
         android:label="Chores"
         tools:layout="@layout/activity_chore_home">
+
         <action
             android:id="@+id/action_choresFragment_to_addChoreFragment"
             app:destination="@id/addChoreFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_choresFragment_to_choreDetailFragment"
+            app:destination="@id/choreDetailFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -77,17 +85,7 @@
         android:id="@+id/addChoreFragment"
         android:name="com.dirtydish.app.dirtydish.AddChoreFragment"
         android:label="New Chore"
-        tools:layout="@layout/activity_add_chore">
-        <action
-            android:id="@+id/action_addChoreFragment_to_choresFragment"
-            app:clearTask="true"
-            app:destination="@id/choresFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:launchSingleTop="true"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-    </fragment>
+        tools:layout="@layout/activity_add_chore"></fragment>
     <fragment
         android:id="@+id/editHousemateFragment"
         android:name="com.dirtydish.app.dirtydish.EditHousemateFragment"
@@ -112,4 +110,13 @@
         android:name="com.dirtydish.app.dirtydish.ShareHouseFragment"
         android:label="Share House"
         tools:layout="@layout/fragment_share_house" />
+    <fragment
+        android:id="@+id/choreDetailFragment"
+        android:name="com.dirtydish.app.dirtydish.ChoreDetailFragment"
+        android:label="Chore Detail"
+        tools:layout="@layout/fragment_chore_detail">
+        <argument
+            android:name="chore"
+            app:argType="com.dirtydish.app.dirtydish.Chore" />
+    </fragment>
 </navigation>
