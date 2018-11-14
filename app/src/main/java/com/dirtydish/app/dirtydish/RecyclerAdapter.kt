@@ -56,25 +56,8 @@ class RecyclerAdapter(private val listData: List<Chore>, private val context: Co
     override fun onBindViewHolder(holder: RecyclerViewHolder, position: Int) {
         val currentChore = listData[position]
         holder.chore_name.text = currentChore.name
-        var frequency_text = ""
-        val freq = currentChore.frequency
-        if (freq % 7 == 0) {
-            frequency_text = (freq / 7).toString()
-            if (freq == 7) frequency_text = "week"
-            else frequency_text += " weeks"
 
-        } else if (freq % 30 == 0) {
-            frequency_text = (freq / 30).toString()
-            if (freq == 30) frequency_text = "month"
-            else frequency_text += " months"
-
-        } else {
-            frequency_text = freq.toString()
-            if (freq == 1) frequency_text = "day"
-            else frequency_text += " days"
-        }
-
-        holder.frequency.text = frequency_text
+        holder.frequency.text = Utilities.intFrequencyToString(currentChore.frequency)
 
         if (currentChore.participants.size > 0) {
             //TODO: ACTUALLY ROTATE BETWEEN ALL CHORE PARTICIPANTS
