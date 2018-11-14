@@ -16,7 +16,7 @@ class RecyclerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), Vi
 
     var chore_name: TextView
     var frequency: TextView
-    val choreTimeFrame: TextView
+    //val choreTimeFrame: TextView
     val choreAssignee: TextView
 
     private var itemClickListener: ItemClickListener? = null
@@ -24,7 +24,7 @@ class RecyclerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), Vi
     init {
         chore_name = itemView.findViewById<View>(R.id.chore_name) as TextView
         frequency = itemView.findViewById<View>(R.id.chore_frequency) as TextView
-        choreTimeFrame = itemView.findViewById<View>(R.id.chore_time_frame) as TextView
+        //choreTimeFrame = itemView.findViewById<View>(R.id.chore_time_frame) as TextView
         choreAssignee = itemView.findViewById<View>(R.id.chore_assignee) as TextView
 
         itemView.setOnClickListener(this)
@@ -49,30 +49,32 @@ class RecyclerAdapter(private val listData: List<Chore>, private val context: Co
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val itemView = inflater.inflate(R.layout.chore, parent, false)
+        val itemView = inflater.inflate(R.layout.chore_row, parent, false)
         return RecyclerViewHolder(itemView)
     }
 
     override fun onBindViewHolder(holder: RecyclerViewHolder, position: Int) {
         val currentChore = listData[position]
         holder.chore_name.text = currentChore.name
-
+        var frequency_text = ""
         val freq = currentChore.frequency
         if (freq % 7 == 0) {
-            holder.frequency.text = (freq / 7).toString()
-            if (freq == 7) holder.choreTimeFrame.text = "week"
-            else holder.choreTimeFrame.text = "weeks"
+            frequency_text = (freq / 7).toString()
+            if (freq == 7) frequency_text = "week"
+            else frequency_text += " weeks"
 
         } else if (freq % 30 == 0) {
-            holder.frequency.text = (freq / 30).toString()
-            if (freq == 30) holder.choreTimeFrame.text = "month"
-            else holder.choreTimeFrame.text = "months"
+            frequency_text = (freq / 30).toString()
+            if (freq == 30) frequency_text = "month"
+            else frequency_text += " months"
 
         } else {
-            holder.frequency.text = freq.toString()
-            if (freq == 1) holder.choreTimeFrame.text = "day"
-            else holder.choreTimeFrame.text = "days"
+            frequency_text = freq.toString()
+            if (freq == 1) frequency_text = "day"
+            else frequency_text += " days"
         }
+
+        holder.frequency.text = frequency_text
 
         if (currentChore.participants.size > 0) {
             //TODO: ACTUALLY ROTATE BETWEEN ALL CHORE PARTICIPANTS

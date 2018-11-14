@@ -35,9 +35,7 @@ class ChoresFragment : Fragment() {
         val view = inflater.inflate(R.layout.activity_chore_home,
                 container, false)
 
-        val chores = Session.userHouse!!.chores
-        recyclerView = view!!.findViewById<RecyclerView>(R.id.choresList) as RecyclerView
-//        recyclerView!!.adapter = RecyclerAdapter(chores, getContext()!!)
+        recyclerView = view!!.findViewById(R.id.choresList) as RecyclerView
 
         recyclerView!!.layoutManager = LinearLayoutManager(activity)
 

@@ -16,7 +16,7 @@ class ChoreAdapter(private val data: List<Chore>, val context: Context) : Recycl
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChoreAdapter.ChoreHolder {
-        return ChoreHolder(LayoutInflater.from(context).inflate(R.layout.chore, parent, false))
+        return ChoreHolder(LayoutInflater.from(context).inflate(R.layout.chore_row, parent, false))
     }
 
     override fun getItemCount(): Int = data.size
