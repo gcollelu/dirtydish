@@ -28,8 +28,10 @@ class ChoresFragment : Fragment() {
         db = FirebaseDatabase.getInstance()
 
         thisContext = context
-        houseRef = db.getReference("houses").child(Session.userHouse!!.id)
-        houseRef.keepSynced(true)
+        if (Session.hasHouse()) {
+            houseRef = db.getReference("houses").child(Session.userHouse!!.id)
+            houseRef.keepSynced(true)
+        }
         val view = inflater.inflate(R.layout.activity_chore_home,
                 container, false)
 
