@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.*
 import android.widget.TextView
+import androidx.navigation.findNavController
 import kotlinx.android.synthetic.main.fragment_chore_detail.*
 
 
@@ -23,7 +24,7 @@ class ChoreDetailFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        myView = view
+
         chore = ChoreDetailFragmentArgs.fromBundle(arguments).chore
 
 
@@ -34,12 +35,13 @@ class ChoreDetailFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
+        val view = inflater.inflate(R.layout.fragment_chore_detail, container, false)
         if (chore != null)
             activity!!.setTitle(chore!!.name)
 
+        myView = view
 
-
-        return inflater.inflate(R.layout.fragment_chore_detail, container, false)
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -64,7 +66,8 @@ class ChoreDetailFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.edit_chore_button -> {
-                //myView!!.findNavController().navigate(R.id.action_viewHouseFragment_to_shareHouseFragment)
+                val directions = ChoreDetailFragmentDirections.ActionChoreDetailFragmentToEditChoreFragment(this.chore!!)
+                myView!!.findNavController().navigate(directions)
                 true
             }
             else -> super.onOptionsItemSelected(item)

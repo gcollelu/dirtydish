@@ -8,39 +8,58 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.navigation.findNavController
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import kotlinx.android.synthetic.main.activity_add_chore.*
+import kotlinx.android.synthetic.main.fragment_edit_chore.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class AddChoreFragment : Fragment() {
-
+class EditChoreFragment : Fragment() {
     private lateinit var db: FirebaseDatabase
-    private lateinit var choreRef: DatabaseReference
-    private lateinit var houseListRef: DatabaseReference
-    private val tag_local = "CHORE_ADD"
+    //private lateinit var choreRef: DatabaseReference
+    private lateinit var houseRef: DatabaseReference
     var participantsList: MutableList<HouseMate> = mutableListOf<HouseMate>()
     var housematesArray: MutableList<HouseMate> = mutableListOf<HouseMate>()
     var choreArray: MutableList<Chore> = mutableListOf<Chore>()
+    var chore: Chore? = null
 
-    override fun onCreateView(inflater: LayoutInflater,
-                              container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.activity_add_chore,
-                container, false)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
         db = FirebaseDatabase.getInstance()
-        houseListRef = db.getReference("houses")
+        //choreRef = db.getReference("chores")
+        houseRef = db.getReference("houses").child(Session.userHouse!!.id)
+        choreArray = Session.userHouse!!.chores
 
-        choreRef = db.getReference("houses").child(Session.userHouse!!.id)
-        return view
+        chore = ChoreDetailFragmentArgs.fromBundle(arguments).chore
+
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_edit_chore, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val editName: EditText = view.findViewById<EditText>(R.id.editName)
+        val editFrequency: Spinner = view.findViewById<Spinner>(R.id.editFrequency)
+        val freqType: Spinner = view.findViewById<Spinner>(R.id.freq_type)
+        val startDate: TextView = view.findViewById<TextView>(R.id.startDate)
+        val endDate: TextView = view.findViewById<TextView>(R.id.endDate)
+        val description: EditText = view.findViewById<EditText>(R.id.description)
+        val participants: ListView = view.findViewById<ListView>(R.id.participants)
+        val choreImagePreview: ImageView = view.findViewById<ImageView>(R.id.choreImagePreview)
+        val btnPickImage: Button = view.findViewById<Button>(R.id.btnPickImage)
+        val btnSave: Button = view.findViewById<Button>(R.id.btnSave)
+        val btnDelete: Button = view.findViewById<Button>(R.id.btnDelete)
+
+
+        //TODO: re-instantiate the frequency in the right way?
 
         for (i in 0 until 5) {
             val housemate = HouseMate("John Smith " + i.toString(), "lmao@lmao.com", i.toString())
@@ -70,49 +89,59 @@ class AddChoreFragment : Fragment() {
             }
         }
 
-        btnDone.setOnClickListener {
-            createChore()
-            view.findNavController().navigateUp()
-            Toast.makeText(activity, "Chore created.", Toast.LENGTH_SHORT).show()
-        }
+        //TODO: automatically set the current partcipants as selected
 
-        val startDate: TextView = view.findViewById(R.id.startDate)
-        val endDate: TextView = view.findViewById(R.id.endDate)
 
         makeCalendarField(startDate)
         makeCalendarField(endDate)
 
+
+        btnDelete.setOnClickListener {
+            deleteChore(chore!!.id)
+            view.findNavController().navigateUp()
+            Toast.makeText(activity, "Chore deleted.", Toast.LENGTH_SHORT).show()
+        }
+        btnSave.setOnClickListener {
+            editChore(chore!!.id)
+            view.findNavController().navigateUp()
+            Toast.makeText(activity, "Chore saved.", Toast.LENGTH_SHORT).show()
+        }
+
     }
 
-    private fun createChore() {
-        //val key = choreRef.push().key
-        //Log.d(tag_local, key)
-        //val key = choreRef.push().key
+    private fun editChore(key: String) {
         if (Session.hasHouse()) {
             var frequency = Integer.parseInt(editFrequency.selectedItem.toString())
-            var frequencyType = freq_type.selectedItemPosition
+            val frequencyType = freq_type.selectedItemPosition
             if (frequencyType == 1) {
                 frequency *= 7
             } else if (frequencyType == 2) {
                 frequency *= 30
             }
 
-            var id = Session.userHouse!!.chores.lastIndex + 1
+            val id = chore!!.id.toInt()
 
-            var houseKey = Session.userHouse!!.id;
+            val houseKey = Session.userHouse!!.id;
             val chore = Chore(name = editName.text.toString(), id = id.toString(),
                     frequency = frequency, participants = participantsList, houseId = houseKey)
 
 
-            Log.d(tag_local, chore.toString())
-            choreArray.add(chore)
-
-            choreRef.child("chores").setValue(choreArray)
+            choreArray[id] = chore
+            houseRef.child("chores").setValue(choreArray)
         }
+        //choreRef.child(key).setValue(chore)
 
-        //TODO: this fnction should return success/failure
+
     }
 
+    private fun deleteChore(key: String) {
+        Log.d(tag, key)
+        val id = Integer.parseInt(key)
+        //choreRef.child(key).removeValue()
+        //TODO: id is not local anymore but the actual chore id, so this may throw index out of bounds
+        choreArray.removeAt(id)
+        houseRef.child("chores").setValue(choreArray)
+    }
 
     private fun makeCalendarField(textView: TextView) {
         textView.text = SimpleDateFormat("EEEE, MMMM d, yyyy").format(System.currentTimeMillis())
@@ -137,4 +166,5 @@ class AddChoreFragment : Fragment() {
                     calendar.get(Calendar.DAY_OF_MONTH)).show()
         }
     }
+
 }

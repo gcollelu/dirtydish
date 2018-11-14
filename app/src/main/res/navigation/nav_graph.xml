@@ -85,7 +85,7 @@
         android:id="@+id/addChoreFragment"
         android:name="com.dirtydish.app.dirtydish.AddChoreFragment"
         android:label="New Chore"
-        tools:layout="@layout/activity_add_chore"></fragment>
+        tools:layout="@layout/activity_add_chore" />
     <fragment
         android:id="@+id/editHousemateFragment"
         android:name="com.dirtydish.app.dirtydish.EditHousemateFragment"
@@ -115,6 +115,23 @@
         android:name="com.dirtydish.app.dirtydish.ChoreDetailFragment"
         android:label="Chore Detail"
         tools:layout="@layout/fragment_chore_detail">
+        <argument
+            android:name="chore"
+            app:argType="com.dirtydish.app.dirtydish.Chore" />
+        <action
+            android:id="@+id/action_choreDetailFragment_to_editChoreFragment"
+            app:destination="@id/editChoreFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@+id/choresFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editChoreFragment"
+        android:name="com.dirtydish.app.dirtydish.EditChoreFragment"
+        android:label="Edit Chore"
+        tools:layout="@layout/fragment_edit_chore">
         <argument
             android:name="chore"
             app:argType="com.dirtydish.app.dirtydish.Chore" />
