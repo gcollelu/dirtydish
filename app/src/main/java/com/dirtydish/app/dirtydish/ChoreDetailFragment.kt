@@ -3,6 +3,7 @@ package com.dirtydish.app.dirtydish
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.app.AppCompatActivity
 import android.view.*
 import android.widget.TextView
 import androidx.navigation.findNavController
@@ -27,7 +28,7 @@ class ChoreDetailFragment : Fragment() {
 
         chore = ChoreDetailFragmentArgs.fromBundle(arguments).chore
 
-
+        (activity as? AppCompatActivity)?.supportActionBar?.title = chore?.name
 
         setHasOptionsMenu(true)
     }

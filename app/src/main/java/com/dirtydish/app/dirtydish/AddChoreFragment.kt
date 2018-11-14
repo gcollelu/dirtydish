@@ -1,6 +1,7 @@
 package com.dirtydish.app.dirtydish
 
 import android.Manifest
+import android.app.Activity.RESULT_OK
 import android.app.DatePickerDialog
 import android.content.ContentValues.TAG
 import android.content.Context
@@ -14,14 +15,15 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.navigation.findNavController
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_add_chore.*
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 class AddChoreFragment : Fragment() {
 
@@ -35,6 +37,8 @@ class AddChoreFragment : Fragment() {
     private val READ_REQUEST_CODE = 101
     private var myContext: Context? = null
     val PICK_IMAGE = 1
+    private val RESULT_LOAD_IMAGE = 1
+    var previewImageView: ImageView? = null
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -64,7 +68,17 @@ class AddChoreFragment : Fragment() {
 
         }
 
+        val editName: EditText = view.findViewById<EditText>(R.id.editName)
+        val editFrequency: Spinner = view.findViewById<Spinner>(R.id.editFrequency)
+        val freqType: Spinner = view.findViewById<Spinner>(R.id.freq_type)
+        val startDate: TextView = view.findViewById<TextView>(R.id.startDate)
+        val endDate: TextView = view.findViewById<TextView>(R.id.endDate)
+        val description: EditText = view.findViewById<EditText>(R.id.description)
+        val participants: ListView = view.findViewById<ListView>(R.id.participants)
+        val choreImagePreview: ImageView = view.findViewById<ImageView>(R.id.choreImagePreview)
+        val btnPickImage: Button = view.findViewById<Button>(R.id.btnPickImage)
 
+        previewImageView = choreImagePreview
         val adapter = ViewHouseMatesAdapter(activity!!, housematesArray)
         participants.adapter = adapter
 
@@ -93,9 +107,6 @@ class AddChoreFragment : Fragment() {
             startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE)
         }
 
-        val startDate: TextView = view.findViewById(R.id.startDate)
-        val endDate: TextView = view.findViewById(R.id.endDate)
-
 
         makeCalendarField(startDate)
         makeCalendarField(endDate)
@@ -109,6 +120,12 @@ class AddChoreFragment : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
         super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK) {
+            val selectedImage = data.data
+
+            Picasso.get().load(selectedImage).into(previewImageView)
+
+        }
         Toast.makeText(activity, "Imaged selected.", Toast.LENGTH_SHORT).show()
     }
 

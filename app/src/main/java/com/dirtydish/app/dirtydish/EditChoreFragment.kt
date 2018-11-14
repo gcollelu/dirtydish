@@ -1,6 +1,7 @@
 package com.dirtydish.app.dirtydish
 
 import android.Manifest
+import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.ContentValues
 import android.content.Context
@@ -10,6 +11,7 @@ import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
+import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +20,7 @@ import android.widget.*
 import androidx.navigation.findNavController
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_edit_chore.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -33,6 +36,7 @@ class EditChoreFragment : Fragment() {
     private val READ_REQUEST_CODE = 101
     private var myContext: Context? = null
     val PICK_IMAGE = 1
+    var previewImageView: ImageView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +47,7 @@ class EditChoreFragment : Fragment() {
         choreArray = Session.userHouse!!.chores
 
         chore = ChoreDetailFragmentArgs.fromBundle(arguments).chore
+        (activity as? AppCompatActivity)?.supportActionBar?.title = chore?.name + " - Edit"
 
     }
 
@@ -67,6 +72,7 @@ class EditChoreFragment : Fragment() {
         val btnSave: Button = view.findViewById<Button>(R.id.btnSave)
         val btnDelete: Button = view.findViewById<Button>(R.id.btnDelete)
 
+        previewImageView = choreImagePreview
 
         //TODO: re-instantiate the frequency in the right way?
 
@@ -132,6 +138,10 @@ class EditChoreFragment : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
         super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
+            val selectedImage = data.data
+            Picasso.get().load(selectedImage).into(previewImageView)
+        }
         Toast.makeText(activity, "Imaged selected.", Toast.LENGTH_SHORT).show()
     }
 
@@ -155,9 +165,6 @@ class EditChoreFragment : Fragment() {
             choreArray[id] = chore
             houseRef.child("chores").setValue(choreArray)
         }
-        //choreRef.child(key).setValue(chore)
-
-
     }
 
     private fun deleteChore(key: String) {

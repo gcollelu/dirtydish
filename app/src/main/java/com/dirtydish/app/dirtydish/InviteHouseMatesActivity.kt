@@ -56,7 +56,7 @@ class InviteHouseMatesActivity : AppCompatActivity() {
                 house.chores = choreArray
                 storeHouseToDB(house)
 
-                val intent = Intent(this, MainMenu::class.java)
+                val intent = Intent(this, MainMenuActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
                 finish()

@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.AppCompatActivity
+import android.view.MenuItem
+import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.AppBarConfiguration
@@ -15,7 +17,8 @@ import androidx.navigation.ui.setupWithNavController
 import com.dirtydish.app.dirtydish.databinding.ActivityMainMenuBinding
 import com.google.firebase.auth.FirebaseAuth
 
-class MainMenu : AppCompatActivity() {
+
+class MainMenuActivity : AppCompatActivity() {
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var navController: NavController
@@ -42,6 +45,13 @@ class MainMenu : AppCompatActivity() {
         }
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.logout) {
+            Toast.makeText(this, "Logout selected.", Toast.LENGTH_SHORT).show()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     private fun setupNav() {
         val binding: ActivityMainMenuBinding = DataBindingUtil.setContentView(this,
                 R.layout.activity_main_menu)
@@ -52,9 +62,9 @@ class MainMenu : AppCompatActivity() {
         // Set up ActionBar
         setSupportActionBar(binding.toolbar)
         setupActionBarWithNavController(navController, appBarConfiguration)
-
         binding.navView.setupWithNavController(navController)
     }
+
 
     private fun checkLoggedIn() {
         if (FirebaseAuth.getInstance().currentUser == null)

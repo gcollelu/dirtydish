@@ -20,7 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity
-            android:name=".MainMenu"
+            android:name=".MainMenuActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter tools:ignore="AppLinkUrlError">
@@ -39,15 +39,15 @@
         </activity>
         <activity
             android:name=".AuthActivity"
-            android:parentActivityName=".MainMenu"
+            android:parentActivityName=".MainMenuActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".SetupHouseActivity"
             android:label="@string/title_activity_setup_house"
-            android:parentActivityName=".MainMenu">
+            android:parentActivityName=".MainMenuActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dirtydish.app.dirtydish.MainMenu" />
+                android:value="com.dirtydish.app.dirtydish.MainMenuActivity" />
         </activity>
         <activity
             android:name=".SelectHouseActivity"

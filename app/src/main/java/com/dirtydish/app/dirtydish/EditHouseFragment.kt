@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.findNavController
 import kotlinx.android.synthetic.main.activity_edit_house.*
 
@@ -42,6 +43,7 @@ class EditHouseFragment : Fragment() {
 
         btnSave.setOnClickListener {
             view.findNavController().navigateUp()
+            Toast.makeText(activity, "House saved.", Toast.LENGTH_SHORT).show()
         }
 
         housematesEditList.setOnItemClickListener { parent, view, position, id ->

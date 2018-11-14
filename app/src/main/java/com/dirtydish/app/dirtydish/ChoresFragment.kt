@@ -39,6 +39,7 @@ class ChoresFragment : Fragment() {
 
         recyclerView!!.layoutManager = LinearLayoutManager(activity)
 
+
         attachListenerForChanges()
         return view
     }
@@ -67,7 +68,10 @@ class ChoresFragment : Fragment() {
         }
 
         //choreRef.addValueEventListener(listener)
-        houseRef.addValueEventListener(listener)
+        if (Session.hasHouse()) {
+            houseRef.addValueEventListener(listener)
+        }
+
     }
 
 }
