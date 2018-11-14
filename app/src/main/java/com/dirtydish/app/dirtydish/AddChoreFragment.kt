@@ -1,7 +1,13 @@
 package com.dirtydish.app.dirtydish
 
+import android.Manifest
 import android.app.DatePickerDialog
+import android.content.ContentValues.TAG
+import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.util.Log
@@ -26,6 +32,9 @@ class AddChoreFragment : Fragment() {
     var participantsList: MutableList<HouseMate> = mutableListOf<HouseMate>()
     var housematesArray: MutableList<HouseMate> = mutableListOf<HouseMate>()
     var choreArray: MutableList<Chore> = mutableListOf<Chore>()
+    private val READ_REQUEST_CODE = 101
+    private var myContext: Context? = null
+    val PICK_IMAGE = 1
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -76,12 +85,31 @@ class AddChoreFragment : Fragment() {
             Toast.makeText(activity, "Chore created.", Toast.LENGTH_SHORT).show()
         }
 
+        btnPickImage.setOnClickListener {
+            setupPermissions()
+            val intent = Intent()
+            intent.type = "image/*"
+            intent.action = Intent.ACTION_GET_CONTENT
+            startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE)
+        }
+
         val startDate: TextView = view.findViewById(R.id.startDate)
         val endDate: TextView = view.findViewById(R.id.endDate)
+
 
         makeCalendarField(startDate)
         makeCalendarField(endDate)
 
+    }
+
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        this.myContext = context
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+        super.onActivityResult(requestCode, resultCode, data)
+        Toast.makeText(activity, "Imaged selected.", Toast.LENGTH_SHORT).show()
     }
 
     private fun createChore() {
@@ -136,5 +164,20 @@ class AddChoreFragment : Fragment() {
                     calendar.get(Calendar.MONTH),
                     calendar.get(Calendar.DAY_OF_MONTH)).show()
         }
+    }
+
+    private fun setupPermissions() {
+        val permission = ContextCompat.checkSelfPermission(myContext!!,
+                Manifest.permission.READ_EXTERNAL_STORAGE)
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            Log.i(TAG, "Permission to record denied")
+            makeRequest()
+        }
+    }
+
+    private fun makeRequest() {
+        ActivityCompat.requestPermissions(activity!!,
+                arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                READ_REQUEST_CODE)
     }
 }
