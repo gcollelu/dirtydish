@@ -23,7 +23,7 @@ class ModifyChore : AppCompatActivity() {
 
         db = FirebaseDatabase.getInstance()
         //choreRef = db.getReference("chores")
-        houseRef = db.getReference("houses").child(Session.userHouse!!.id)
+        houseRef = db.getReference("houses")//.child(Session.userHouse!!.id)
         choreArray = Session.userHouse!!.chores
 
         modify_chore_text.setText(intent.getStringExtra("name"))
@@ -58,7 +58,7 @@ class ModifyChore : AppCompatActivity() {
                 participants = Session.userHouse!!.chores.get(id).participants)
         //choreRef.child(key).setValue(chore)
         choreArray[id] = chore
-        houseRef.child("chores").setValue(choreArray)
+        houseRef.child(Session.userHouse!!.id).child("chores").setValue(choreArray)
 
     }
 
@@ -67,7 +67,7 @@ class ModifyChore : AppCompatActivity() {
         val id = Integer.parseInt(key)
         //choreRef.child(key).removeValue()
         choreArray.removeAt(id)
-        houseRef.child("chores").setValue(choreArray)
+        houseRef.child(Session.userHouse!!.id).child("chores").setValue(choreArray)
     }
 
 }
