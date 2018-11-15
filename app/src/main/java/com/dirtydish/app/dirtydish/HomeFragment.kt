@@ -12,7 +12,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.chore_min.view.*
-import kotlinx.android.synthetic.main.homepage.*
+import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment() {
 
@@ -25,7 +25,7 @@ class HomeFragment : Fragment() {
                               container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.homepage,
+        val view = inflater.inflate(R.layout.fragment_home,
                 container, false)
         db = FirebaseDatabase.getInstance()
         myView = view

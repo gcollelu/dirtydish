@@ -11,7 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import com.google.firebase.database.*
-import kotlinx.android.synthetic.main.activity_chore_home.*
+import kotlinx.android.synthetic.main.fragment_chore_home.*
 
 class ChoresFragment : Fragment() {
     private lateinit var houseRef: DatabaseReference
@@ -32,7 +32,7 @@ class ChoresFragment : Fragment() {
             houseRef = db.getReference("houses").child(Session.userHouse!!.id)
             houseRef.keepSynced(true)
         }
-        val view = inflater.inflate(R.layout.activity_chore_home,
+        val view = inflater.inflate(R.layout.fragment_chore_home,
                 container, false)
 
         recyclerView = view!!.findViewById(R.id.choresList) as RecyclerView

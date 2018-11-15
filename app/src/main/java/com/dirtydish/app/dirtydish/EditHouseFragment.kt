@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.findNavController
 import com.google.firebase.database.FirebaseDatabase
-import kotlinx.android.synthetic.main.activity_edit_house.*
+import kotlinx.android.synthetic.main.fragment_edit_house.*
 import org.jetbrains.anko.doAsync
 
 class EditHouseFragment : Fragment() {
@@ -20,7 +20,7 @@ class EditHouseFragment : Fragment() {
                               container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.activity_edit_house,
+        return inflater.inflate(R.layout.fragment_edit_house,
                 container, false)
     }
 

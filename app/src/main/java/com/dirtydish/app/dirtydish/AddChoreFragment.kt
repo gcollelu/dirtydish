@@ -17,12 +17,15 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
 import androidx.navigation.findNavController
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_add_chore.*
+import kotlinx.android.synthetic.main.fragment_add_chore.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -44,7 +47,7 @@ class AddChoreFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.activity_add_chore,
+        val view = inflater.inflate(R.layout.fragment_add_chore,
                 container, false)
 
         db = FirebaseDatabase.getInstance()
@@ -70,12 +73,8 @@ class AddChoreFragment : Fragment() {
 
         }
 
-        val editName: EditText = view.findViewById<EditText>(R.id.editName)
-        val editFrequency: Spinner = view.findViewById<Spinner>(R.id.editFrequency)
-        val freqType: Spinner = view.findViewById<Spinner>(R.id.freq_type)
         val startDate: TextView = view.findViewById<TextView>(R.id.startDate)
         val endDate: TextView = view.findViewById<TextView>(R.id.endDate)
-        val description: EditText = view.findViewById<EditText>(R.id.description)
         val participants: RecyclerView = view.findViewById<RecyclerView>(R.id.participants)
         val choreImagePreview: ImageView = view.findViewById<ImageView>(R.id.choreImagePreview)
         val btnPickImage: Button = view.findViewById<Button>(R.id.btnPickImage)
@@ -182,7 +181,7 @@ class AddChoreFragment : Fragment() {
         }
 
         textView.setOnClickListener {
-            DatePickerDialog(context, dateSetListener,
+            DatePickerDialog(context!!, dateSetListener,
                     calendar.get(Calendar.YEAR),
                     calendar.get(Calendar.MONTH),
                     calendar.get(Calendar.DAY_OF_MONTH)).show()

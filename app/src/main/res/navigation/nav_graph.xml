@@ -9,7 +9,7 @@
         android:id="@+id/viewHouseFragment"
         android:name="com.dirtydish.app.dirtydish.ViewHouseFragment"
         android:label="View House"
-        tools:layout="@layout/activity_view_house">
+        tools:layout="@layout/fragment_view_house">
         <action
             android:id="@+id/action_viewHouseFragment_to_editHouseFragment2"
             app:destination="@id/editHouseFragment"
@@ -33,7 +33,7 @@
         android:id="@+id/editHouseFragment"
         android:name="com.dirtydish.app.dirtydish.EditHouseFragment"
         android:label="Edit House"
-        tools:layout="@layout/activity_edit_house">
+        tools:layout="@layout/fragment_edit_house">
         <action
             android:id="@+id/action_viewHouseFragment_to_editHouseFragment2"
             app:destination="@id/editHouseFragment"
@@ -53,7 +53,7 @@
         android:id="@+id/homeFragment"
         android:name="com.dirtydish.app.dirtydish.HomeFragment"
         android:label="Home"
-        tools:layout="@layout/homepage">
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_notificationsFragment"
             app:destination="@id/notificationsFragment"
@@ -66,7 +66,7 @@
         android:id="@+id/choresFragment"
         android:name="com.dirtydish.app.dirtydish.ChoresFragment"
         android:label="Chores"
-        tools:layout="@layout/activity_chore_home">
+        tools:layout="@layout/fragment_chore_home">
 
         <action
             android:id="@+id/action_choresFragment_to_addChoreFragment"
@@ -92,12 +92,12 @@
         android:id="@+id/addChoreFragment"
         android:name="com.dirtydish.app.dirtydish.AddChoreFragment"
         android:label="New Chore"
-        tools:layout="@layout/activity_add_chore" />
+        tools:layout="@layout/fragment_add_chore" />
     <fragment
         android:id="@+id/editHousemateFragment"
         android:name="com.dirtydish.app.dirtydish.EditHousemateFragment"
         android:label="Edit Housemate"
-        tools:layout="@layout/edit_housemate_fragment">
+        tools:layout="@layout/fragment_edit_housemate">
         <argument
             android:name="housemate"
             app:argType="com.dirtydish.app.dirtydish.HouseMate" />
