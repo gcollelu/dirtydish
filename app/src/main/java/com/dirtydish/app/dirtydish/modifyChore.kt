@@ -57,7 +57,9 @@ class ModifyChore : AppCompatActivity() {
                 houseId = Session.userHouse!!.chores.get(id).houseId,
                 frequency = Integer.parseInt(modify_chore_frequency.text.toString()),
                 participants = Session.userHouse!!.chores.get(id).participants,
-                description = description.text.toString())
+                description = description.text.toString(),
+                startDate = startDate.toString(),
+                endDate = endDate.toString())
         //choreRef.child(key).setValue(chore)
         choreArray[id] = chore
         houseRef.child("chores").setValue(choreArray)

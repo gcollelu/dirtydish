@@ -11,6 +11,8 @@ import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -74,24 +76,16 @@ class AddChoreFragment : Fragment() {
         val startDate: TextView = view.findViewById<TextView>(R.id.startDate)
         val endDate: TextView = view.findViewById<TextView>(R.id.endDate)
         val description: EditText = view.findViewById<EditText>(R.id.description)
-        val participants: ListView = view.findViewById<ListView>(R.id.participants)
+        val participants: RecyclerView = view.findViewById<RecyclerView>(R.id.participants)
         val choreImagePreview: ImageView = view.findViewById<ImageView>(R.id.choreImagePreview)
         val btnPickImage: Button = view.findViewById<Button>(R.id.btnPickImage)
 
         previewImageView = choreImagePreview
-        val adapter = ViewHouseMatesAdapter(activity!!, housematesArray)
-        participants.adapter = adapter
 
-        participants.setOnItemClickListener { parent, itemView, position, id ->
-            val housemate = housematesArray.get(position)
-            if (!participantsList.contains(housemate)) {
-                itemView.background = ContextCompat.getDrawable(this.requireContext(), R.drawable.view_rectangle_light)
-                participantsList.add(housemate)
-            } else {
-                itemView.background = ContextCompat.getDrawable(this.requireContext(), R.drawable.view_rectangle_white)
-                participantsList.remove(housemate)
-            }
-        }
+        val viewManager = LinearLayoutManager(this.requireContext())
+        participants.layoutManager = viewManager
+        val adapter = ParticipantsRecyclerAdapter(housematesArray, participantsList, this.requireContext())
+        participants.adapter = adapter
 
         btnDone.setOnClickListener {
             createChore()
@@ -130,10 +124,15 @@ class AddChoreFragment : Fragment() {
     }
 
     private fun createChore() {
-        //val key = choreRef.push().key
-        //Log.d(tag_local, key)
-        //val key = choreRef.push().key
         if (Session.hasHouse()) {
+            participantsList = mutableListOf()
+            for (i in 0 until participants.childCount) {
+                val partic = participants.getChildViewHolder(participants.getChildAt(i))
+                if (partic.itemView.background != null){
+                    participantsList.add(housematesArray[i])
+                }
+            }
+
             var frequency = Integer.parseInt(editFrequency.selectedItem.toString())
             var frequencyType = freq_type.selectedItemPosition
             if (frequencyType == 1) {
@@ -145,8 +144,15 @@ class AddChoreFragment : Fragment() {
             var id = Session.userHouse!!.chores.lastIndex + 1
 
             var houseKey = Session.userHouse!!.id;
-            val chore = Chore(name = editName.text.toString(), id = id.toString(),
-                    frequency = frequency, participants = participantsList, houseId = houseKey, description = description.text.toString())
+            val chore = Chore(
+                    name = editName.text.toString(),
+                    id = id.toString(),
+                    frequency = frequency,
+                    participants = participantsList,
+                    houseId = houseKey,
+                    description = description.text.toString(),
+                    startDate = startDate.text.toString(),
+                    endDate = endDate.text.toString())
 
 
             Log.d(tag_local, chore.toString())

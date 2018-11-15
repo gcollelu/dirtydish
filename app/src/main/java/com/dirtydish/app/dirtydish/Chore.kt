@@ -9,4 +9,6 @@ data class Chore(val name: String = "chore",
                  var frequency: Int = 1,
                  var houseId: String = "",
                  var participants: MutableList<HouseMate> = mutableListOf(),
-                 var description: String = "") : Parcelable
+                 var description: String = "",
+                 var startDate: String = "",
+                 var endDate: String = "") : Parcelable
