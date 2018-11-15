@@ -8,6 +8,12 @@ import android.view.*
 import android.widget.TextView
 import androidx.navigation.findNavController
 import kotlinx.android.synthetic.main.fragment_chore_detail.*
+import android.widget.ArrayAdapter
+import android.view.ViewGroup
+
+
+
+
 
 
 /**
@@ -51,12 +57,21 @@ class ChoreDetailFragment : Fragment() {
         val assignedToField = view!!.findViewById<TextView>(R.id.chore_assignee)
         val frequencyField = view!!.findViewById<TextView>(R.id.chore_frequency)
         val descriptionField = view!!.findViewById<TextView>(R.id.choreDescription)
+        //val participants = view!!.findViewById<TextView>(R.id.participants)
 
         if (chore != null) {
             chore_name.text = chore!!.name
-//            chore_assignee.text = chore!!.participants[0].name
+
             chore_frequency.text = Utilities.intFrequencyToString(chore!!.frequency)
             choreDescription.text = chore!!.description
+
+            if (chore!!.participants.size > 0){
+                chore_assignee.text = chore!!.participants[0].name
+            }
+
+            val participantAdapter = ViewHouseMatesSimpleAdapter(activity!!, chore!!.participants)
+            participants.adapter = participantAdapter
+
         }
     }
 

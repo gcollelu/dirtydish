@@ -85,18 +85,19 @@ class EditChoreFragment : Fragment() {
         }
         if (Session.userHouse != null) {
             housematesArray = Session.userHouse!!.houseMates
-        }
-
-        if (Session.userHouse != null) {
             choreArray = Session.userHouse!!.chores
-
         }
 
-
+        participantsList = chore!!.participants
         val adapter = ViewHouseMatesAdapter(activity!!, housematesArray)
         participants.adapter = adapter
 
         participants.setOnItemClickListener { parent, itemView, position, id ->
+            for (i in housematesArray.indices){
+                if(participantsList.contains(housematesArray[i])){
+                    participants.getChildAt(i).background = ContextCompat.getDrawable(this.requireContext(), R.drawable.view_rectangle_light)
+                }
+            }
             val housemate = housematesArray.get(position)
             if (!participantsList.contains(housemate)) {
                 itemView.background = ContextCompat.getDrawable(this.requireContext(), R.drawable.view_rectangle_light)
@@ -107,12 +108,8 @@ class EditChoreFragment : Fragment() {
             }
         }
 
-        //TODO: automatically set the current partcipants as selected
-
-
         makeCalendarField(startDate)
         makeCalendarField(endDate)
-
 
         btnDelete.setOnClickListener {
             deleteChore(chore!!.id)
