@@ -18,6 +18,10 @@ class HomeFragment : Fragment() {
         myView = view
         (activity as MainMenuActivity).supportActionBar!!.show()
         setHasOptionsMenu(true)
+
+//        if (!Session.hasHouse())
+//            view?.findNavController()?.navigate(R.id.selectHouseFragment)
+
         return view
     }
 

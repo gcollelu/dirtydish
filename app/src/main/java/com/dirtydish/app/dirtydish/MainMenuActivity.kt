@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.AppCompatActivity
-import android.view.MenuItem
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.AppBarConfiguration
@@ -13,8 +12,10 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.dirtydish.app.dirtydish.R.id.loginFragment
+import com.dirtydish.app.dirtydish.R.id.selectHouseFragment
 import com.dirtydish.app.dirtydish.databinding.ActivityMainMenuBinding
 import com.google.firebase.auth.FirebaseAuth
+import java.lang.System.exit
 
 
 class MainMenuActivity : AppCompatActivity() {
@@ -30,7 +31,7 @@ class MainMenuActivity : AppCompatActivity() {
         setupNav()
 
         checkLoggedIn()
-        checkHasHouse()
+        //checkHasHouse()
 
     }
 
@@ -39,19 +40,19 @@ class MainMenuActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
+        when (navController.currentDestination?.id) {
+            R.id.loginFragment -> {
+                exit(0)
+            }
+        }
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START)
         } else {
+
             super.onBackPressed()
         }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        if (item.itemId == R.id.logout) {
-//            Toast.makeText(this, "Logout selected.", Toast.LENGTH_SHORT).show()
-//        }
-        return super.onOptionsItemSelected(item)
-    }
 
     private fun setupNav() {
         val binding: ActivityMainMenuBinding = DataBindingUtil.setContentView(this,
@@ -73,8 +74,8 @@ class MainMenuActivity : AppCompatActivity() {
     }
 
     private fun checkHasHouse() {
-        //        if (!Session.hasHouse())
-//            startActivity(Intent(this, SelectHouseActivity::class.java))
+        if (!Session.hasHouse())
+            navController.navigate(selectHouseFragment)
     }
 
 

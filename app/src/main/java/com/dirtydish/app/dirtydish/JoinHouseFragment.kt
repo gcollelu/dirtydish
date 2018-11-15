@@ -1,5 +1,6 @@
 package com.dirtydish.app.dirtydish
 
+
 import android.Manifest
 import android.app.Activity
 import android.content.Context
@@ -13,47 +14,52 @@ import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.support.v4.app.ActivityCompat
+import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
-import android.support.v4.content.FileProvider.getUriForFile
-import android.support.v7.app.AppCompatActivity
+import android.support.v4.content.FileProvider
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import android.widget.Toast
 import com.google.android.gms.vision.Frame
 import com.google.android.gms.vision.barcode.Barcode
 import com.google.android.gms.vision.barcode.BarcodeDetector
-import kotlinx.android.synthetic.main.activity_join_house.*
+import kotlinx.android.synthetic.main.fragment_join_house.*
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.IOException
 
-class JoinHouse : AppCompatActivity() {
+class JoinHouseFragment : Fragment() {
 
     private val LOG_TAG = "Barcode Scanner API"
     private val PHOTO_REQUEST = 10
     private var scanResults: TextView? = null
-    private var decode: TextView? = null
     private var detector: BarcodeDetector? = null
     private var imageUri: Uri? = null
     private val REQUEST_WRITE_PERMISSION = 20
-    private val MY_REQUEST_CAMERA_PERMISSION = 200
-    private val SAVED_INSTANCE_URI = "uri"
-    private val SAVED_INSTANCE_RESULT = "result"
     private var currImagePath: String? = null
     internal var imageFile: File? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_join_house)
-        setSupportActionBar(toolbar)
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
-        actionBar?.hide()
-        val context = this
-        val  txtPinEntry : PinEntryEditText = pin_entry_edit as PinEntryEditText
+        (activity as MainMenuActivity).supportActionBar!!.hide()
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_join_house, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val txtPinEntry: PinEntryEditText = pin_entry_edit as PinEntryEditText
         txtPinEntry.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 //TODO: add check for actual house pin
@@ -74,21 +80,23 @@ class JoinHouse : AppCompatActivity() {
             }
         })
 
-        txtPinEntry.setOnFocusChangeListener { _, b -> hideSoftKeyboard(this@JoinHouse) }
+        txtPinEntry.setOnFocusChangeListener { _, b -> hideSoftKeyboard(activity as Activity) }
 
         btnScanCode.setOnClickListener {
-            ActivityCompat.requestPermissions(this@JoinHouse, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission_group.CAMERA, Manifest.permission.CAMERA), REQUEST_WRITE_PERMISSION)
+            ActivityCompat.requestPermissions(activity as Activity, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission_group.CAMERA, Manifest.permission.CAMERA), REQUEST_WRITE_PERMISSION)
+            if (checkPermission(context!!))
+                takePicture()
+            else
+                Toast.makeText(activity, "Permission Denied!", Toast.LENGTH_SHORT).show()
         }
 
-        detector = BarcodeDetector.Builder(applicationContext)
+        detector = BarcodeDetector.Builder(context)
                 .setBarcodeFormats(Barcode.ALL_FORMATS)
                 .build()
         if (!detector!!.isOperational) {
             //scanResults!!.text = "Could not set up the detector!"
             return
         }
-
-
 
     }
 
@@ -98,7 +106,7 @@ class JoinHouse : AppCompatActivity() {
             REQUEST_WRITE_PERMISSION -> if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 takePicture()
             } else {
-                Toast.makeText(this@JoinHouse, "Permission Denied!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, "Permission Denied!", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -110,7 +118,7 @@ class JoinHouse : AppCompatActivity() {
             mediaScanIntent.data = imageUri
             launchMediaScanIntent(mediaScanIntent)
             try {
-                val bitmap = decodeBitmapUri(this, imageUri)
+                val bitmap = decodeBitmapUri(context!!, imageUri)
                 if (detector!!.isOperational && bitmap != null) {
                     val frame = Frame.Builder().setBitmap(bitmap).build()
                     val barcodes = detector!!.detect(frame)
@@ -135,13 +143,13 @@ class JoinHouse : AppCompatActivity() {
                         }
                     }
                     if (barcodes.size() == 0) {
-                        scanResults!!.text = "Scan Failed "
+                        scanResults!!.text = getString(R.string.scanFailed)
                     }
                 } else {
-                    scanResults!!.text = "Could not set up the Barcode detector!"
+                    scanResults!!.text = getString(R.string.cantSetupBarcodeDetector)
                 }
             } catch (e: Exception) {
-                Toast.makeText(this, "Failed to load Image", Toast.LENGTH_SHORT)
+                Toast.makeText(activity, "Failed to load Image", Toast.LENGTH_SHORT)
                         .show()
                 Log.e(LOG_TAG, e.toString())
             }
@@ -159,19 +167,19 @@ class JoinHouse : AppCompatActivity() {
             e.printStackTrace()
         }
 
-        var authorities: String = applicationContext.packageName + ".fileprovider"
+        val authorities: String = activity?.applicationContext?.packageName + ".fileprovider"
 
 
 
         imageUri = if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP) {
             Uri.fromFile(imageFile)
         } else {
-            getUriForFile(this@JoinHouse, authorities, imageFile!!)
+            FileProvider.getUriForFile(activity as MainMenuActivity, authorities, imageFile!!)
         }
 
         intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
 
-        if (intent.resolveActivity(packageManager) != null) {
+        if (intent.resolveActivity(activity!!.packageManager) != null) {
             startActivityForResult(intent, PHOTO_REQUEST)
         }
 
@@ -188,17 +196,9 @@ class JoinHouse : AppCompatActivity() {
         return storageDir
     }
 
-    override fun onSaveInstanceState(outState: Bundle?) {
-        if (imageUri != null) {
-            outState!!.putString(SAVED_INSTANCE_URI, imageUri!!.toString())
-            //outState.putString(SAVED_INSTANCE_RESULT, scanResults!!.text.toString())
-        }
-        super.onSaveInstanceState(outState)
-    }
-
     private fun launchMediaScanIntent(mediaScanIntent: Intent) {
 
-        this.sendBroadcast(mediaScanIntent)
+        activity?.sendBroadcast(mediaScanIntent)
     }
 
     @Throws(FileNotFoundException::class)
@@ -222,20 +222,6 @@ class JoinHouse : AppCompatActivity() {
                 .openInputStream(uri), null, bmOptions)
     }
 
-    private fun checkAndRequestPermissions(context: Context ) : ArrayList <String> {
-
-        var camera = ContextCompat.checkSelfPermission(context, android.Manifest.permission.CAMERA)
-        var readStorage = ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-        var listPermissionsNeeded = ArrayList <String> ()
-
-        if (camera != PackageManager.PERMISSION_GRANTED)
-            listPermissionsNeeded.add(android.Manifest.permission.CAMERA)
-
-        if (readStorage != PackageManager.PERMISSION_GRANTED)
-            listPermissionsNeeded.add(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-
-    return listPermissionsNeeded
-}
     fun hideSoftKeyboard(activity: Activity) {
         val inputMethodManager = activity.getSystemService(
                 Activity.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -243,4 +229,16 @@ class JoinHouse : AppCompatActivity() {
                 activity.currentFocus!!.windowToken, 0)
     }
 
+    private fun checkPermission(context: Context): Boolean {
+
+        val camera = ContextCompat.checkSelfPermission(context, android.Manifest.permission.CAMERA)
+        val writeStorage = ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+
+
+        if (camera != PackageManager.PERMISSION_GRANTED || writeStorage != PackageManager.PERMISSION_GRANTED)
+            return false
+
+
+        return true
+    }
 }

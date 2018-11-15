@@ -22,9 +22,11 @@
             app:destination="@id/shareHouseFragment" />
         <argument
             android:name="houseName"
+            android:defaultValue="My House"
             app:argType="string" />
         <argument
             android:name="houseAddress"
+            android:defaultValue="My Address"
             app:argType="string" />
     </fragment>
     <fragment
@@ -52,7 +54,14 @@
             app:exitAnim="@anim/slide_in_right"
             app:launchSingleTop="false"
             app:popUpTo="@+id/viewHouseFragment"
-            app:popUpToInclusive="true" />
+            app:popUpToInclusive="true">
+            <argument
+                android:name="houseName"
+                android:defaultValue="My House" />
+            <argument
+                android:name="houseAddress"
+                android:defaultValue="My Address" />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
@@ -161,6 +170,9 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"
             app:popUpTo="@+id/loginFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
@@ -170,5 +182,68 @@
         <argument
             android:name="email"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/selectHouseFragment"
+        android:name="com.dirtydish.app.dirtydish.SelectHouseFragment"
+        android:label="fragment_select_house"
+        tools:layout="@layout/fragment_select_house">
+        <action
+            android:id="@+id/action_selectHouseFragment_to_setupHouseFragment"
+            app:destination="@id/setupHouseFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_selectHouseFragment_to_joinHouseFragment"
+            app:destination="@id/joinHouseFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/setupHouseFragment"
+        android:name="com.dirtydish.app.dirtydish.SetupHouseFragment"
+        android:label="fragment_setup_house"
+        tools:layout="@layout/fragment_setup_house">
+        <action
+            android:id="@+id/action_setupHouseFragment_to_inviteHousematesFragment"
+            app:destination="@id/inviteHousematesFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/inviteHousematesFragment"
+        android:name="com.dirtydish.app.dirtydish.InviteHousematesFragment"
+        android:label="fragment_invite_housemates"
+        tools:layout="@layout/fragment_invite_housemates">
+        <argument
+            android:name="houseName"
+            app:argType="string" />
+        <argument
+            android:name="houseAddress"
+            app:argType="string" />
+        <argument
+            android:name="housematesCount"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_inviteHousematesFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popUpTo="@+id/nav_graph" />
+    </fragment>
+    <fragment
+        android:id="@+id/joinHouseFragment"
+        android:name="com.dirtydish.app.dirtydish.JoinHouseFragment"
+        android:label="fragment_join_house"
+        tools:layout="@layout/fragment_join_house">
+        <action
+            android:id="@+id/action_joinHouseFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
 </navigation>

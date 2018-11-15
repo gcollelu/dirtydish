@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".SetupHouseActivity"
-android:background="@drawable/gradient_bg"
-    android:alpha="0.8"
-tools:showIn="@layout/activity_setup_house">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/girl_night"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".SetupHouseFragment">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.7"
+        android:background="@drawable/gradient_bg" />
 
     <EditText
         android:id="@+id/editHouseName"
@@ -52,43 +55,62 @@ tools:showIn="@layout/activity_setup_house">
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editHouseName" />
 
-    <EditText
-        android:id="@+id/editHouseMateCount"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/editEmail"
-        android:layout_marginStart="90dp"
-        android:layout_marginLeft="90dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="90dp"
-        android:layout_marginRight="90dp"
-        android:backgroundTint="@color/colorWhite"
-        android:fontFamily="sans-serif-light"
-        android:hint="How many housemates?"
-        android:inputType="number"
+    <TextView
+        android:id="@+id/housemateCountLabel"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/view_round_left_red"
+        android:gravity="center_vertical|center_horizontal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="Additional housemates"
         android:textColor="@color/colorWhite"
-        android:textColorHint="@color/colorWhite"
-        android:textSize="17sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textColorLink="@color/colorWhite"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:fontFamily="sans-serif-smallcaps"
+        app:layout_constraintEnd_toStartOf="@id/editHouseMateCount"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editAddress" />
+        app:layout_constraintTop_toBottomOf="@id/editAddress" />
+
+    <Spinner
+        android:id="@+id/editHouseMateCount"
+        android:layout_width="60dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@color/colorWhite"
+        android:entries="@array/freq_vals"
+        android:gravity="center_horizontal|center"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/housemateCountLabel"
+        app:layout_constraintTop_toTopOf="@+id/housemateCountLabel" />
 
     <Button
-        android:id="@+id/btnNewHouse"
+        android:id="@+id/btnCreate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="30dp"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="100dp"
         android:layout_marginEnd="30dp"
         android:layout_marginRight="30dp"
+        android:layout_marginBottom="20dp"
         android:background="@drawable/button_white"
-        android:text="@string/next"
+        android:text="Invite Housemates"
         android:textColor="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </android.support.constraint.ConstraintLayout>
