@@ -10,7 +10,6 @@ import android.widget.Toast
 import androidx.navigation.findNavController
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_edit_house.*
-import org.jetbrains.anko.bundleOf
 import org.jetbrains.anko.doAsync
 
 class EditHouseFragment : Fragment() {
@@ -50,10 +49,7 @@ class EditHouseFragment : Fragment() {
             bundle.putString("houseName", house?.name)
             bundle.putString("houseAddress", house?.address)
             Toast.makeText(activity, "House saved.", Toast.LENGTH_SHORT).show()
-            val directions = EditHouseFragmentDirections.actionEditHouseFragmentToViewHouseFragment()
-            directions.setHouseName(house?.name ?: "")
-            directions.setHouseAddress(house?.address ?: "")
-            view.findNavController().navigate(directions)
+            view.findNavController().navigateUp()
         }
 
         housematesEditList.setOnItemClickListener { parent, view, position, id ->

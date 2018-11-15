@@ -48,20 +48,6 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
-        <action
-            android:id="@+id/action_editHouseFragment_to_viewHouseFragment"
-            app:destination="@id/viewHouseFragment"
-            app:exitAnim="@anim/slide_in_right"
-            app:launchSingleTop="false"
-            app:popUpTo="@+id/viewHouseFragment"
-            app:popUpToInclusive="true">
-            <argument
-                android:name="houseName"
-                android:defaultValue="My House" />
-            <argument
-                android:name="houseAddress"
-                android:defaultValue="My Address" />
-        </action>
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
@@ -116,11 +102,6 @@
             android:name="housemate"
             app:argType="com.dirtydish.app.dirtydish.HouseMate" />
     </fragment>
-    <fragment
-        android:id="@+id/logoutFragment"
-        android:name="com.dirtydish.app.dirtydish.LogoutFragment"
-        android:label="fragment_logout"
-        tools:layout="@layout/fragment_logout" />
     <fragment
         android:id="@+id/notificationsFragment"
         android:name="com.dirtydish.app.dirtydish.NotificationsFragment"

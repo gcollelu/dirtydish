@@ -35,6 +35,7 @@
         android:textSize="17sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/editEmail"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
@@ -55,6 +56,7 @@
         android:textSize="17sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/editPassword"
         app:layout_constraintTop_toBottomOf="@+id/editName" />
 
     <EditText
@@ -77,6 +79,7 @@
         android:textSize="17sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btnSignUp"
         app:layout_constraintTop_toBottomOf="@+id/editEmail" />
 
     <Button
