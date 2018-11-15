@@ -74,6 +74,24 @@ class EditChoreFragment : Fragment() {
 
         editName.setText(chore!!.name)
         description.setText(chore!!.description)
+        Log.d("EDIT_CHORE", chore!!.frequency.toString())
+
+        when {
+            chore!!.frequency % 30 == 0 -> {
+                freqType.setSelection(2)
+                editFrequency.setSelection(chore!!.frequency/30 - 1)
+            }
+            chore!!.frequency % 7 == 0 -> {
+                freqType.setSelection(1)
+                editFrequency.setSelection(chore!!.frequency/7 - 1)
+            }
+            else -> {
+                freqType.setSelection(0)
+                editFrequency.setSelection(chore!!.frequency - 1)
+            }
+        }
+
+
 
         previewImageView = choreImagePreview
 
