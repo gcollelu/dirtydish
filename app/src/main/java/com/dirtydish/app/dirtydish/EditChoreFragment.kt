@@ -72,6 +72,9 @@ class EditChoreFragment : Fragment() {
         val btnSave: Button = view.findViewById<Button>(R.id.btnSave)
         val btnDelete: Button = view.findViewById<Button>(R.id.btnDelete)
 
+        editName.setText(chore!!.name)
+        description.setText(chore!!.description)
+
         previewImageView = choreImagePreview
 
         //TODO: re-instantiate the frequency in the right way?
