@@ -159,7 +159,7 @@ class EditChoreFragment : Fragment() {
 
             val houseKey = Session.userHouse!!.id;
             val chore = Chore(name = editName.text.toString(), id = id.toString(),
-                    frequency = frequency, participants = participantsList, houseId = houseKey)
+                    frequency = frequency, participants = participantsList, houseId = houseKey, description = description.text.toString())
 
 
             choreArray[id] = chore

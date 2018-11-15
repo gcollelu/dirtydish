@@ -296,7 +296,6 @@
                     android:paddingTop="10dp"
                     android:paddingRight="20dp"
                     android:paddingBottom="10dp"
-                    android:text="How to wash dishes: (1) wash dishes, (2) are dishes washes?. If yes -> dry dishes. If no -> rewash dishes"
                     android:textColor="@color/colorWhite"
                     android:textSize="14sp"
                     android:textStyle="bold"

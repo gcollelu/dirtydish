@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import kotlinx.android.synthetic.main.activity_add_chore.*
 import kotlinx.android.synthetic.main.activity_modify_chore.*
 import java.util.*
 
@@ -55,7 +56,8 @@ class ModifyChore : AppCompatActivity() {
                 id = key,
                 houseId = Session.userHouse!!.chores.get(id).houseId,
                 frequency = Integer.parseInt(modify_chore_frequency.text.toString()),
-                participants = Session.userHouse!!.chores.get(id).participants)
+                participants = Session.userHouse!!.chores.get(id).participants,
+                description = description.text.toString())
         //choreRef.child(key).setValue(chore)
         choreArray[id] = chore
         houseRef.child("chores").setValue(choreArray)

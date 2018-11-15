@@ -50,11 +50,13 @@ class ChoreDetailFragment : Fragment() {
         val name = view!!.findViewById<TextView>(R.id.chore_name)
         val assignedToField = view!!.findViewById<TextView>(R.id.chore_assignee)
         val frequencyField = view!!.findViewById<TextView>(R.id.chore_frequency)
+        val descriptionField = view!!.findViewById<TextView>(R.id.choreDescription)
 
         if (chore != null) {
             chore_name.text = chore!!.name
 //            chore_assignee.text = chore!!.participants[0].name
             chore_frequency.text = Utilities.intFrequencyToString(chore!!.frequency)
+            choreDescription.text = chore!!.description
         }
     }
 
