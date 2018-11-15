@@ -20,6 +20,14 @@
         <action
             android:id="@+id/action_viewHouseFragment_to_shareHouseFragment"
             app:destination="@id/shareHouseFragment" />
+        <argument
+            android:name="houseName"
+            android:defaultValue=""
+            app:argType="string"></argument>
+        <argument
+            android:name="houseAddress"
+            android:defaultValue=""
+            app:argType="string"></argument>
     </fragment>
     <fragment
         android:id="@+id/editHouseFragment"
@@ -40,7 +48,13 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
-
+        <action
+            android:id="@+id/action_editHouseFragment_to_viewHouseFragment"
+            app:destination="@id/viewHouseFragment"
+            app:exitAnim="@anim/slide_in_right"
+            app:launchSingleTop="false"
+            app:popUpTo="@+id/viewHouseFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment"

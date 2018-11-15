@@ -36,12 +36,24 @@ class ViewHouseFragment : Fragment() {
                 housematesArray.add(housemate)
             }
         }
-        
+
         val adapter = ViewHouseMatesAdapter(activity!!, housematesArray)
         housematesList.adapter = adapter
 
         btnEditHouse.setOnClickListener {
             view.findNavController().navigate(R.id.action_viewHouseFragment_to_editHouseFragment2)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val name = ViewHouseFragmentArgs.fromBundle(arguments).houseName
+        val address = ViewHouseFragmentArgs.fromBundle(arguments).houseAddress
+        if (name != null && name.isNotEmpty()) {
+            houseName.text = name
+        }
+        if (address != null && address.isNotEmpty()) {
+            houseAddress.text = address
         }
     }
 

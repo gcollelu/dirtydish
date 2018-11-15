@@ -8,7 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.findNavController
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_edit_house.*
+import org.jetbrains.anko.bundleOf
+import org.jetbrains.anko.doAsync
 
 class EditHouseFragment : Fragment() {
     var housematesArray: MutableList<HouseMate> = mutableListOf<HouseMate>()
@@ -42,8 +45,15 @@ class EditHouseFragment : Fragment() {
         housematesEditList.adapter = adapter
 
         btnSave.setOnClickListener {
-            view.findNavController().navigateUp()
+            val house = saveHouseToDB()
+            var bundle = Bundle()
+            bundle.putString("houseName", house?.name)
+            bundle.putString("houseAddress", house?.address)
             Toast.makeText(activity, "House saved.", Toast.LENGTH_SHORT).show()
+            val directions = EditHouseFragmentDirections.actionEditHouseFragmentToViewHouseFragment()
+            directions.setHouseName(house?.name ?: "")
+            directions.setHouseAddress(house?.address ?: "")
+            view.findNavController().navigate(directions)
         }
 
         housematesEditList.setOnItemClickListener { parent, view, position, id ->
@@ -51,5 +61,26 @@ class EditHouseFragment : Fragment() {
             val directions = EditHouseFragmentDirections.ActionEditHouseFragmentToEditHousemateFragment(housemate)
             view.findNavController().navigate(directions)
         }
+    }
+
+    private fun saveHouseToDB(): House? {
+        val house = Session.userHouse
+        var changed = false
+        if (house != null) {
+            val houseRef = FirebaseDatabase.getInstance().getReference("houses").child(house.id)
+            val changedName = houseName.text.toString()
+            val changedAddress = houseAddress.text.toString()
+            if (changedName != house.name && changedName.isNotEmpty()) {
+                house.name = changedName
+                changed = true
+                doAsync { houseRef.child("name").setValue(changedName) }
+            }
+            if (changedAddress != house.address && changedAddress.isNotEmpty()) {
+                house.address = changedAddress
+                changed = true
+                doAsync { houseRef.child("address").setValue(changedAddress) }
+            }
+        }
+        return if (changed) house else null
     }
 }
