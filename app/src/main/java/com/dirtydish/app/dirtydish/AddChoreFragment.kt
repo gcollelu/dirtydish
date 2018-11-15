@@ -145,8 +145,15 @@ class AddChoreFragment : Fragment() {
             var id = Session.userHouse!!.chores.lastIndex + 1
 
             var houseKey = Session.userHouse!!.id;
-            val chore = Chore(name = editName.text.toString(), id = id.toString(),
-                    frequency = frequency, participants = participantsList, houseId = houseKey, description = description.text.toString())
+            val chore = Chore(
+                    name = editName.text.toString(),
+                    id = id.toString(),
+                    frequency = frequency,
+                    participants = participantsList,
+                    houseId = houseKey,
+                    description = description.text.toString(),
+                    startDate = startDate.text.toString(),
+                    endDate = endDate.text.toString())
 
 
             Log.d(tag_local, chore.toString())

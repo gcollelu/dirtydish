@@ -57,6 +57,8 @@ class ChoreDetailFragment : Fragment() {
         val assignedToField = view!!.findViewById<TextView>(R.id.chore_assignee)
         val frequencyField = view!!.findViewById<TextView>(R.id.chore_frequency)
         val descriptionField = view!!.findViewById<TextView>(R.id.choreDescription)
+        val startDate: TextView = view.findViewById<TextView>(R.id.startDate)
+        val endDate: TextView = view.findViewById<TextView>(R.id.endDate)
         //val participants = view!!.findViewById<TextView>(R.id.participants)
 
         if (chore != null) {
@@ -71,6 +73,9 @@ class ChoreDetailFragment : Fragment() {
 
             val participantAdapter = ViewHouseMatesSimpleAdapter(activity!!, chore!!.participants)
             participants.adapter = participantAdapter
+
+            startDate.text = chore!!.startDate
+            endDate.text = chore!!.endDate
 
         }
     }

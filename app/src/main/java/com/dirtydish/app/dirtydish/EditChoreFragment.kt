@@ -74,7 +74,7 @@ class EditChoreFragment : Fragment() {
 
         editName.setText(chore!!.name)
         description.setText(chore!!.description)
-        Log.d("EDIT_CHORE", chore!!.frequency.toString())
+        Log.d("EDIT_CHORE", "Frequency = " + chore!!.frequency.toString())
 
         when {
             chore!!.frequency % 30 == 0 -> {
@@ -90,6 +90,9 @@ class EditChoreFragment : Fragment() {
                 editFrequency.setSelection(chore!!.frequency - 1)
             }
         }
+
+        startDate.text = chore!!.startDate
+        endDate.text = chore!!.endDate
 
 
 
@@ -176,8 +179,15 @@ class EditChoreFragment : Fragment() {
             val id = chore!!.id.toInt()
 
             val houseKey = Session.userHouse!!.id
-            val chore = Chore(name = editName.text.toString(), id = id.toString(),
-                    frequency = frequency, participants = participantsList, houseId = houseKey, description = description.text.toString())
+            val chore = Chore(
+                    name = editName.text.toString(),
+                    id = id.toString(),
+                    frequency = frequency,
+                    participants = participantsList,
+                    houseId = houseKey,
+                    description = description.text.toString(),
+                    startDate = startDate.text.toString(),
+                    endDate = endDate.text.toString())
 
 
             choreArray[id] = chore
@@ -195,8 +205,6 @@ class EditChoreFragment : Fragment() {
     }
 
     private fun makeCalendarField(textView: TextView) {
-        textView.text = SimpleDateFormat("EEEE, MMMM d, yyyy").format(System.currentTimeMillis())
-
         val calendar = Calendar.getInstance()
 
         val dateSetListener = DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
