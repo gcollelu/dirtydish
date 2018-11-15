@@ -8,23 +8,8 @@ import android.view.*
 import android.widget.TextView
 import androidx.navigation.findNavController
 import kotlinx.android.synthetic.main.fragment_chore_detail.*
-import android.widget.ArrayAdapter
-import android.view.ViewGroup
 
 
-
-
-
-
-/**
- * A simple [Fragment] subclass.
- * Activities that contain this fragment must implement the
- * [ChoreDetailFragment.OnFragmentInteractionListener] interface
- * to handle interaction events.
- * Use the [ChoreDetailFragment.newInstance] factory method to
- * create an instance of this fragment.
- *
- */
 class ChoreDetailFragment : Fragment() {
     var chore: Chore? = null
     var myView: View? = null

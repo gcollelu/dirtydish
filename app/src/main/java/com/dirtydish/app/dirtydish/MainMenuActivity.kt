@@ -1,6 +1,5 @@
 package com.dirtydish.app.dirtydish
 
-import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.view.GravityCompat
@@ -13,6 +12,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.dirtydish.app.dirtydish.R.id.loginFragment
 import com.dirtydish.app.dirtydish.databinding.ActivityMainMenuBinding
 import com.google.firebase.auth.FirebaseAuth
 
@@ -25,10 +25,12 @@ class MainMenuActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        checkLoggedIn()
-        checkHasHouse()
+
         Session.init()
         setupNav()
+
+        checkLoggedIn()
+        checkHasHouse()
 
     }
 
@@ -67,7 +69,7 @@ class MainMenuActivity : AppCompatActivity() {
 
     private fun checkLoggedIn() {
         if (FirebaseAuth.getInstance().currentUser == null)
-            startActivity(Intent(this, AuthActivity::class.java))
+            navController.navigate(loginFragment)
     }
 
     private fun checkHasHouse() {

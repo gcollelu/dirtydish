@@ -16,7 +16,7 @@ class HomeFragment : Fragment() {
         val view = inflater.inflate(R.layout.homepage,
                 container, false)
         myView = view
-
+        (activity as MainMenuActivity).supportActionBar!!.show()
         setHasOptionsMenu(true)
         return view
     }
