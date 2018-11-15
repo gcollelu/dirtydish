@@ -25,7 +25,6 @@ class MainMenuActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
         Session.init()
         setupNav()
 
@@ -45,6 +44,10 @@ class MainMenuActivity : AppCompatActivity() {
             }
 
             R.id.homeFragment -> {
+                return
+            }
+
+            R.id.selectHouseFragment -> {
                 return
             }
         }

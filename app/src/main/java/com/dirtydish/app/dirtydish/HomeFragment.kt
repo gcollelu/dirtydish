@@ -5,11 +5,12 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.*
 import android.widget.TextView
 import androidx.navigation.findNavController
-import com.google.firebase.database.*
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.chore_min.view.*
 import kotlinx.android.synthetic.main.homepage.*
 
@@ -51,7 +52,6 @@ class HomeFragment : Fragment() {
             myChoresList.adapter = MainChoreAdapter(Session.userHouse!!.chores, activity as Context)
         }
 
-        attachListenerForChanges()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
@@ -69,27 +69,6 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun attachListenerForChanges() {
-        listener = object : ValueEventListener {
-
-            override fun onDataChange(snap: DataSnapshot) {
-                val list = Session.userHouse!!.chores
-                myChoresList!!.adapter = MainChoreAdapter(list, context!!)
-            }
-
-            override fun onCancelled(err: DatabaseError) {
-                // Failed to connect to database
-                Log.d(tag, err.message)
-            }
-
-        }
-
-        //choreRef.addValueEventListener(listener)
-        if (Session.hasHouse()) {
-            houseRef.addValueEventListener(listener)
-        }
-
-    }
 
     class MainChoreAdapter(private val data: List<Chore>, val context: Context) : RecyclerView.Adapter<MainChoreAdapter.ChoreHolder>(){
 
