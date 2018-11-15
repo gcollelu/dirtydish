@@ -19,6 +19,7 @@ import android.support.v7.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import android.widget.Toast
@@ -49,7 +50,8 @@ class JoinHouse : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_join_house)
         setSupportActionBar(toolbar)
-
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
+        actionBar?.hide()
         val context = this
         val  txtPinEntry : PinEntryEditText = pin_entry_edit as PinEntryEditText
         txtPinEntry.addTextChangedListener(object : TextWatcher {

@@ -7,7 +7,6 @@ import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.AppBarConfiguration
@@ -46,9 +45,9 @@ class MainMenuActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.logout) {
-            Toast.makeText(this, "Logout selected.", Toast.LENGTH_SHORT).show()
-        }
+//        if (item.itemId == R.id.logout) {
+//            Toast.makeText(this, "Logout selected.", Toast.LENGTH_SHORT).show()
+//        }
         return super.onOptionsItemSelected(item)
     }
 

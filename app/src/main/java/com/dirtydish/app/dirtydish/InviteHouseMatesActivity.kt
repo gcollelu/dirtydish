@@ -3,9 +3,9 @@ package com.dirtydish.app.dirtydish
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.View
 import android.widget.Toast
 import com.google.firebase.database.*
-import kotlinx.android.synthetic.main.activity_invite_house_mates.*
 import kotlinx.android.synthetic.main.content_invite_house_mates.*
 import org.jetbrains.anko.doAsync
 
@@ -18,7 +18,8 @@ class InviteHouseMatesActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_invite_house_mates)
-        setSupportActionBar(toolbar)
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
+        actionBar?.hide()
 
         val db = FirebaseDatabase.getInstance()
         hmRef = db.getReference("housemates")

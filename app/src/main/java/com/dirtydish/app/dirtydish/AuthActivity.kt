@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -20,7 +21,8 @@ class AuthActivity : AppCompatActivity() {
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_auth)
-
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
+        actionBar?.hide()
         auth = FirebaseAuth.getInstance()
         db = FirebaseDatabase.getInstance()
         housemateRef = db.getReference("housemates")
@@ -56,7 +58,7 @@ class AuthActivity : AppCompatActivity() {
                         Toast.makeText(this, "Registered successfully.", Toast.LENGTH_SHORT).show()
                         createHouseMate(email, auth.currentUser?.uid)
                         Session.init()
-                        startActivity(Intent(this, SelectHouseActivity::class.java))
+                        startActivity(Intent(this, InputNameActivity::class.java))
                         finish()
                     } else {
                         Toast.makeText(this, "Registration failed.", Toast.LENGTH_SHORT).show()

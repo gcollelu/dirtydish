@@ -18,7 +18,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen">
         <activity
             android:name=".MainMenuActivity"
             android:label="@string/app_name"
@@ -44,14 +44,16 @@
         <activity
             android:name=".SetupHouseActivity"
             android:label="@string/title_activity_setup_house"
-            android:parentActivityName=".MainMenuActivity">
+            android:parentActivityName=".MainMenuActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.dirtydish.app.dirtydish.MainMenuActivity" />
         </activity>
         <activity
             android:name=".SelectHouseActivity"
-            android:label="House Setup">
+            android:label="House Setup"
+            android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.dirtydish.app.dirtydish.AuthActivity" />
@@ -77,7 +79,6 @@
                 android:resource="@xml/provider_paths" />
         </provider>
 
-
         <activity
             android:name=".InviteHouseMatesActivity"
             android:label="@string/title_activity_invite_house_mates"
@@ -93,6 +94,10 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
+        <activity
+            android:name=".InputNameActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
