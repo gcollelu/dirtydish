@@ -12,6 +12,8 @@ import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -21,6 +23,7 @@ import androidx.navigation.findNavController
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_view_chores.*
 import kotlinx.android.synthetic.main.fragment_edit_chore.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -66,7 +69,7 @@ class EditChoreFragment : Fragment() {
         val startDate: TextView = view.findViewById<TextView>(R.id.startDate)
         val endDate: TextView = view.findViewById<TextView>(R.id.endDate)
         val description: EditText = view.findViewById<EditText>(R.id.description)
-        val participants: ListView = view.findViewById<ListView>(R.id.participants)
+        //val participants: RecyclerView = view.findViewById<RecyclerView>(R.id.participants)
         val choreImagePreview: ImageView = view.findViewById<ImageView>(R.id.choreImagePreview)
         val btnPickImage: Button = view.findViewById<Button>(R.id.btnPickImage)
         val btnSave: Button = view.findViewById<Button>(R.id.btnSave)
@@ -110,24 +113,11 @@ class EditChoreFragment : Fragment() {
         }
 
         participantsList = chore!!.participants
-        val adapter = ViewHouseMatesAdapter(activity!!, housematesArray)
-        participants.adapter = adapter
 
-        participants.setOnItemClickListener { parent, itemView, position, id ->
-            for (i in housematesArray.indices){
-                if(participantsList.contains(housematesArray[i])){
-                    participants.getChildAt(i).background = ContextCompat.getDrawable(this.requireContext(), R.drawable.view_rectangle_light)
-                }
-            }
-            val housemate = housematesArray.get(position)
-            if (!participantsList.contains(housemate)) {
-                itemView.background = ContextCompat.getDrawable(this.requireContext(), R.drawable.view_rectangle_light)
-                participantsList.add(housemate)
-            } else {
-                itemView.background = ContextCompat.getDrawable(this.requireContext(), R.drawable.view_rectangle_white)
-                participantsList.remove(housemate)
-            }
-        }
+        val viewManager = LinearLayoutManager(this.requireContext())
+        participants.layoutManager = viewManager
+        val adapter = ParticipantsRecyclerAdapter(housematesArray, participantsList, this.requireContext())
+        participants.adapter = adapter
 
         makeCalendarField(startDate)
         makeCalendarField(endDate)
@@ -167,6 +157,14 @@ class EditChoreFragment : Fragment() {
     }
 
     private fun editChore(key: String) {
+        participantsList = mutableListOf()
+        for (i in 0 until participants.childCount) {
+            val partic = participants.getChildViewHolder(participants.getChildAt(i))
+            if (partic.itemView.background != null){
+                participantsList.add(housematesArray[i])
+            }
+        }
+
         if (Session.hasHouse()) {
             var frequency = Integer.parseInt(editFrequency.selectedItem.toString())
             val frequencyType = freq_type.selectedItemPosition
