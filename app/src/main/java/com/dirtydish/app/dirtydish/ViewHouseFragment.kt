@@ -27,7 +27,8 @@ class ViewHouseFragment : Fragment() {
 
         if (Session.userHouse != null) {
             housematesArray = Session.userHouse!!.houseMates
-            houseName.text = Session.userHouse!!.name
+            val houseNameString = Session.userHouse!!.name
+            houseName.setText(houseNameString)
             houseAddress.text = Session.userHouse!!.address
         } else { // use sample data for now
             //TODO redirect user to house join/create page
@@ -49,10 +50,10 @@ class ViewHouseFragment : Fragment() {
         super.onResume()
         val name = ViewHouseFragmentArgs.fromBundle(arguments).houseName
         val address = ViewHouseFragmentArgs.fromBundle(arguments).houseAddress
-        if (name != null && name.isNotEmpty()) {
+        if (name != "My House" && name.isNotEmpty()) {
             houseName.text = name
         }
-        if (address != null && address.isNotEmpty()) {
+        if (address != "My Address" && address.isNotEmpty()) {
             houseAddress.text = address
         }
     }
