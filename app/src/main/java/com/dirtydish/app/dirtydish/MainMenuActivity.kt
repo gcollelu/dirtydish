@@ -15,7 +15,6 @@ import com.dirtydish.app.dirtydish.R.id.loginFragment
 import com.dirtydish.app.dirtydish.R.id.selectHouseFragment
 import com.dirtydish.app.dirtydish.databinding.ActivityMainMenuBinding
 import com.google.firebase.auth.FirebaseAuth
-import java.lang.System.exit
 
 
 class MainMenuActivity : AppCompatActivity() {
@@ -42,7 +41,11 @@ class MainMenuActivity : AppCompatActivity() {
     override fun onBackPressed() {
         when (navController.currentDestination?.id) {
             R.id.loginFragment -> {
-                exit(0)
+                return
+            }
+
+            R.id.homeFragment -> {
+                return
             }
         }
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {

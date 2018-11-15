@@ -5,15 +5,20 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.*
 import android.widget.TextView
 import androidx.navigation.findNavController
+import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.chore_min.view.*
 import kotlinx.android.synthetic.main.homepage.*
 
 class HomeFragment : Fragment() {
 
     var myView: View? = null
+    private lateinit var listener: ValueEventListener
+    private lateinit var houseRef: DatabaseReference
+    private lateinit var db: FirebaseDatabase
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -21,9 +26,15 @@ class HomeFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.homepage,
                 container, false)
+        db = FirebaseDatabase.getInstance()
         myView = view
         (activity as MainMenuActivity).supportActionBar!!.show()
         setHasOptionsMenu(true)
+
+        if (Session.hasHouse()) {
+            houseRef = db.getReference("houses").child(Session.userHouse!!.id)
+            houseRef.keepSynced(true)
+        }
 
 //        if (!Session.hasHouse())
 //            view?.findNavController()?.navigate(R.id.selectHouseFragment)
@@ -35,10 +46,12 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         myChoresList.layoutManager = LinearLayoutManager(activity as Context)
-        val house = Session.userHouse
-        if (house != null && house.chores != null) {
-            myChoresList.adapter = MainChoreAdapter(house.chores, activity as Context)
+
+        if (Session.hasHouse()) {
+            myChoresList.adapter = MainChoreAdapter(Session.userHouse!!.chores, activity as Context)
         }
+
+        attachListenerForChanges()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
@@ -54,6 +67,28 @@ class HomeFragment : Fragment() {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun attachListenerForChanges() {
+        listener = object : ValueEventListener {
+
+            override fun onDataChange(snap: DataSnapshot) {
+                val list = Session.userHouse!!.chores
+                myChoresList!!.adapter = MainChoreAdapter(list, context!!)
+            }
+
+            override fun onCancelled(err: DatabaseError) {
+                // Failed to connect to database
+                Log.d(tag, err.message)
+            }
+
+        }
+
+        //choreRef.addValueEventListener(listener)
+        if (Session.hasHouse()) {
+            houseRef.addValueEventListener(listener)
+        }
+
     }
 
     class MainChoreAdapter(private val data: List<Chore>, val context: Context) : RecyclerView.Adapter<MainChoreAdapter.ChoreHolder>(){
