@@ -46,7 +46,7 @@ class InviteHousematesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val housematesArray: MutableList<HouseMate> = mutableListOf<HouseMate>()
-        var choreArray: MutableList<Chore> = mutableListOf<Chore>()
+        val choreArray: MutableList<Chore> = mutableListOf<Chore>()
 
         for (i in 0 until housematesCount) {
             housematesArray.add(HouseMate())
@@ -74,7 +74,7 @@ class InviteHousematesFragment : Fragment() {
                 storeHouseToDB(house)
                 //TODO: should we add line below to immediately show user has a house?
                 //Session.userHouse = house
-                view?.findNavController()?.navigate(R.id.action_inviteHousematesFragment_to_homeFragment)
+                view.findNavController().navigate(R.id.action_inviteHousematesFragment_to_homeFragment)
             } else {
                 Toast.makeText(activity, "Please input all housemates information.", Toast.LENGTH_SHORT).show()
             }

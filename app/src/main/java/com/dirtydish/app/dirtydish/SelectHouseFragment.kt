@@ -28,10 +28,10 @@ class SelectHouseFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         btnJoinHouse.setOnClickListener {
-            view?.findNavController()?.navigate(R.id.action_selectHouseFragment_to_joinHouseFragment)
+            view.findNavController().navigate(R.id.action_selectHouseFragment_to_joinHouseFragment)
         }
         btnNewHouse.setOnClickListener {
-            view?.findNavController()?.navigate(R.id.action_selectHouseFragment_to_setupHouseFragment)
+            view.findNavController().navigate(R.id.action_selectHouseFragment_to_setupHouseFragment)
         }
     }
 

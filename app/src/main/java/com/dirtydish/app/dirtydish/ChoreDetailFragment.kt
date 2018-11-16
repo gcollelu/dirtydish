@@ -38,13 +38,9 @@ class ChoreDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val name = view!!.findViewById<TextView>(R.id.chore_name)
-        val assignedToField = view!!.findViewById<TextView>(R.id.chore_assignee)
-        val frequencyField = view!!.findViewById<TextView>(R.id.chore_frequency)
-        val descriptionField = view!!.findViewById<TextView>(R.id.choreDescription)
+
         val startDate: TextView = view.findViewById<TextView>(R.id.startDate)
         val endDate: TextView = view.findViewById<TextView>(R.id.endDate)
-        //val participants = view!!.findViewById<TextView>(R.id.participants)
 
         if (chore != null) {
             chore_name.text = chore!!.name
