@@ -1,9 +1,11 @@
-package com.dirtydish.app.dirtydish
+package com.dirtydish.app.dirtydish.house
 
 import android.app.Activity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import com.dirtydish.app.dirtydish.R
+import com.dirtydish.app.dirtydish.data.HouseMate
 import kotlinx.android.synthetic.main.housemate_input_row.view.*
 
 class InviteHouseMatesInputAdapter(private val context: Activity, private val housematesArray: MutableList<HouseMate>) : BaseAdapter() {

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/girl_night"
-    tools:context=".SelectHouseFragment">
+    tools:context=".house.SelectHouseFragment">
 
     <View
         android:layout_width="match_parent"

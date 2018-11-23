@@ -1,12 +1,12 @@
-package com.dirtydish.app.dirtydish
+package com.dirtydish.app.dirtydish.house
 
 import android.support.v4.app.FragmentActivity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import com.dirtydish.app.dirtydish.R
 import kotlinx.android.synthetic.main.housemate_view_row.view.*
-import android.widget.TextView
-
+import com.dirtydish.app.dirtydish.data.HouseMate
 
 
 class ViewHouseMatesSimpleAdapter(private val context: FragmentActivity, private val housematesArray: MutableList<HouseMate>) : BaseAdapter() {

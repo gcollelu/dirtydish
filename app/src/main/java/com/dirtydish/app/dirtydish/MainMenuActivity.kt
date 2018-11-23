@@ -14,6 +14,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.dirtydish.app.dirtydish.R.id.loginFragment
 import com.dirtydish.app.dirtydish.R.id.selectHouseFragment
 import com.dirtydish.app.dirtydish.databinding.ActivityMainMenuBinding
+import com.dirtydish.app.dirtydish.singletons.Session
 import com.google.firebase.auth.FirebaseAuth
 
 

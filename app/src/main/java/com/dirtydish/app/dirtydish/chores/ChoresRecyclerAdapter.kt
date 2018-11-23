@@ -1,4 +1,4 @@
-package com.dirtydish.app.dirtydish
+package com.dirtydish.app.dirtydish.chores
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
@@ -7,6 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.navigation.findNavController
+import com.dirtydish.app.dirtydish.ItemClickListener
+import com.dirtydish.app.dirtydish.R
+import com.dirtydish.app.dirtydish.singletons.Utilities
+import com.dirtydish.app.dirtydish.data.Chore
 
 private val tag = "RECYCLER_ADAPTER"
 

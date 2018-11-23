@@ -10,7 +10,7 @@
     android:background="@drawable/gradient_bg"
     android:id="@+id/view_house_fragment"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".ViewHouseFragment">
+    tools:context=".house.ViewHouseFragment">
 
     <TextView
         android:id="@+id/houseName"

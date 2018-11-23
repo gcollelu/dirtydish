@@ -1,4 +1,4 @@
-package com.dirtydish.app.dirtydish
+package com.dirtydish.app.dirtydish.chores
 
 import android.net.Uri
 import android.os.Bundle
@@ -7,6 +7,10 @@ import android.support.v7.app.AppCompatActivity
 import android.view.*
 import android.widget.TextView
 import androidx.navigation.findNavController
+import com.dirtydish.app.dirtydish.*
+import com.dirtydish.app.dirtydish.data.Chore
+import com.dirtydish.app.dirtydish.house.ViewHouseMatesSimpleAdapter
+import com.dirtydish.app.dirtydish.singletons.Utilities
 import kotlinx.android.synthetic.main.fragment_chore_detail.*
 
 

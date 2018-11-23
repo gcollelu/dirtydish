@@ -1,4 +1,4 @@
-package com.dirtydish.app.dirtydish
+package com.dirtydish.app.dirtydish.data
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize

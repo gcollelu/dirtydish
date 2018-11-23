@@ -1,4 +1,4 @@
-package com.dirtydish.app.dirtydish
+package com.dirtydish.app.dirtydish.chores
 
 import android.content.Context
 import android.os.Bundle
@@ -10,6 +10,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
+import com.dirtydish.app.dirtydish.R
+import com.dirtydish.app.dirtydish.singletons.Session
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.fragment_chore_home.*
 

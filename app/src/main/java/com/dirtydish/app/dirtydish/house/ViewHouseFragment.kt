@@ -1,9 +1,13 @@
-package com.dirtydish.app.dirtydish
+package com.dirtydish.app.dirtydish.house
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.*
 import androidx.navigation.findNavController
+import com.dirtydish.app.dirtydish.R
+import com.dirtydish.app.dirtydish.singletons.Session
+import com.dirtydish.app.dirtydish.house.ViewHouseFragmentArgs
+import com.dirtydish.app.dirtydish.data.HouseMate
 import kotlinx.android.synthetic.main.fragment_view_house.*
 
 class ViewHouseFragment : Fragment() {
