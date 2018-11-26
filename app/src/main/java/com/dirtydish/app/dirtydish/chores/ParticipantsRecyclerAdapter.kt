@@ -1,14 +1,15 @@
-package com.dirtydish.app.dirtydish
+package com.dirtydish.app.dirtydish.chores
 
 import android.content.Context
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.navigation.findNavController
+import com.dirtydish.app.dirtydish.ItemClickListener
+import com.dirtydish.app.dirtydish.R
+import com.dirtydish.app.dirtydish.data.HouseMate
 
 
 class ParticipantsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener, View.OnLongClickListener {
@@ -40,7 +41,7 @@ class ParticipantsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
     }
 }
 
-class ParticipantsRecyclerAdapter(private val houseMates: MutableList<HouseMate>,  private val participants: MutableList<HouseMate>,
+class ParticipantsRecyclerAdapter(private val houseMates: MutableList<HouseMate>, private val participants: MutableList<HouseMate>,
                                   private val context: Context) : RecyclerView.Adapter<ParticipantsViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ParticipantsViewHolder {

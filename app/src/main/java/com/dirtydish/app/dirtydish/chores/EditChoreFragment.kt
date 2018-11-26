@@ -1,4 +1,4 @@
-package com.dirtydish.app.dirtydish
+package com.dirtydish.app.dirtydish.chores
 
 import android.Manifest
 import android.app.Activity
@@ -19,6 +19,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.navigation.findNavController
+import com.dirtydish.app.dirtydish.chores.ChoreDetailFragmentArgs
+import com.dirtydish.app.dirtydish.R
+import com.dirtydish.app.dirtydish.singletons.Session
+import com.dirtydish.app.dirtydish.data.Chore
+import com.dirtydish.app.dirtydish.data.HouseMate
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.squareup.picasso.Picasso

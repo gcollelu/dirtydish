@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
 import androidx.navigation.findNavController
+import com.dirtydish.app.dirtydish.data.HouseMate
+import com.dirtydish.app.dirtydish.singletons.Session
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase

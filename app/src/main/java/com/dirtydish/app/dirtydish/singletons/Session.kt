@@ -1,5 +1,7 @@
-package com.dirtydish.app.dirtydish
+package com.dirtydish.app.dirtydish.singletons
 
+import com.dirtydish.app.dirtydish.data.House
+import com.dirtydish.app.dirtydish.data.HouseMate
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import org.jetbrains.anko.doAsync
@@ -81,7 +83,7 @@ object Session {
 
     fun logout() {
         FirebaseAuth.getInstance().signOut()
-        Session.clear()
+        clear()
     }
 
 

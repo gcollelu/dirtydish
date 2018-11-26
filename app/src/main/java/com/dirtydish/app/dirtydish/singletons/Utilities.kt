@@ -1,4 +1,4 @@
-package com.dirtydish.app.dirtydish
+package com.dirtydish.app.dirtydish.singletons
 
 import java.util.regex.Pattern
 

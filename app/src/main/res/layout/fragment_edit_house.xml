@@ -9,7 +9,7 @@
     app:layout_constraintBottom_toBottomOf="parent"
     android:background="@drawable/gradient_bg"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".EditHouseFragment">
+    tools:context=".house.EditHouseFragment">
 
     <EditText
         android:id="@+id/houseName"

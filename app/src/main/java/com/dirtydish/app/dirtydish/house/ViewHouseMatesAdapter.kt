@@ -1,13 +1,14 @@
-package com.dirtydish.app.dirtydish
+package com.dirtydish.app.dirtydish.house
 
 import android.support.v4.app.FragmentActivity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import com.dirtydish.app.dirtydish.R
+import com.dirtydish.app.dirtydish.data.HouseMate
 import kotlinx.android.synthetic.main.housemate_view_row.view.*
 
-
-class EditHouseMatesAdapter(private val context: FragmentActivity, private val housematesArray: MutableList<HouseMate>) : BaseAdapter() {
+class ViewHouseMatesAdapter(private val context: FragmentActivity, private val housematesArray: MutableList<HouseMate>) : BaseAdapter() {
     private val inflater = context.layoutInflater
     //1
     override fun getCount(): Int {
@@ -28,14 +29,14 @@ class EditHouseMatesAdapter(private val context: FragmentActivity, private val h
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         // Get view for row item
         val rowView = inflater.inflate(R.layout.housemate_view_row, parent, false)
-        rowView.nameField.text = getHousmate(position).name
+        rowView.nameField.text = getHousemate(position).name
 
         return rowView
     }
 
-    fun getHousmate(position: Int): HouseMate {
+
+    fun getHousemate(position: Int): HouseMate {
         return housematesArray[position]
     }
-
 
 }

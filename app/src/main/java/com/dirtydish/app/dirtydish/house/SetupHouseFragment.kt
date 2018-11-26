@@ -1,4 +1,4 @@
-package com.dirtydish.app.dirtydish
+package com.dirtydish.app.dirtydish.house
 
 
 import android.os.Bundle
@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
+import com.dirtydish.app.dirtydish.MainMenuActivity
+import com.dirtydish.app.dirtydish.R
 import kotlinx.android.synthetic.main.fragment_setup_house.*
 
 class SetupHouseFragment : Fragment() {

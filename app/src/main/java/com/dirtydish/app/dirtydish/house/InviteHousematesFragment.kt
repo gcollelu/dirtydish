@@ -1,4 +1,4 @@
-package com.dirtydish.app.dirtydish
+package com.dirtydish.app.dirtydish.house
 
 
 import android.os.Bundle
@@ -8,6 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.findNavController
+import com.dirtydish.app.dirtydish.*
+import com.dirtydish.app.dirtydish.R
+import com.dirtydish.app.dirtydish.data.Chore
+import com.dirtydish.app.dirtydish.data.House
+import com.dirtydish.app.dirtydish.data.HouseMate
+import com.dirtydish.app.dirtydish.singletons.Session
+import com.dirtydish.app.dirtydish.singletons.Utilities
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.fragment_invite_housemates.*
 import org.jetbrains.anko.doAsync

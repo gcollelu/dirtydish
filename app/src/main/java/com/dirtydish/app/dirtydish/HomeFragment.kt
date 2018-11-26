@@ -8,6 +8,8 @@ import android.support.v7.widget.RecyclerView
 import android.view.*
 import android.widget.TextView
 import androidx.navigation.findNavController
+import com.dirtydish.app.dirtydish.data.Chore
+import com.dirtydish.app.dirtydish.singletons.Session
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener

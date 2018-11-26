@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/viewHouseFragment"
-        android:name="com.dirtydish.app.dirtydish.ViewHouseFragment"
+        android:name="com.dirtydish.app.dirtydish.house.ViewHouseFragment"
         android:label="View House"
         tools:layout="@layout/fragment_view_house">
         <action
@@ -31,7 +31,7 @@
     </fragment>
     <fragment
         android:id="@+id/editHouseFragment"
-        android:name="com.dirtydish.app.dirtydish.EditHouseFragment"
+        android:name="com.dirtydish.app.dirtydish.house.EditHouseFragment"
         android:label="Edit House"
         tools:layout="@layout/fragment_edit_house">
         <action
@@ -64,7 +64,7 @@
     </fragment>
     <fragment
         android:id="@+id/choresFragment"
-        android:name="com.dirtydish.app.dirtydish.ChoresFragment"
+        android:name="com.dirtydish.app.dirtydish.chores.ChoresFragment"
         android:label="Chores"
         tools:layout="@layout/fragment_chore_home">
 
@@ -90,17 +90,17 @@
         tools:layout="@layout/shared_supplies_fragment" />
     <fragment
         android:id="@+id/addChoreFragment"
-        android:name="com.dirtydish.app.dirtydish.AddChoreFragment"
+        android:name="com.dirtydish.app.dirtydish.chores.AddChoreFragment"
         android:label="New Chore"
         tools:layout="@layout/fragment_add_chore" />
     <fragment
         android:id="@+id/editHousemateFragment"
-        android:name="com.dirtydish.app.dirtydish.EditHousemateFragment"
+        android:name="com.dirtydish.app.dirtydish.house.EditHousemateFragment"
         android:label="Edit Housemate"
         tools:layout="@layout/fragment_edit_housemate">
         <argument
             android:name="housemate"
-            app:argType="com.dirtydish.app.dirtydish.HouseMate" />
+            app:argType="com.dirtydish.app.dirtydish.data.HouseMate" />
     </fragment>
     <fragment
         android:id="@+id/notificationsFragment"
@@ -109,17 +109,16 @@
         tools:layout="@layout/fragment_notifications" />
     <fragment
         android:id="@+id/shareHouseFragment"
-        android:name="com.dirtydish.app.dirtydish.ShareHouseFragment"
+        android:name="com.dirtydish.app.dirtydish.house.ShareHouseFragment"
         android:label="Share House"
         tools:layout="@layout/fragment_share_house" />
     <fragment
         android:id="@+id/choreDetailFragment"
-        android:name="com.dirtydish.app.dirtydish.ChoreDetailFragment"
+        android:name="com.dirtydish.app.dirtydish.chores.ChoreDetailFragment"
         android:label="Chore Detail"
         tools:layout="@layout/fragment_chore_detail">
-        <argument
-            android:name="chore"
-            app:argType="com.dirtydish.app.dirtydish.Chore" />
+        <argument android:name="chore"
+            app:argType="com.dirtydish.app.dirtydish.data.Chore"/>
         <action
             android:id="@+id/action_choreDetailFragment_to_editChoreFragment"
             app:destination="@id/editChoreFragment"
@@ -131,12 +130,12 @@
     </fragment>
     <fragment
         android:id="@+id/editChoreFragment"
-        android:name="com.dirtydish.app.dirtydish.EditChoreFragment"
+        android:name="com.dirtydish.app.dirtydish.chores.EditChoreFragment"
         android:label="Edit Chore"
         tools:layout="@layout/fragment_edit_chore">
         <argument
             android:name="chore"
-            app:argType="com.dirtydish.app.dirtydish.Chore" />
+            app:argType="com.dirtydish.app.dirtydish.data.Chore" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -175,7 +174,7 @@
     </fragment>
     <fragment
         android:id="@+id/selectHouseFragment"
-        android:name="com.dirtydish.app.dirtydish.SelectHouseFragment"
+        android:name="com.dirtydish.app.dirtydish.house.SelectHouseFragment"
         android:label="fragment_select_house"
         tools:layout="@layout/fragment_select_house">
         <action
@@ -195,7 +194,7 @@
     </fragment>
     <fragment
         android:id="@+id/setupHouseFragment"
-        android:name="com.dirtydish.app.dirtydish.SetupHouseFragment"
+        android:name="com.dirtydish.app.dirtydish.house.SetupHouseFragment"
         android:label="fragment_setup_house"
         tools:layout="@layout/fragment_setup_house">
         <action
@@ -208,7 +207,7 @@
     </fragment>
     <fragment
         android:id="@+id/inviteHousematesFragment"
-        android:name="com.dirtydish.app.dirtydish.InviteHousematesFragment"
+        android:name="com.dirtydish.app.dirtydish.house.InviteHousematesFragment"
         android:label="fragment_invite_housemates"
         tools:layout="@layout/fragment_invite_housemates">
         <argument
@@ -229,7 +228,7 @@
     </fragment>
     <fragment
         android:id="@+id/joinHouseFragment"
-        android:name="com.dirtydish.app.dirtydish.JoinHouseFragment"
+        android:name="com.dirtydish.app.dirtydish.house.JoinHouseFragment"
         android:label="fragment_join_house"
         tools:layout="@layout/fragment_join_house">
         <action

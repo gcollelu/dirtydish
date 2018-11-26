@@ -1,4 +1,4 @@
-package com.dirtydish.app.dirtydish
+package com.dirtydish.app.dirtydish.house
 
 
 import android.Manifest
@@ -26,6 +26,11 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import android.widget.Toast
+import com.dirtydish.app.dirtydish.MainMenuActivity
+import com.dirtydish.app.dirtydish.PinEntryEditText
+import com.dirtydish.app.dirtydish.R
+import com.dirtydish.app.dirtydish.singletons.Session
+import com.dirtydish.app.dirtydish.data.House
 import com.google.android.gms.vision.Frame
 import com.google.android.gms.vision.barcode.Barcode
 import com.google.android.gms.vision.barcode.BarcodeDetector

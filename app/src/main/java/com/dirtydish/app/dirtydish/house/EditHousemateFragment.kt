@@ -1,4 +1,4 @@
-package com.dirtydish.app.dirtydish
+package com.dirtydish.app.dirtydish.house
 
 
 import android.os.Bundle
@@ -8,6 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.navigation.findNavController
+import com.dirtydish.app.dirtydish.house.EditHousemateFragmentArgs
+import com.dirtydish.app.dirtydish.R
+import com.dirtydish.app.dirtydish.data.HouseMate
 import kotlinx.android.synthetic.main.fragment_edit_housemate.*
 
 
