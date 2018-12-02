@@ -64,6 +64,7 @@ class SignUpFragment : Fragment() {
                         Toast.makeText(activity, "Registered successfully.", Toast.LENGTH_SHORT).show()
                         createHouseMate(email, name, auth.currentUser?.uid)
                         Session.init()
+                        auth.currentUser?.sendEmailVerification()
                         view?.findNavController()?.navigate(R.id.action_signUpFragment_to_selectHouseFragment)
                     } else {
                         Toast.makeText(activity, "Registration failed.", Toast.LENGTH_SHORT).show()
