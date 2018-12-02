@@ -14,27 +14,35 @@ exports.rotateChores = functions.https.onRequest((request, response) => {
         for (var house in houses){
         	var currentChores = houses[house].chores;
         	for (var myChore in currentChores){
-        		if (currentChores[myChore].participants){
-        			var i = 0;
-       				for (var pIndex in currentChores[myChore].participants){
-       					var participant = currentChores[myChore].participants[pIndex];
-       					if (currentChores[myChore].assignee.id === participant.id){
-       						if (i+1 < currentChores[myChore].participants.length){
-       							console.log("ran if");
-       							currentChores[myChore].assignee = currentChores[myChore].participants[i+1];
-       							break;
-       						} else {
-       							console.log("ran else");
-       							currentChores[myChore].assignee = currentChores[myChore].participants[0];
-       							break;
-       						}
-       					}
-       					i++;
-       				}
+        		if (!currentChores[myChore].daysUntilRotation){
+        			currentChores[myChore].daysUntilRotation = currentChores[myChore].frequency;
+        			console.log("set chore daysUntilRotation to " + currentChores[myChore].daysUntilRotation);
         		}
+        		if (currentChores[myChore].daysUntilRotation === 1){
+
+	        		if (currentChores[myChore].participants){
+	        			var i = 0;
+	       				for (var pIndex in currentChores[myChore].participants){
+	       					var participant = currentChores[myChore].participants[pIndex];
+	       					if (currentChores[myChore].assignee.id === participant.id){
+	       						if (i+1 < currentChores[myChore].participants.length){
+	       							currentChores[myChore].assignee = currentChores[myChore].participants[i+1];
+	       							break;
+	       						} else {
+	       							currentChores[myChore].assignee = currentChores[myChore].participants[0];
+	       							break;
+	       						}
+	       					}
+	       					i++;
+	       				}
+	        		}
+	        		currentChores[myChore].daysUntilRotation = currentChores[myChore].frequency;
+	        		console.log("rotated chore " + currentChores[myChore].name);
+	        	} else {
+	        		currentChores[myChore].daysUntilRotation--;
+	        	}
         	}
         	if (currentChores){
-        		console.log('currentChores:' + currentChores);
         		admin.database().ref('/houses/' + house + '/chores').set(currentChores);
         	}
         }
