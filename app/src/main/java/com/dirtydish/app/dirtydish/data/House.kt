@@ -9,4 +9,5 @@ data class House(var name: String = "",
                  var address: String = "",
                  var id: String = "",
                  var houseMates: MutableList<HouseMate> = mutableListOf(),
-                 var chores: MutableList<Chore> = mutableListOf()) : Parcelable
+                 var chores: MutableList<Chore> = mutableListOf(),
+                 var supplies: MutableList<Supply> = mutableListOf()) : Parcelable

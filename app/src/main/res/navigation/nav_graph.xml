@@ -87,7 +87,7 @@
         android:id="@+id/sharedSuppliesFragment"
         android:name="com.dirtydish.app.dirtydish.SharedSuppliesFragment"
         android:label="Shared Supplies"
-        tools:layout="@layout/shared_supplies_fragment" />
+        tools:layout="@layout/fragment_shared_supplies" />
     <fragment
         android:id="@+id/addChoreFragment"
         android:name="com.dirtydish.app.dirtydish.chores.AddChoreFragment"
