@@ -11,4 +11,5 @@ data class Chore(val name: String = "chore",
                  var participants: MutableList<HouseMate> = mutableListOf(),
                  var description: String = "",
                  var startDate: String = "",
-                 var endDate: String = "") : Parcelable
+                 var endDate: String = "",
+                 var assignee: String = "") : Parcelable
