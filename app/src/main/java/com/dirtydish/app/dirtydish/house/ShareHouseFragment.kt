@@ -3,11 +3,14 @@ package com.dirtydish.app.dirtydish.house
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import com.dirtydish.app.dirtydish.R
+import com.dirtydish.app.dirtydish.singletons.Session
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
 import com.google.zxing.common.BitMatrix
@@ -23,8 +26,10 @@ class ShareHouseFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_share_house, container, false)
-        //TODO: add actual house pin
-        val bitmap = TextToImageEncode("1234")
+        val pin = Session.userHouse?.pin!!
+        val pinView = view!!.find<TextView>(R.id.housePin)
+        pinView.text = pin
+        val bitmap = TextToImageEncode(pin)
 
         val imageView = view!!.find<ImageView>(R.id.qrCodeView)
         imageView.setImageBitmap(bitmap)
