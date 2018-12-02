@@ -3,9 +3,11 @@ package com.dirtydish.app.dirtydish.house
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.navigation.findNavController
 import com.dirtydish.app.dirtydish.*
@@ -18,6 +20,7 @@ import com.dirtydish.app.dirtydish.singletons.Utilities
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.fragment_invite_housemates.*
 import org.jetbrains.anko.doAsync
+import kotlin.math.roundToInt
 
 
 class InviteHousematesFragment : Fragment() {
@@ -52,6 +55,8 @@ class InviteHousematesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
+
         val housematesArray: MutableList<HouseMate> = mutableListOf<HouseMate>()
         val choreArray: MutableList<Chore> = mutableListOf<Chore>()
 
@@ -78,6 +83,9 @@ class InviteHousematesFragment : Fragment() {
                 house.address = houseAddress
                 house.houseMates = housematesArray
                 house.chores = choreArray
+                house.pin = ((Math.random()*9000)+1000).roundToInt().toString()
+
+
                 storeHouseToDB(house)
                 //TODO: should we add line below to immediately show user has a house?
                 //Session.userHouse = house

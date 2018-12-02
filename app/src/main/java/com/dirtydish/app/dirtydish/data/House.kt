@@ -8,6 +8,7 @@ import kotlinx.android.parcel.Parcelize
 data class House(var name: String = "",
                  var address: String = "",
                  var id: String = "",
+                 var pin: String = "",
                  var houseMates: MutableList<HouseMate> = mutableListOf(),
                  var chores: MutableList<Chore> = mutableListOf(),
                  var supplies: MutableList<Supply> = mutableListOf()) : Parcelable

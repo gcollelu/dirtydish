@@ -26,18 +26,23 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import android.widget.Toast
+import androidx.navigation.findNavController
 import com.dirtydish.app.dirtydish.MainMenuActivity
 import com.dirtydish.app.dirtydish.PinEntryEditText
 import com.dirtydish.app.dirtydish.R
 import com.dirtydish.app.dirtydish.singletons.Session
 import com.dirtydish.app.dirtydish.data.House
+import com.dirtydish.app.dirtydish.data.HouseMate
 import com.google.android.gms.vision.Frame
 import com.google.android.gms.vision.barcode.Barcode
 import com.google.android.gms.vision.barcode.BarcodeDetector
+import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.fragment_join_house.*
+import org.jetbrains.anko.doAsync
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.IOException
+
 
 class JoinHouseFragment : Fragment() {
 
@@ -49,6 +54,9 @@ class JoinHouseFragment : Fragment() {
     private val REQUEST_WRITE_PERMISSION = 20
     private var currImagePath: String? = null
     internal var imageFile: File? = null
+    private lateinit var houseListRef: DatabaseReference
+    private lateinit var houseMateRef: DatabaseReference
+    private val houses: MutableList<House> = mutableListOf<House>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,17 +72,42 @@ class JoinHouseFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val db = FirebaseDatabase.getInstance()
+        houseListRef = db.getReference("houses")
+        houseMateRef = db.getReference("housemates")
+
+        houseListRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onCancelled(p0: DatabaseError) {}
+            override fun onDataChange(snapshot: DataSnapshot) {
+                snapshot.children.mapNotNullTo(houses) { it.getValue<House>(House::class.java) }
+                Log.i("Count " ,""+snapshot.getChildrenCount())
+            }
+        })
+
         val txtPinEntry: PinEntryEditText = pin_entry_edit as PinEntryEditText
         txtPinEntry.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                //TODO: add check for actual house pin
-                if (s.toString().equals("1234")) {
-                    Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
-                    //TODO: get house
-                    Session.userHouse = House()
-                } else if (s?.length == "1234".length) {
-                    Toast.makeText(context, "Incorrect", Toast.LENGTH_SHORT).show()
-                    txtPinEntry.text = null
+                var houseFound = false
+                if (s?.length == 4){
+                    for (i in 0 until houses.size){
+                        if (s.toString().equals(houses[i].pin)){
+                            Log.i("CURRENTUSER", Session.housemate?.name)
+                            houses[i].houseMates.add(Session.housemate!!)
+                            var key: String = ""
+                            doAsync { houseListRef.child(houses[i].id).child("houseMates")
+                                    .setValue(houses[i].houseMates) }
+                            val houseMate = Session.housemate!!
+                            houseMate.houseId = houses[i].id
+                            doAsync { houseMateRef.child(houseMate.id).setValue(houseMate) }
+                            houseFound = true
+                            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+                            view.findNavController().navigate(R.id.action_joinHouseFragment_to_homeFragment)
+                        }
+                    }
+                    if (!houseFound){
+                        Toast.makeText(context, "Incorrect", Toast.LENGTH_SHORT).show()
+                        txtPinEntry.text = null
+                    }
                 }
             }
 
@@ -84,8 +117,6 @@ class JoinHouseFragment : Fragment() {
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
         })
-
-        txtPinEntry.setOnFocusChangeListener { _, b -> hideSoftKeyboard(activity as Activity) }
 
         btnScanCode.setOnClickListener {
             ActivityCompat.requestPermissions(activity as Activity, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission_group.CAMERA, Manifest.permission.CAMERA), REQUEST_WRITE_PERMISSION)
@@ -103,6 +134,15 @@ class JoinHouseFragment : Fragment() {
             return
         }
 
+    }
+
+    private fun registeredId(hm: HouseMate, list: MutableList<HouseMate>): String? {
+        for (user in list) {
+            if (hm.email == user.email) {
+                return user.id
+            }
+        }
+        return null
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
@@ -225,13 +265,6 @@ class JoinHouseFragment : Fragment() {
 
         return BitmapFactory.decodeStream(ctx.contentResolver
                 .openInputStream(uri), null, bmOptions)
-    }
-
-    fun hideSoftKeyboard(activity: Activity) {
-        val inputMethodManager = activity.getSystemService(
-                Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow(
-                activity.currentFocus!!.windowToken, 0)
     }
 
     private fun checkPermission(context: Context): Boolean {
