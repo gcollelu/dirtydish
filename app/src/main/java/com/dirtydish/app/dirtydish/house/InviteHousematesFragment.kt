@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.navigation.findNavController
 import com.dirtydish.app.dirtydish.*
@@ -51,6 +52,8 @@ class InviteHousematesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
 
         val housematesArray: MutableList<HouseMate> = mutableListOf<HouseMate>()
         val choreArray: MutableList<Chore> = mutableListOf<Chore>()
