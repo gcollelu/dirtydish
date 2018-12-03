@@ -9,6 +9,7 @@ import android.view.*
 import android.widget.TextView
 import androidx.navigation.findNavController
 import com.dirtydish.app.dirtydish.data.Chore
+import com.dirtydish.app.dirtydish.data.HouseMate
 import com.dirtydish.app.dirtydish.singletons.Session
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -47,13 +48,37 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         myChoresList.layoutManager = LinearLayoutManager(activity as Context)
+    }
+
+
+    override fun onResume() {
+        super.onResume()
 
         if (Session.hasHouse()) {
-            myChoresList.adapter = MainChoreAdapter(Session.userHouse!!.chores, activity as Context)
+            val myChores = getPersonalChores(Session.userHouse!!.chores, Session.housemate!!)
+            if (myChores != null) {
+                myChoresList.adapter = MainChoreAdapter(myChores, activity as Context)
+            }
         }
+    }
 
+    private fun getPersonalChores(chores: MutableList<Chore>, user: HouseMate): MutableList<Chore>? {
+        return if (chores.isNotEmpty()) {
+            var myChores = chores.filter { chore -> containsUser(chore, user) } as MutableList<Chore>
+            if (myChores.isEmpty()) {
+                null
+            } else {
+                myChores
+            }
+        } else {
+            null
+        }
+    }
+
+    private fun containsUser(chore: Chore, user: HouseMate): Boolean {
+        val filtered = chore.participants.filter { person -> person.id == user.id }
+        return filtered.isNotEmpty()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
@@ -72,7 +97,7 @@ class HomeFragment : Fragment() {
     }
 
 
-    class MainChoreAdapter(private val data: List<Chore>, val context: Context) : RecyclerView.Adapter<MainChoreAdapter.ChoreHolder>(){
+    class MainChoreAdapter(private val data: List<Chore>, val context: Context) : RecyclerView.Adapter<MainChoreAdapter.ChoreHolder>() {
 
         class ChoreHolder(view: View) : RecyclerView.ViewHolder(view) {
             val choreName: TextView? = view.chore_name
