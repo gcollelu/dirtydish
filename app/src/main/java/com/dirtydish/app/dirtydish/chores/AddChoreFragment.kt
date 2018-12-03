@@ -91,9 +91,12 @@ class AddChoreFragment : Fragment() {
         participants.adapter = adapter
 
         btnDone.setOnClickListener {
-            createChore()
-            view.findNavController().navigateUp()
-            Toast.makeText(activity, "Chore created.", Toast.LENGTH_SHORT).show()
+            if (createChore()) {
+                view.findNavController().navigateUp()
+                Toast.makeText(activity, "Chore created.", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(activity, "Select at least one housemates to assign the chore to", Toast.LENGTH_SHORT).show()
+            }
         }
 
         btnPickImage.setOnClickListener {
@@ -126,12 +129,12 @@ class AddChoreFragment : Fragment() {
         Toast.makeText(activity, "Imaged selected.", Toast.LENGTH_SHORT).show()
     }
 
-    private fun createChore() {
+    private fun createChore(): Boolean {
         if (Session.hasHouse()) {
             participantsList = mutableListOf()
             for (i in 0 until participants.childCount) {
                 val partic = participants.getChildViewHolder(participants.getChildAt(i))
-                if (partic.itemView.background != null){
+                if (partic.itemView.background != null) {
                     participantsList.add(housematesArray[i])
                 }
             }
@@ -159,12 +162,17 @@ class AddChoreFragment : Fragment() {
 
 
             Log.d(tag_local, chore.toString())
-            choreArray.add(chore)
 
-            choreRef.child("chores").setValue(choreArray)
+            return if (participantsList.isEmpty()) {
+                false
+            } else {
+                choreArray.add(chore)
+                choreRef.child("chores").setValue(choreArray)
+                true
+            }
         }
 
-        //TODO: this fnction should return success/failure
+        return false
     }
 
 
