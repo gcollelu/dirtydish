@@ -5,17 +5,19 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.*
 import android.widget.TextView
 import androidx.navigation.findNavController
 import com.dirtydish.app.dirtydish.data.Chore
+import com.dirtydish.app.dirtydish.data.House
 import com.dirtydish.app.dirtydish.data.HouseMate
 import com.dirtydish.app.dirtydish.singletons.Session
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.chore_min.view.*
 import kotlinx.android.synthetic.main.fragment_home.*
+import org.jetbrains.anko.doAsync
 
 class HomeFragment : Fragment() {
 
@@ -59,6 +61,38 @@ class HomeFragment : Fragment() {
             val myChores = getPersonalChores(Session.userHouse!!.chores, Session.housemate!!)
             if (myChores != null) {
                 myChoresList.adapter = MainChoreAdapter(myChores, activity as Context)
+            }
+        } else {
+            val houseRef = FirebaseDatabase.getInstance().getReference("houses")
+            doAsync {
+                val curUser = FirebaseAuth.getInstance().currentUser
+                if (curUser != null) {
+                    val userRef = FirebaseDatabase.getInstance().getReference("housemates").child(curUser.uid)
+                    userRef.addListenerForSingleValueEvent(object : ValueEventListener {
+                        override fun onCancelled(p0: DatabaseError) {}
+                        override fun onDataChange(p0: DataSnapshot) {
+                            val user = p0.getValue<HouseMate>(HouseMate::class.java)
+                            Log.d("test", "$user")
+                            if (user != null && user.houseId.isNotEmpty()) {
+                                houseRef.child(user.houseId).addListenerForSingleValueEvent(object : ValueEventListener {
+                                    override fun onCancelled(p0: DatabaseError) {}
+                                    override fun onDataChange(p0: DataSnapshot) {
+                                        val house = p0.getValue<House>(House::class.java)
+                                        Log.d("test", "$house")
+                                        if (house != null) {
+                                            val myChores = getPersonalChores(house.chores, user)
+                                            if (myChores != null) {
+                                                myChoresList.adapter = MainChoreAdapter(myChores, activity as Context)
+                                            }
+                                        }
+                                    }
+
+                                })
+                            }
+                        }
+
+                    })
+                }
             }
         }
     }
