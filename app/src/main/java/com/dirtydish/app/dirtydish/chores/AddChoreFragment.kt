@@ -4,13 +4,11 @@ import android.Manifest
 import android.app.Activity.RESULT_OK
 import android.app.DatePickerDialog
 import android.app.ProgressDialog
-import android.content.ContentResolver
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.provider.MediaStore
 import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
@@ -26,19 +24,15 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.navigation.findNavController
 import com.dirtydish.app.dirtydish.R
-import com.dirtydish.app.dirtydish.singletons.Session
 import com.dirtydish.app.dirtydish.data.Chore
 import com.dirtydish.app.dirtydish.data.HouseMate
+import com.dirtydish.app.dirtydish.singletons.Session
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.abc_activity_chooser_view.*
 import kotlinx.android.synthetic.main.fragment_add_chore.*
-import kotlinx.android.synthetic.main.nav_header_main_menu.*
-import java.io.IOException
-import java.io.InputStream
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -59,6 +53,7 @@ class AddChoreFragment : Fragment() {
     var previewImageView: ImageView? = null
 
     private lateinit var imageName:String
+    private lateinit var imageURL:String
     internal var storage:FirebaseStorage?=null
     internal var storageReference:StorageReference?=null
 
@@ -157,6 +152,8 @@ class AddChoreFragment : Fragment() {
                         val progress = 100.0 * taskSnapShot.bytesTransferred/taskSnapShot.totalByteCount
                         progressDialog.setMessage("Uploaded " + progress.toInt() + "%...")
                     }
+
+            Log.d("IMAGEURL", imageRef.getDownloadUrl().toString())
             Picasso.get().load(selectedImage).into(previewImageView)
         }
         Toast.makeText(activity, "Imaged selected.", Toast.LENGTH_SHORT).show()
