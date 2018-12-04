@@ -78,8 +78,6 @@
         android:switchMinWidth="70dp"
         android:text="Is Missing?"
         android:textColor="@android:color/white"
-        android:textOff="No"
-        android:textOn="Yes"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
