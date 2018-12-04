@@ -4,6 +4,6 @@
         android:id="@+id/shareHouse"
         android:title="Share House"></item>
     <item
-        android:id="@+id/joinHouse"
+        android:id="@+id/leaveHouse"
         android:title="Leave House"></item>
 </menu>

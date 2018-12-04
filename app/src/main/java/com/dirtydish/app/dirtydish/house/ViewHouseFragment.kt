@@ -74,6 +74,10 @@ class ViewHouseFragment : Fragment() {
                 myView!!.findNavController().navigate(R.id.action_viewHouseFragment_to_shareHouseFragment)
                 true
             }
+            R.id.leaveHouse -> {
+                //myView!!.findNavController().navigate(R.id.action_joinHouseFragment_to_homeFragment)
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
