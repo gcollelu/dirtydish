@@ -3,14 +3,13 @@ package com.dirtydish.app.dirtydish.house
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.navigation.findNavController
-import com.dirtydish.app.dirtydish.*
+import com.dirtydish.app.dirtydish.MainMenuActivity
 import com.dirtydish.app.dirtydish.R
 import com.dirtydish.app.dirtydish.data.Chore
 import com.dirtydish.app.dirtydish.data.House
@@ -89,7 +88,6 @@ class InviteHousematesFragment : Fragment() {
                 storeHouseToDB(house)
                 //TODO: should we add line below to immediately show user has a house?
                 //Session.userHouse = house
-                view.findNavController().navigate(R.id.action_inviteHousematesFragment_to_homeFragment)
             } else {
                 Toast.makeText(activity, "Please input all housemates information.", Toast.LENGTH_SHORT).show()
             }
@@ -147,7 +145,11 @@ class InviteHousematesFragment : Fragment() {
                                 }
                             }
                             housemate.houseId = house.id
-                            hmRef.child(housemate.id).setValue(housemate)
+                            hmRef.child(housemate.id).setValue(housemate) { databaseError, p1 ->
+                                if (databaseError == null) {
+                                    view?.findNavController()?.navigate(R.id.action_inviteHousematesFragment_to_homeFragment)
+                                }
+                            }
                         }
 
                         houseRef.child("houseMates").setValue(houseMates)
