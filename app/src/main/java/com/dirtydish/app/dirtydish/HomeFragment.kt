@@ -146,18 +146,21 @@ class HomeFragment : Fragment() {
             else -> super.onOptionsItemSelected(item)
         }
     }
-}   private fun checkHasHouse() {
-    val currentUserId = FirebaseAuth.getInstance().currentUser?.uid.toString()
-    val houseIdRef = db.getReference("housemates").child(currentUserId).child("houseId")
-    houseIdRef.addListenerForSingleValueEvent(object : ValueEventListener {
-        override fun onCancelled(p0: DatabaseError) {}
-        override fun onDataChange(snapshot: DataSnapshot) {
-            Log.d("Snapshot: ", snapshot.toString())
-            if(snapshot.value.toString() == ""){
-                Log.d("WTF: ", "$snapshot.value")
-                navController?.navigate(R.id.selectHouseFragment)
-            }
-        }
-    })
 
+    private fun checkHasHouse() {
+        val currentUserId = FirebaseAuth.getInstance().currentUser?.uid.toString()
+        val houseIdRef = db.getReference("housemates").child(currentUserId).child("houseId")
+        houseIdRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onCancelled(p0: DatabaseError) {}
+            override fun onDataChange(snapshot: DataSnapshot) {
+                Log.d("Snapshot: ", snapshot.toString())
+                if(snapshot.value.toString() == ""){
+                    Log.d("WTF: ", "$snapshot.value")
+                    navController?.navigate(R.id.selectHouseFragment)
+                }
+            }
+        })
+
+    }
 }
+
