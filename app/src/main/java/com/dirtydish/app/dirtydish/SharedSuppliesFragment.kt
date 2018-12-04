@@ -23,7 +23,6 @@ class SharedSuppliesFragment : Fragment() {
     private lateinit var houseRef: DatabaseReference
     private lateinit var listener: ValueEventListener
     private lateinit var db: FirebaseDatabase
-    private lateinit var choreRef: DatabaseReference
     var recyclerView: RecyclerView? = null
     private var thisContext: Context? = null
 
