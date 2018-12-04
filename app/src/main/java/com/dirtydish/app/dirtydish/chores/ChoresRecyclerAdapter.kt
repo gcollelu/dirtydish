@@ -24,7 +24,7 @@ class RecyclerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), Vi
     private var itemClickListener: ItemClickListener? = null
 
     init {
-        chore_name = itemView.findViewById<View>(R.id.chore_name) as TextView
+        chore_name = itemView.findViewById<View>(R.id.supply_name) as TextView
         frequency = itemView.findViewById<View>(R.id.chore_frequency) as TextView
         //choreTimeFrame = itemView.findViewById<View>(R.id.chore_time_frame) as TextView
         choreAssignee = itemView.findViewById<View>(R.id.chore_assignee) as TextView

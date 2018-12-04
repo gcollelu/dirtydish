@@ -131,7 +131,7 @@ class HomeFragment : Fragment() {
     class MainChoreAdapter(private val data: List<Chore>, val context: Context) : RecyclerView.Adapter<MainChoreAdapter.ChoreHolder>() {
 
         class ChoreHolder(view: View) : RecyclerView.ViewHolder(view) {
-            val choreName: TextView? = view.chore_name
+            val choreName: TextView? = view.supply_name
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainChoreAdapter.ChoreHolder {

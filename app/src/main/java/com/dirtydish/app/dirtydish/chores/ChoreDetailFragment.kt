@@ -47,7 +47,7 @@ class ChoreDetailFragment : Fragment() {
         val endDate: TextView = view.findViewById<TextView>(R.id.endDate)
 
         if (chore != null) {
-            chore_name.text = chore!!.name
+            supply_name.text = chore!!.name
 
             chore_frequency.text = Utilities.intFrequencyToString(chore!!.frequency)
             choreDescription.text = chore!!.description

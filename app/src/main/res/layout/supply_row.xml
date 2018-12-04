@@ -1,23 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="100dp">
+    android:layout_height="120dp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginTop="20dp"
+    android:layout_marginRight="5dp"
+    android:layout_marginBottom="20dp"
+    android:background="@drawable/view_round_chore">
 
-
-    <ImageView
-        android:id="@+id/choreImage"
-        android:layout_width="80dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:scaleType="centerInside"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/dd_logo_png" />
 
     <TextView
         android:id="@+id/supply_name"
@@ -25,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginRight="20dp"
         android:background="@drawable/view_round_secondary"
@@ -37,43 +29,41 @@
         android:paddingTop="10dp"
         android:paddingRight="20dp"
         android:paddingBottom="10dp"
-        android:text="Chore Name"
+        android:text="Supply Name"
         android:textColor="@color/colorWhite"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/choreImage"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/deadlineLabel"
+        android:id="@+id/assigneeLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/view_secondary_right_squared"
         android:fontFamily="sans-serif-smallcaps"
         android:lineSpacingExtra="14sp"
         android:paddingStart="20dp"
         android:paddingLeft="20dp"
-        android:paddingTop="5dp"
+        android:paddingTop="10dp"
         android:paddingRight="20dp"
-        android:paddingBottom="5dp"
-        android:text="Deadline"
+        android:paddingBottom="10dp"
+        android:text="Availability"
         android:textColor="@color/colorWhite"
         android:textSize="14sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@id/choreImage"
+        app:layout_constraintStart_toStartOf="@id/supply_name"
         app:layout_constraintTop_toBottomOf="@id/supply_name" />
 
     <TextView
-        android:id="@+id/deadline"
+        android:id="@+id/availability"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
         android:layout_marginRight="20dp"
         android:background="@drawable/view_accent_left_squared"
@@ -81,15 +71,15 @@
         android:lineSpacingExtra="14sp"
         android:paddingStart="20dp"
         android:paddingLeft="20dp"
-        android:paddingTop="5dp"
+        android:paddingTop="10dp"
         android:paddingRight="20dp"
-        android:paddingBottom="5dp"
-        android:text="Friday"
+        android:paddingBottom="10dp"
+        android:text="John Smith"
         android:textColor="@color/colorWhite"
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/deadlineLabel"
+        app:layout_constraintStart_toEndOf="@id/assigneeLabel"
         app:layout_constraintTop_toBottomOf="@id/supply_name" />
 
 </android.support.constraint.ConstraintLayout>
