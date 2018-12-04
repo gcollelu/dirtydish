@@ -49,6 +49,7 @@ class EditChoreFragment : Fragment() {
     private var myContext: Context? = null
     val PICK_IMAGE = 1
     var previewImageView: ImageView? = null
+    var houseName = ""
 
     private lateinit var imageName:String
     private var imageURL = ""
@@ -68,6 +69,8 @@ class EditChoreFragment : Fragment() {
 
         chore = ChoreDetailFragmentArgs.fromBundle(arguments).chore
         (activity as? AppCompatActivity)?.supportActionBar?.title = chore?.name + " - Edit"
+
+        houseName = Session.userHouse!!.id
 
     }
 
@@ -176,7 +179,7 @@ class EditChoreFragment : Fragment() {
             progressDialog.show()
             imageName = UUID.randomUUID().toString()
 
-            val imageRef = storageReference!!.child("images/$imageName")
+            val imageRef = storageReference!!.child("$houseName/$imageName")
             val uploadTask = imageRef.putFile(selectedImage!!)
                     .addOnSuccessListener {
                         progressDialog.dismiss()

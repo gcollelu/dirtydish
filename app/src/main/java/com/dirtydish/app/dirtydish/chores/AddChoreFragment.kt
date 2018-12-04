@@ -55,6 +55,7 @@ class AddChoreFragment : Fragment() {
     val PICK_IMAGE = 1
     private val RESULT_LOAD_IMAGE = 1
     var previewImageView: ImageView? = null
+    var houseName = ""
 
     private lateinit var imageName:String
     private var imageURL = ""
@@ -73,6 +74,8 @@ class AddChoreFragment : Fragment() {
 
         storage = FirebaseStorage.getInstance()
         storageReference = storage!!.reference
+
+        houseName = Session.userHouse!!.id
         return view
     }
 
@@ -142,7 +145,7 @@ class AddChoreFragment : Fragment() {
             progressDialog.show()
             imageName = UUID.randomUUID().toString()
 
-            val imageRef = storageReference!!.child("images/$imageName")
+            val imageRef = storageReference!!.child("$houseName/chores/$imageName")
             val uploadTask = imageRef.putFile(selectedImage!!)
                     .addOnSuccessListener {
                         progressDialog.dismiss()
