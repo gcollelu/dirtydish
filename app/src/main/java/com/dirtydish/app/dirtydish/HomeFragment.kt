@@ -110,10 +110,7 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun containsUser(chore: Chore, user: HouseMate): Boolean {
-        val filtered = chore.participants.filter { person -> person.id == user.id }
-        return filtered.isNotEmpty()
-    }
+    private fun containsUser(chore: Chore, user: HouseMate): Boolean = chore.assignee == user.id
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         inflater?.inflate(R.menu.menu_homepage, menu)
