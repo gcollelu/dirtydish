@@ -3,12 +3,17 @@ package com.dirtydish.app.dirtydish
 import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.dirtydish.app.dirtydish.R.attr.background
 import com.dirtydish.app.dirtydish.data.Supply
+import com.dirtydish.app.dirtydish.singletons.Session
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import org.jetbrains.anko.doAsync
 
 
 private val tag = "SUPPLIES_RECYCLER_ADAPTER"
@@ -41,9 +46,14 @@ class SupplyRecyclerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
     }
 }
 
-class SuppliesRecyclerAdapter(private val listData: List<Supply>, private val context: Context) : RecyclerView.Adapter<SupplyRecyclerViewHolder>() {
+class SuppliesRecyclerAdapter(private val listData: MutableList<Supply>, private val context: Context) : RecyclerView.Adapter<SupplyRecyclerViewHolder>() {
+    private lateinit var db: FirebaseDatabase
+    private lateinit var houseRef: DatabaseReference
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SupplyRecyclerViewHolder {
+        db = FirebaseDatabase.getInstance()
+        //choreRef = db.getReference("chores")
+        houseRef = db.getReference("houses").child(Session.userHouse!!.id)
         val inflater = LayoutInflater.from(parent.context)
         val itemView = inflater.inflate(R.layout.supply_row, parent, false)
         return SupplyRecyclerViewHolder(itemView)
@@ -60,9 +70,25 @@ class SuppliesRecyclerAdapter(private val listData: List<Supply>, private val co
             holder.availability.text = "Available"
         holder.setItemClickListener(object : ItemClickListener {
             override fun onClick(view: View, position: Int, isLongClick: Boolean) {
-                //TODO: what happens when you click on a supply?
+                listData[position].missing = !currentSupply.missing
+                notifyItemChanged(position)
+                doAsync { houseRef.child("chores").setValue(listData) }
             }
         })
+    }
+
+    fun removeAt(position: Int) {
+        listData.removeAt(position)
+        notifyItemRemoved(position)
+        reindexSupplies()
+    }
+
+
+    private fun reindexSupplies() {
+        for(i in 0 until listData.size) {
+            listData[i].id = i.toString()
+        }
+        doAsync { houseRef.child("chores").setValue(listData) }
     }
 
     override fun getItemCount(): Int {

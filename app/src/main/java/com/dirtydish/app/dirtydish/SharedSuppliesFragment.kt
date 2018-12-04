@@ -68,10 +68,10 @@ class SharedSuppliesFragment : Fragment() {
             override fun onDataChange(snap: DataSnapshot) {
                 val list = Session.userHouse!!.supplies
                 recyclerView!!.adapter = SuppliesRecyclerAdapter(list, thisContext!!)
-                val swipeHandler = object : SwipeToDeleteCallback(activity!!.applicationContext) {
+                val swipeHandler = object : SwipeToDeleteCallback(thisContext!!) {
                     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                        val adapter = recyclerView!!.adapter as SimpleAdapter
-                        //adapter.removeAt(viewHolder.adapterPosition)
+                        val adapter = recyclerView!!.adapter as SuppliesRecyclerAdapter
+                        adapter.removeAt(viewHolder.adapterPosition)
                     }
                 }
                 val itemTouchHelper = ItemTouchHelper(swipeHandler)
