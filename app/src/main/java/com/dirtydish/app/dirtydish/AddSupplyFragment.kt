@@ -47,9 +47,6 @@ class AddSupplyFragment : Fragment() {
 
         }
 
-        toggleButton.setOnCheckedChangeListener { _, isChecked ->
-            isMissing = isChecked
-        }
         btnAddSupply.setOnClickListener {
             if (editName.text.isNotEmpty()){
                 supplyName = editName.text.toString()
@@ -73,7 +70,7 @@ class AddSupplyFragment : Fragment() {
 
             val supply = Supply(
                     name = supplyName,
-                    missing = isMissing,
+                    missing = missingSwitch.isChecked,
                     id = id.toString(),
                     houseId = houseKey)
 
