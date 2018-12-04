@@ -219,7 +219,7 @@ class AddChoreFragment : Fragment() {
                         endDate = endDate.text.toString(),
                         assignee = participantsList[0].id,
                         image = "")
-                if (imageURL!=null)
+                if (imageURL!="")
                     chore.image = imageURL
                 Log.d(tag_local, chore.toString())
                 choreArray.add(chore)

@@ -8,6 +8,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
@@ -24,10 +25,13 @@ import com.dirtydish.app.dirtydish.R
 import com.dirtydish.app.dirtydish.data.Chore
 import com.dirtydish.app.dirtydish.data.HouseMate
 import com.dirtydish.app.dirtydish.singletons.Session
+import com.google.android.gms.tasks.Continuation
+import com.google.android.gms.tasks.Task
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.UploadTask
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_edit_chore.*
 import java.text.SimpleDateFormat
@@ -47,8 +51,9 @@ class EditChoreFragment : Fragment() {
     var previewImageView: ImageView? = null
 
     private lateinit var imageName:String
-    internal var storage: FirebaseStorage?=null
-    internal var storageReference: StorageReference?=null
+    private var imageURL = ""
+    internal var storage:FirebaseStorage?=null
+    internal var storageReference:StorageReference?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -125,6 +130,9 @@ class EditChoreFragment : Fragment() {
 
         participantsList = chore!!.participants
 
+        if(chore.image != null && chore.image != "")
+            Picasso.get().load(chore.image).into(previewImageView)
+
         val viewManager = LinearLayoutManager(this.requireContext())
         participants.layoutManager = viewManager
         val adapter = ParticipantsRecyclerAdapter(housematesArray, participantsList, this.requireContext())
@@ -169,10 +177,11 @@ class EditChoreFragment : Fragment() {
             imageName = UUID.randomUUID().toString()
 
             val imageRef = storageReference!!.child("images/$imageName")
-            imageRef.putFile(selectedImage!!)
+            val uploadTask = imageRef.putFile(selectedImage!!)
                     .addOnSuccessListener {
                         progressDialog.dismiss()
                         Toast.makeText(context, "File Uploaded", Toast.LENGTH_SHORT).show()
+
                     }
                     .addOnFailureListener{
                         progressDialog.dismiss()
@@ -183,6 +192,23 @@ class EditChoreFragment : Fragment() {
                         progressDialog.setMessage("Uploaded " + progress.toInt() + "%...")
                     }
 
+            val urlTask = uploadTask.continueWithTask(Continuation<UploadTask.TaskSnapshot, Task<Uri>> { task ->
+                if (!task.isSuccessful) {
+                    task.exception?.let {
+                        throw it
+                    }
+                }
+                return@Continuation imageRef.downloadUrl
+            }).addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    imageURL = task.result.toString()
+                    Log.d("IMAGEURL", imageURL)
+                } else {
+                    // Handle failures
+                    // ...
+                }
+            }
+            Log.d("IMAGEURL", imageRef.toString())
             Picasso.get().load(selectedImage).into(previewImageView)
         }
         Toast.makeText(activity, "Imaged selected.", Toast.LENGTH_SHORT).show()
@@ -232,9 +258,10 @@ class EditChoreFragment : Fragment() {
                     description = description.text.toString(),
                     startDate = startDate.text.toString(),
                     endDate = endDate.text.toString(),
-                    assignee = newAssignee)
-
-
+                    assignee = newAssignee,
+                    image = "")
+            if (imageURL!="")
+                newChore.image = imageURL
             choreArray[id] = newChore
             houseRef.child("chores").setValue(choreArray)
         }
