@@ -145,7 +145,7 @@ class AddChoreFragment : Fragment() {
             progressDialog.show()
             imageName = UUID.randomUUID().toString()
 
-            val imageRef = storageReference!!.child("$houseName/chores/$imageName")
+            val imageRef = storageReference!!.child("houses/$houseName/chores/$imageName")
             val uploadTask = imageRef.putFile(selectedImage!!)
                     .addOnSuccessListener {
                         progressDialog.dismiss()
