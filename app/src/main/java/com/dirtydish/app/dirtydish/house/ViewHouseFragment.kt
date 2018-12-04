@@ -8,6 +8,7 @@ import com.dirtydish.app.dirtydish.R
 import com.dirtydish.app.dirtydish.singletons.Session
 import com.dirtydish.app.dirtydish.house.ViewHouseFragmentArgs
 import com.dirtydish.app.dirtydish.data.HouseMate
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.fragment_view_house.*
 
 class ViewHouseFragment : Fragment() {
@@ -36,7 +37,7 @@ class ViewHouseFragment : Fragment() {
             houseAddress.text = Session.userHouse!!.address
         } else { // use sample data for now
             //TODO redirect user to house join/create page
-            for (i in 0 until 10) {
+            for (i in 0 until 6) {
                 val housemate = HouseMate("John Smith " + i.toString(), "lmao@lmao.com", i.toString())
                 housematesArray.add(housemate)
             }
@@ -75,7 +76,14 @@ class ViewHouseFragment : Fragment() {
                 true
             }
             R.id.leaveHouse -> {
-                //myView!!.findNavController().navigate(R.id.action_joinHouseFragment_to_homeFragment)
+                if (Session.hasHouse()) {
+                    val db = FirebaseDatabase.getInstance()
+                    val currentHouseRef = db.getReference("houses").child(Session.userHouse!!.id)
+                    housematesArray.remove(Session.housemate)
+                    currentHouseRef.child("houseMates").setValue(housematesArray)
+                    db.getReference("housemates").child(Session.housemate!!.id).child("houseId").setValue("")
+                    myView!!.findNavController().navigate(R.id.action_viewHouseFragment_to_selectHouseFragment)
+                }
                 true
             }
             else -> super.onOptionsItemSelected(item)
