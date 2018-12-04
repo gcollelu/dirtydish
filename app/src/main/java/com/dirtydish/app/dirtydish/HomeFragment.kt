@@ -4,7 +4,6 @@ import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.*
 import android.widget.TextView
@@ -13,10 +12,10 @@ import androidx.navigation.findNavController
 import com.dirtydish.app.dirtydish.data.Chore
 import com.dirtydish.app.dirtydish.data.House
 import com.dirtydish.app.dirtydish.data.HouseMate
+import com.dirtydish.app.dirtydish.data.Supply
 import com.dirtydish.app.dirtydish.singletons.Session
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import kotlinx.android.synthetic.main.chore_min.view.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.jetbrains.anko.doAsync
 
@@ -39,14 +38,10 @@ class HomeFragment : Fragment() {
         (activity as MainMenuActivity).supportActionBar!!.show()
         setHasOptionsMenu(true)
 
-
-
         if (Session.hasHouse()) {
             houseRef = db.getReference("houses").child(Session.userHouse!!.id)
             houseRef.keepSynced(true)
         }
-
-
 
 //        if (!Session.hasHouse())
 //            view?.findNavController()?.navigate(R.id.selectHouseFragment)
@@ -60,6 +55,7 @@ class HomeFragment : Fragment() {
         navController = myView?.findNavController()
 
         checkHasHouse()
+        missingSupplies.layoutManager = LinearLayoutManager(activity as Context)
     }
 
 
@@ -67,43 +63,58 @@ class HomeFragment : Fragment() {
         super.onResume()
 
         if (Session.hasHouse()) {
-            val myChores = getPersonalChores(Session.userHouse!!.chores, Session.housemate!!)
-            if (myChores != null) {
-                myChoresList.adapter = MainChoreAdapter(myChores, activity as Context)
-            }
+            populateAdapters(Session.userHouse!!, Session.housemate!!)
         } else {
-            val houseRef = FirebaseDatabase.getInstance().getReference("houses")
-            doAsync {
-                val curUser = FirebaseAuth.getInstance().currentUser
-                if (curUser != null) {
-                    val userRef = FirebaseDatabase.getInstance().getReference("housemates").child(curUser.uid)
-                    userRef.addListenerForSingleValueEvent(object : ValueEventListener {
-                        override fun onCancelled(p0: DatabaseError) {}
-                        override fun onDataChange(p0: DataSnapshot) {
-                            val user = p0.getValue<HouseMate>(HouseMate::class.java)
-                            Log.d("test", "$user")
-                            if (user != null && user.houseId.isNotEmpty()) {
-                                houseRef.child(user.houseId).addListenerForSingleValueEvent(object : ValueEventListener {
-                                    override fun onCancelled(p0: DatabaseError) {}
-                                    override fun onDataChange(p0: DataSnapshot) {
-                                        val house = p0.getValue<House>(House::class.java)
-                                        Log.d("test", "$house")
-                                        if (house != null) {
-                                            val myChores = getPersonalChores(house.chores, user)
-                                            if (myChores != null) {
-                                                myChoresList.adapter = MainChoreAdapter(myChores, activity as Context)
-                                            }
-                                        }
+            instantiateAdapters()
+        }
+    }
+
+    private fun instantiateAdapters() {
+        doAsync {
+            val curUser = FirebaseAuth.getInstance().currentUser
+            if (curUser != null) {
+                val userRef = FirebaseDatabase.getInstance().getReference("housemates").child(curUser.uid)
+                userRef.addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onCancelled(p0: DatabaseError) {}
+                    override fun onDataChange(p0: DataSnapshot) {
+                        val user = p0.getValue<HouseMate>(HouseMate::class.java)
+                        Log.d("test", "$user")
+                        if (user != null && user.houseId.isNotEmpty()) {
+                            val housesRef = FirebaseDatabase.getInstance().getReference("houses")
+                            housesRef.child(user.houseId).addListenerForSingleValueEvent(object : ValueEventListener {
+                                override fun onCancelled(p0: DatabaseError) {}
+                                override fun onDataChange(p0: DataSnapshot) {
+                                    val house = p0.getValue<House>(House::class.java)
+                                    Log.d("test", "$house")
+                                    if (house != null) {
+                                        populateAdapters(house, user)
                                     }
+                                }
 
-                                })
-                            }
+                            })
                         }
+                    }
 
-                    })
-                }
+                })
             }
         }
+    }
+
+    private fun populateAdapters(house: House, user: HouseMate) {
+
+        val myChores = getPersonalChores(house.chores, user)
+        if (myChores != null) {
+            myChoresList.adapter = MainChoreAdapter(myChores, activity as Context)
+        }
+
+        val myMissingSupplies = getMissingSupplies(house.supplies)
+        if (myMissingSupplies != null) {
+            missingSupplies.adapter = MainSupplyAdapter(myMissingSupplies, activity as Context)
+        }
+    }
+
+    private fun getMissingSupplies(supplies: MutableList<Supply>): MutableList<Supply> {
+        return supplies.filter { supply -> supply.missing } as MutableList<Supply>
     }
 
     private fun getPersonalChores(chores: MutableList<Chore>, user: HouseMate): MutableList<Chore>? {
@@ -135,41 +146,18 @@ class HomeFragment : Fragment() {
             else -> super.onOptionsItemSelected(item)
         }
     }
-
-
-    class MainChoreAdapter(private val data: List<Chore>, val context: Context) : RecyclerView.Adapter<MainChoreAdapter.ChoreHolder>() {
-
-        class ChoreHolder(view: View) : RecyclerView.ViewHolder(view) {
-            val choreName: TextView? = view.supply_name
-        }
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainChoreAdapter.ChoreHolder {
-            return ChoreHolder(LayoutInflater.from(context).inflate(R.layout.chore_min, parent, false))
-        }
-
-        override fun getItemCount(): Int = data.size
-
-        override fun onBindViewHolder(holder: MainChoreAdapter.ChoreHolder, position: Int) {
-            var currChore = data[position]
-            holder.choreName?.text = currChore.name
-        }
-
-    }
-
-    private fun checkHasHouse() {
-        val currentUserId = FirebaseAuth.getInstance().currentUser?.uid.toString()
-        val houseIdRef = db.getReference("housemates").child(currentUserId).child("houseId")
-        houseIdRef.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onCancelled(p0: DatabaseError) {}
-            override fun onDataChange(snapshot: DataSnapshot) {
-                Log.d("Snapshot: ", snapshot.toString())
-                if(snapshot.value.toString() == ""){
-                    Log.d("WTF: ", "$snapshot.value")
-                    navController?.navigate(R.id.selectHouseFragment)
-                }
+}   private fun checkHasHouse() {
+    val currentUserId = FirebaseAuth.getInstance().currentUser?.uid.toString()
+    val houseIdRef = db.getReference("housemates").child(currentUserId).child("houseId")
+    houseIdRef.addListenerForSingleValueEvent(object : ValueEventListener {
+        override fun onCancelled(p0: DatabaseError) {}
+        override fun onDataChange(snapshot: DataSnapshot) {
+            Log.d("Snapshot: ", snapshot.toString())
+            if(snapshot.value.toString() == ""){
+                Log.d("WTF: ", "$snapshot.value")
+                navController?.navigate(R.id.selectHouseFragment)
             }
-        })
-
-    }
+        }
+    })
 
 }

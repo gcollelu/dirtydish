@@ -215,8 +215,18 @@ class EditChoreFragment : Fragment() {
         Log.d(tag, key)
         val id = Integer.parseInt(key)
         //choreRef.child(key).removeValue()
-        //TODO: id is not local anymore but the actual chore id, so this may throw index out of bounds
         choreArray.removeAt(id)
+        reindexChore()
+        houseRef.child("chores").setValue(choreArray)
+    }
+
+    private fun reindexChore() {
+        Log.d(tag, "Reindexing Chores")
+        //choreRef.child(key).removeValue()
+        //TODO: id is not local anymore but the actual chore id, so this may throw index out of bounds
+        for(i in 0 until choreArray.size) {
+            choreArray[i].id = i.toString()
+        }
         houseRef.child("chores").setValue(choreArray)
     }
 
