@@ -24,6 +24,6 @@ class MainSupplyAdapter(private val data: List<Supply>, val context: Context)
     }
 
     class SupplyHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val supplyName: TextView = view.supply_name
+        val supplyName: TextView = view.chore_name
     }
 }

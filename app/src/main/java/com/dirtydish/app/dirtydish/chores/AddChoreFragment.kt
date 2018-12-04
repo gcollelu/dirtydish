@@ -3,10 +3,12 @@ package com.dirtydish.app.dirtydish.chores
 import android.Manifest
 import android.app.Activity.RESULT_OK
 import android.app.DatePickerDialog
+import android.app.ProgressDialog
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
@@ -23,11 +25,16 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.navigation.findNavController
 import com.dirtydish.app.dirtydish.R
-import com.dirtydish.app.dirtydish.singletons.Session
 import com.dirtydish.app.dirtydish.data.Chore
 import com.dirtydish.app.dirtydish.data.HouseMate
+import com.dirtydish.app.dirtydish.singletons.Session
+import com.google.android.gms.tasks.Continuation
+import com.google.android.gms.tasks.Task
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.UploadTask
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_add_chore.*
 import java.text.SimpleDateFormat
@@ -49,6 +56,11 @@ class AddChoreFragment : Fragment() {
     private val RESULT_LOAD_IMAGE = 1
     var previewImageView: ImageView? = null
 
+    private lateinit var imageName:String
+    private var imageURL = ""
+    internal var storage:FirebaseStorage?=null
+    internal var storageReference:StorageReference?=null
+
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_add_chore,
@@ -58,6 +70,9 @@ class AddChoreFragment : Fragment() {
         houseListRef = db.getReference("houses")
 
         choreRef = db.getReference("houses").child(Session.userHouse!!.id)
+
+        storage = FirebaseStorage.getInstance()
+        storageReference = storage!!.reference
         return view
     }
 
@@ -120,11 +135,47 @@ class AddChoreFragment : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK) {
+        if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && data != null && data.data != null) {
             val selectedImage = data.data
+            val progressDialog = ProgressDialog(context)
+            progressDialog.setTitle("Uploading...")
+            progressDialog.show()
+            imageName = UUID.randomUUID().toString()
 
+            val imageRef = storageReference!!.child("images/$imageName")
+            val uploadTask = imageRef.putFile(selectedImage!!)
+                    .addOnSuccessListener {
+                        progressDialog.dismiss()
+                        Toast.makeText(context, "File Uploaded", Toast.LENGTH_SHORT).show()
+
+                    }
+                    .addOnFailureListener{
+                        progressDialog.dismiss()
+                        Toast.makeText(context, "Upload Failed", Toast.LENGTH_SHORT).show()
+                    }
+                    .addOnProgressListener {taskSnapShot->
+                        val progress = 100.0 * taskSnapShot.bytesTransferred/taskSnapShot.totalByteCount
+                        progressDialog.setMessage("Uploaded " + progress.toInt() + "%...")
+                    }
+
+            val urlTask = uploadTask.continueWithTask(Continuation<UploadTask.TaskSnapshot, Task<Uri>> { task ->
+                if (!task.isSuccessful) {
+                    task.exception?.let {
+                        throw it
+                    }
+                }
+                return@Continuation imageRef.downloadUrl
+            }).addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    imageURL = task.result.toString()
+                    Log.d("IMAGEURL", imageURL)
+                } else {
+                    // Handle failures
+                    // ...
+                }
+            }
+            Log.d("IMAGEURL", imageRef.toString())
             Picasso.get().load(selectedImage).into(previewImageView)
-
         }
         Toast.makeText(activity, "Imaged selected.", Toast.LENGTH_SHORT).show()
     }
@@ -166,7 +217,10 @@ class AddChoreFragment : Fragment() {
                         description = description.text.toString(),
                         startDate = startDate.text.toString(),
                         endDate = endDate.text.toString(),
-                        assignee = participantsList[0].id)
+                        assignee = participantsList[0].id,
+                        image = "")
+                if (imageURL!=null)
+                    chore.image = imageURL
                 Log.d(tag_local, chore.toString())
                 choreArray.add(chore)
                 choreRef.child("chores").setValue(choreArray)

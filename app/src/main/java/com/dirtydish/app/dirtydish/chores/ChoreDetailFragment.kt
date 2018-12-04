@@ -4,24 +4,37 @@ import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.*
 import android.widget.TextView
 import androidx.navigation.findNavController
-import com.dirtydish.app.dirtydish.*
+import com.dirtydish.app.dirtydish.R
 import com.dirtydish.app.dirtydish.data.Chore
 import com.dirtydish.app.dirtydish.house.ViewHouseMatesSimpleAdapter
 import com.dirtydish.app.dirtydish.singletons.Utilities
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_chore_detail.*
+
+
+
+
 
 
 class ChoreDetailFragment : Fragment() {
     var chore: Chore? = null
     var myView: View? = null
+    private lateinit var imageName:String
+    internal var storage: FirebaseStorage?=null
+    internal var storageReference: StorageReference?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         chore = ChoreDetailFragmentArgs.fromBundle(arguments).chore
+        storage = FirebaseStorage.getInstance()
+        storageReference = storage!!.reference
 
         (activity as? AppCompatActivity)?.supportActionBar?.title = chore?.name
 
@@ -47,7 +60,7 @@ class ChoreDetailFragment : Fragment() {
         val endDate: TextView = view.findViewById<TextView>(R.id.endDate)
 
         if (chore != null) {
-            supply_name.text = chore!!.name
+            chore_name.text = chore!!.name
 
             chore_frequency.text = Utilities.intFrequencyToString(chore!!.frequency)
             choreDescription.text = chore!!.description
@@ -68,6 +81,12 @@ class ChoreDetailFragment : Fragment() {
             startDate.text = chore!!.startDate
             endDate.text = chore!!.endDate
 
+            imageName = chore!!.image
+            val imageURL = chore!!.image
+            if(imageURL != "") {
+                Log.d("URL", imageURL)
+                Picasso.get().load(imageURL).into(choreImage)
+            }
         }
     }
 

@@ -3,6 +3,7 @@ package com.dirtydish.app.dirtydish.chores
 import android.Manifest
 import android.app.Activity
 import android.app.DatePickerDialog
+import android.app.ProgressDialog
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
@@ -19,13 +20,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.navigation.findNavController
-import com.dirtydish.app.dirtydish.chores.ChoreDetailFragmentArgs
 import com.dirtydish.app.dirtydish.R
-import com.dirtydish.app.dirtydish.singletons.Session
 import com.dirtydish.app.dirtydish.data.Chore
 import com.dirtydish.app.dirtydish.data.HouseMate
+import com.dirtydish.app.dirtydish.singletons.Session
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_edit_chore.*
 import java.text.SimpleDateFormat
@@ -44,6 +46,10 @@ class EditChoreFragment : Fragment() {
     val PICK_IMAGE = 1
     var previewImageView: ImageView? = null
 
+    private lateinit var imageName:String
+    internal var storage: FirebaseStorage?=null
+    internal var storageReference: StorageReference?=null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -51,6 +57,9 @@ class EditChoreFragment : Fragment() {
         //choreRef = db.getReference("chores")
         houseRef = db.getReference("houses").child(Session.userHouse!!.id)
         choreArray = Session.userHouse!!.chores
+
+        storage = FirebaseStorage.getInstance()
+        storageReference = storage!!.reference
 
         chore = ChoreDetailFragmentArgs.fromBundle(arguments).chore
         (activity as? AppCompatActivity)?.supportActionBar?.title = chore?.name + " - Edit"
@@ -99,7 +108,6 @@ class EditChoreFragment : Fragment() {
 
         startDate.text = chore!!.startDate
         endDate.text = chore!!.endDate
-
 
 
         previewImageView = choreImagePreview
@@ -152,8 +160,29 @@ class EditChoreFragment : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
+        if (requestCode == 1 && resultCode == Activity.RESULT_OK && data != null && data.data != null) {
             val selectedImage = data.data
+
+            val progressDialog = ProgressDialog(context)
+            progressDialog.setTitle("Uploading...")
+            progressDialog.show()
+            imageName = UUID.randomUUID().toString()
+
+            val imageRef = storageReference!!.child("images/$imageName")
+            imageRef.putFile(selectedImage!!)
+                    .addOnSuccessListener {
+                        progressDialog.dismiss()
+                        Toast.makeText(context, "File Uploaded", Toast.LENGTH_SHORT).show()
+                    }
+                    .addOnFailureListener{
+                        progressDialog.dismiss()
+                        Toast.makeText(context, "Upload Failed", Toast.LENGTH_SHORT).show()
+                    }
+                    .addOnProgressListener {taskSnapShot->
+                        val progress = 100.0 * taskSnapShot.bytesTransferred/taskSnapShot.totalByteCount
+                        progressDialog.setMessage("Uploaded " + progress.toInt() + "%...")
+                    }
+
             Picasso.get().load(selectedImage).into(previewImageView)
         }
         Toast.makeText(activity, "Imaged selected.", Toast.LENGTH_SHORT).show()

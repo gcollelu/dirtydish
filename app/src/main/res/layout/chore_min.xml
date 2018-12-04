@@ -20,7 +20,7 @@
         app:srcCompat="@drawable/dd_logo_png" />
 
     <TextView
-        android:id="@+id/supply_name"
+        android:id="@+id/chore_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -65,7 +65,7 @@
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@id/choreImage"
-        app:layout_constraintTop_toBottomOf="@id/supply_name" />
+        app:layout_constraintTop_toBottomOf="@id/chore_name" />
 
     <TextView
         android:id="@+id/deadline"
@@ -90,6 +90,6 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/deadlineLabel"
-        app:layout_constraintTop_toBottomOf="@id/supply_name" />
+        app:layout_constraintTop_toBottomOf="@id/chore_name" />
 
 </android.support.constraint.ConstraintLayout>
