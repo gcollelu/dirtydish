@@ -5,10 +5,12 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.helper.ItemTouchHelper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SimpleAdapter
 import androidx.navigation.findNavController
 import com.dirtydish.app.dirtydish.chores.RecyclerAdapter
 import com.dirtydish.app.dirtydish.singletons.Session
@@ -45,6 +47,7 @@ class SharedSuppliesFragment : Fragment() {
         recyclerView!!.layoutManager = LinearLayoutManager(activity)
 
 
+
         attachListenerForChanges()
 
         return view
@@ -65,6 +68,14 @@ class SharedSuppliesFragment : Fragment() {
             override fun onDataChange(snap: DataSnapshot) {
                 val list = Session.userHouse!!.supplies
                 recyclerView!!.adapter = SuppliesRecyclerAdapter(list, thisContext!!)
+                val swipeHandler = object : SwipeToDeleteCallback(activity!!.applicationContext) {
+                    override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                        val adapter = recyclerView!!.adapter as SimpleAdapter
+                        //adapter.removeAt(viewHolder.adapterPosition)
+                    }
+                }
+                val itemTouchHelper = ItemTouchHelper(swipeHandler)
+                itemTouchHelper.attachToRecyclerView(recyclerView)
             }
 
             override fun onCancelled(err: DatabaseError) {

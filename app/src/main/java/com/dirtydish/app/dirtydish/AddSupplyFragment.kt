@@ -86,3 +86,4 @@ class AddSupplyFragment : Fragment() {
     }
 
 }
+

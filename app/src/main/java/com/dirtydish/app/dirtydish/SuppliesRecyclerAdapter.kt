@@ -2,10 +2,12 @@ package com.dirtydish.app.dirtydish
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.helper.ItemTouchHelper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.dirtydish.app.dirtydish.R.attr.background
 import com.dirtydish.app.dirtydish.data.Supply
 
 
@@ -68,3 +70,4 @@ class SuppliesRecyclerAdapter(private val listData: List<Supply>, private val co
     }
 
 }
+
