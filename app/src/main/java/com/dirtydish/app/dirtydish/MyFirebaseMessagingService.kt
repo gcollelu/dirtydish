@@ -17,6 +17,9 @@ import com.dirtydish.app.dirtydish.singletons.Session
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import android.os.Bundle
+
+
 
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {
@@ -32,6 +35,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             showNotification(remoteMessage.notification?.title, remoteMessage.notification?.body)
         }
     }
+
 
     /**
      * Called if InstanceID token is updated. This may occur if the security of

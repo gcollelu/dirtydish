@@ -42,7 +42,7 @@ exports.rotateChores = functions.https.onRequest((request, response) => {
                                         // The array containing all the user's tokens.
                                         let tokens;
 
-                                        console.log('Sending notifications.');
+
                                         // Promise.all([getDeviceTokensPromise]).then(results => {
                                         //         tokensSnapshot = results[0];
                                         //         console.log('Inside function to send notifications.');
@@ -93,6 +93,30 @@ exports.rotateChores = functions.https.onRequest((request, response) => {
         	if (currentChores){
         		admin.database().ref('/houses/' + house + '/chores').set(currentChores);
         	}
+
+                console.log('Sending notifications.');
+
+                // See documentation on defining a message payload.
+                const houseId = house;
+                const payload = {
+                  notification: {
+                    title: 'You have a new follower!',
+                    body: `Chores for ${houses[house].name} have been rotated.`
+                  },
+                  topic: houseId
+                };
+
+                // Send a message to devices subscribed to the provided topic.
+                admin.messaging().send(payload)
+                  .then((response) => {
+                    // Response is a message ID string.
+                    console.log('Successfully sent message:', response);
+                    return "success";
+                  })
+                  .catch((error) => {
+                    console.log('Error sending message:', error);
+                    return "error";
+                  });
         }
         response.send(chores);
 
