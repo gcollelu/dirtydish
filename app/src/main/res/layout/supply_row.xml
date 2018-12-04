@@ -12,7 +12,7 @@
 
 
     <TextView
-        android:id="@+id/supply_name"
+        android:id="@+id/chore_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -54,8 +54,8 @@
         android:textColor="@color/colorWhite"
         android:textSize="14sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@id/supply_name"
-        app:layout_constraintTop_toBottomOf="@id/supply_name" />
+        app:layout_constraintStart_toStartOf="@id/chore_name"
+        app:layout_constraintTop_toBottomOf="@id/chore_name" />
 
     <TextView
         android:id="@+id/availability"
@@ -80,6 +80,6 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/assigneeLabel"
-        app:layout_constraintTop_toBottomOf="@id/supply_name" />
+        app:layout_constraintTop_toBottomOf="@id/chore_name" />
 
 </android.support.constraint.ConstraintLayout>

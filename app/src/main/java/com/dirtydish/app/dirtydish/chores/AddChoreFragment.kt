@@ -8,6 +8,7 @@ import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
@@ -27,10 +28,13 @@ import com.dirtydish.app.dirtydish.R
 import com.dirtydish.app.dirtydish.data.Chore
 import com.dirtydish.app.dirtydish.data.HouseMate
 import com.dirtydish.app.dirtydish.singletons.Session
+import com.google.android.gms.tasks.Continuation
+import com.google.android.gms.tasks.Task
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.UploadTask
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_add_chore.*
 import java.text.SimpleDateFormat
@@ -53,7 +57,7 @@ class AddChoreFragment : Fragment() {
     var previewImageView: ImageView? = null
 
     private lateinit var imageName:String
-    private lateinit var imageURL:String
+    private var imageURL = ""
     internal var storage:FirebaseStorage?=null
     internal var storageReference:StorageReference?=null
 
@@ -139,10 +143,11 @@ class AddChoreFragment : Fragment() {
             imageName = UUID.randomUUID().toString()
 
             val imageRef = storageReference!!.child("images/$imageName")
-            imageRef.putFile(selectedImage!!)
+            val uploadTask = imageRef.putFile(selectedImage!!)
                     .addOnSuccessListener {
                         progressDialog.dismiss()
                         Toast.makeText(context, "File Uploaded", Toast.LENGTH_SHORT).show()
+
                     }
                     .addOnFailureListener{
                         progressDialog.dismiss()
@@ -153,7 +158,23 @@ class AddChoreFragment : Fragment() {
                         progressDialog.setMessage("Uploaded " + progress.toInt() + "%...")
                     }
 
-            Log.d("IMAGEURL", imageRef.getDownloadUrl().toString())
+            val urlTask = uploadTask.continueWithTask(Continuation<UploadTask.TaskSnapshot, Task<Uri>> { task ->
+                if (!task.isSuccessful) {
+                    task.exception?.let {
+                        throw it
+                    }
+                }
+                return@Continuation imageRef.downloadUrl
+            }).addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    imageURL = task.result.toString()
+                    Log.d("IMAGEURL", imageURL)
+                } else {
+                    // Handle failures
+                    // ...
+                }
+            }
+            Log.d("IMAGEURL", imageRef.toString())
             Picasso.get().load(selectedImage).into(previewImageView)
         }
         Toast.makeText(activity, "Imaged selected.", Toast.LENGTH_SHORT).show()
@@ -197,7 +218,9 @@ class AddChoreFragment : Fragment() {
                         startDate = startDate.text.toString(),
                         endDate = endDate.text.toString(),
                         assignee = participantsList[0].id,
-                        image = imageName)
+                        image = "")
+                if (imageURL!=null)
+                    chore.image = imageURL
                 Log.d(tag_local, chore.toString())
                 choreArray.add(chore)
                 choreRef.child("chores").setValue(choreArray)

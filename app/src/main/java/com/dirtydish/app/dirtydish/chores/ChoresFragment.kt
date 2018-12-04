@@ -13,6 +13,8 @@ import androidx.navigation.findNavController
 import com.dirtydish.app.dirtydish.R
 import com.dirtydish.app.dirtydish.singletons.Session
 import com.google.firebase.database.*
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import kotlinx.android.synthetic.main.fragment_chore_home.*
 
 class ChoresFragment : Fragment() {
@@ -24,10 +26,16 @@ class ChoresFragment : Fragment() {
     private var thisContext: Context? = null
     //private val tag = "VIEW_CHORES"
 
+    private lateinit var imageName:String
+    internal var storage: FirebaseStorage?=null
+    internal var storageReference: StorageReference?=null
+
+
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         db = FirebaseDatabase.getInstance()
+
 
         thisContext = context
         if (Session.hasHouse()) {

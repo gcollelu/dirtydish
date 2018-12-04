@@ -60,7 +60,7 @@ class ChoreDetailFragment : Fragment() {
         val endDate: TextView = view.findViewById<TextView>(R.id.endDate)
 
         if (chore != null) {
-            supply_name.text = chore!!.name
+            chore_name.text = chore!!.name
 
             chore_frequency.text = Utilities.intFrequencyToString(chore!!.frequency)
             choreDescription.text = chore!!.description
@@ -82,10 +82,11 @@ class ChoreDetailFragment : Fragment() {
             endDate.text = chore!!.endDate
 
             imageName = chore!!.image
-            val imageRef = storageReference!!.child("images/" + imageName)
-            val imageURL = imageRef.downloadUrl
-            Log.d("URL", imageURL.toString())
-            Picasso.get().load(imageURL.toString()).into(choreImage)
+            val imageURL = chore!!.image
+            if(imageURL != "") {
+                Log.d("URL", imageURL)
+                Picasso.get().load(imageURL).into(choreImage)
+            }
         }
     }
 

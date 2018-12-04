@@ -2,13 +2,10 @@ package com.dirtydish.app.dirtydish
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.helper.ItemTouchHelper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.dirtydish.app.dirtydish.R.attr.background
 import com.dirtydish.app.dirtydish.data.Supply
 import com.dirtydish.app.dirtydish.singletons.Session
 import com.google.firebase.database.DatabaseReference
@@ -26,7 +23,7 @@ class SupplyRecyclerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
     private var itemClickListener: ItemClickListener? = null
 
     init {
-        supply_name = itemView.findViewById<View>(R.id.supply_name) as TextView
+        supply_name = itemView.findViewById<View>(R.id.chore_name) as TextView
         availability = itemView.findViewById<View>(R.id.availability) as TextView
         itemView.setOnClickListener(this)
         itemView.setOnLongClickListener(this)
