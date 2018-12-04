@@ -63,6 +63,14 @@ class HomeFragment : Fragment() {
 
         checkHasHouse()
         missingSupplies.layoutManager = LinearLayoutManager(activity as Context)
+
+        val userId = FirebaseAuth.getInstance().currentUser?.uid
+        if (userId is String){
+            val db: FirebaseDatabase = FirebaseDatabase.getInstance()
+            val tokenRef: DatabaseReference = db.getReference("tokens").child(userId)
+            doAsync { tokenRef.setValue(Session.accessToken) }
+            Log.d("HomeToken: ", "token saved")
+        }
     }
 
 
@@ -146,7 +154,12 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun containsUser(chore: Chore, user: HouseMate): Boolean = chore.assignee == user.id
+    private fun containsUser(chore: Chore?, user: HouseMate): Boolean {
+        if (chore == null){
+            return false
+        }
+        return chore?.assignee == user.id
+    }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         inflater?.inflate(R.menu.menu_homepage, menu)

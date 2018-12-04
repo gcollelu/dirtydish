@@ -1,9 +1,11 @@
 package com.dirtydish.app.dirtydish.singletons
 
+import com.dirtydish.app.dirtydish.data.AccessToken
 import com.dirtydish.app.dirtydish.data.House
 import com.dirtydish.app.dirtydish.data.HouseMate
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import com.google.firebase.messaging.FirebaseMessaging
 import org.jetbrains.anko.doAsync
 
 /*
@@ -21,6 +23,7 @@ object Session {
     private var userRef: DatabaseReference? = null
     private var houseRef: DatabaseReference? = null
     private val db = FirebaseDatabase.getInstance()
+    var accessToken : AccessToken = AccessToken()
 
     private object housemateListener : ValueEventListener {
         override fun onCancelled(p0: DatabaseError) {}
@@ -37,6 +40,7 @@ object Session {
         override fun onCancelled(p0: DatabaseError) {}
         override fun onDataChange(p0: DataSnapshot) {
             userHouse = p0.getValue<House>(House::class.java)
+            FirebaseMessaging.getInstance().subscribeToTopic(userHouse?.id)
             currFunc.let {
                 it?.invoke()
                 currFunc = null
@@ -66,6 +70,7 @@ object Session {
     // call this on logout
     fun clear() {
         doAsync {
+            FirebaseMessaging.getInstance().unsubscribeFromTopic(userHouse?.id)
             housemate = null
             userHouse = null
             userRef?.removeEventListener(housemateListener)
