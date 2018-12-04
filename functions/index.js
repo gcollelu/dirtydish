@@ -49,6 +49,30 @@ exports.rotateChores = functions.https.onRequest((request, response) => {
         response.send(chores);
 
  	});
-
-
 });
+
+exports.cleanAssignee = functions.https.onRequest((request, response) => {
+	return admin.database().ref('/houses').once("value", (snapshot) => {
+ 		const houses = snapshot.val()
+        var chores = []
+        for (var house in houses){
+        	var currentChores = houses[house].chores;
+        	for (var myChore in currentChores){
+        		currentChores[myChore].assignee = "";
+        	}
+        	if (currentChores){
+        		admin.database().ref('/houses/' + house + '/chores').set(currentChores);
+        	}
+        }
+        response.send("success");
+
+ 	});
+});
+
+exports.deleteDatabase = functions.https.onRequest((request, response) => {
+	admin.database().ref().remove();
+	response.send("deleted database");
+});
+
+
+

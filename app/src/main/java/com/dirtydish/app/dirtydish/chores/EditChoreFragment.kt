@@ -38,7 +38,7 @@ class EditChoreFragment : Fragment() {
     var participantsList: MutableList<HouseMate> = mutableListOf<HouseMate>()
     var housematesArray: MutableList<HouseMate> = mutableListOf<HouseMate>()
     var choreArray: MutableList<Chore> = mutableListOf<Chore>()
-    var chore: Chore? = null
+    lateinit var chore: Chore
     private val READ_REQUEST_CODE = 101
     private var myContext: Context? = null
     val PICK_IMAGE = 1
@@ -180,7 +180,7 @@ class EditChoreFragment : Fragment() {
             val id = chore!!.id.toInt()
 
             val houseKey = Session.userHouse!!.id
-            val chore = Chore(
+            val newChore = Chore(
                     name = editName.text.toString(),
                     id = id.toString(),
                     frequency = frequency,
@@ -188,10 +188,11 @@ class EditChoreFragment : Fragment() {
                     houseId = houseKey,
                     description = description.text.toString(),
                     startDate = startDate.text.toString(),
-                    endDate = endDate.text.toString())
+                    endDate = endDate.text.toString(),
+                    assignee = chore.assignee)
 
 
-            choreArray[id] = chore
+            choreArray[id] = newChore
             houseRef.child("chores").setValue(choreArray)
         }
     }

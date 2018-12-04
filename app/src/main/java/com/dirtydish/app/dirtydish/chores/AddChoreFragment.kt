@@ -150,22 +150,21 @@ class AddChoreFragment : Fragment() {
             var id = Session.userHouse!!.chores.lastIndex + 1
 
             var houseKey = Session.userHouse!!.id;
-            val chore = Chore(
-                    name = editName.text.toString(),
-                    id = id.toString(),
-                    frequency = frequency,
-                    participants = participantsList,
-                    houseId = houseKey,
-                    description = description.text.toString(),
-                    startDate = startDate.text.toString(),
-                    endDate = endDate.text.toString())
-
-
-            Log.d(tag_local, chore.toString())
 
             return if (participantsList.isEmpty()) {
                 false
             } else {
+                val chore = Chore(
+                        name = editName.text.toString(),
+                        id = id.toString(),
+                        frequency = frequency,
+                        participants = participantsList,
+                        houseId = houseKey,
+                        description = description.text.toString(),
+                        startDate = startDate.text.toString(),
+                        endDate = endDate.text.toString(),
+                        assignee = participantsList[0].id)
+                Log.d(tag_local, chore.toString())
                 choreArray.add(chore)
                 choreRef.child("chores").setValue(choreArray)
                 true
@@ -174,6 +173,7 @@ class AddChoreFragment : Fragment() {
 
         return false
     }
+
 
 
     private fun makeCalendarField(textView: TextView) {

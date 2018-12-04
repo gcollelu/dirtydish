@@ -79,8 +79,8 @@ class JoinHouseFragment : Fragment() {
         houseListRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {}
             override fun onDataChange(snapshot: DataSnapshot) {
-                snapshot.children.mapNotNullTo(houses) { it.getValue<House>(House::class.java) }
                 Log.i("Count " ,""+snapshot.getChildrenCount())
+                snapshot.children.mapNotNullTo(houses) { it.getValue<House>(House::class.java) }
             }
         })
 
