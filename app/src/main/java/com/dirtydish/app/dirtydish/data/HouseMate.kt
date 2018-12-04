@@ -4,4 +4,8 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class HouseMate(var name: String = "", var email: String = "", var id: String = "", var houseId: String = "") : Parcelable
+data class HouseMate(var name: String = "",
+                     var email: String = "",
+                     var id: String = "",
+                     var houseId: String = "",
+                     var notifications: HashMap<String, String> = hashMapOf()) : Parcelable
