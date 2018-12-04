@@ -167,6 +167,20 @@ class EditChoreFragment : Fragment() {
                 participantsList.add(housematesArray[i])
             }
         }
+        if (participantsList.isEmpty()){
+            return
+        }
+
+        var newAssignee = chore.assignee
+        var assigneeInList = false;
+        participantsList.forEach {
+            if (it.id === newAssignee){
+                assigneeInList = true
+            }
+        }
+        if (!assigneeInList){
+            newAssignee = participantsList[0].id
+        }
 
         if (Session.hasHouse()) {
             var frequency = Integer.parseInt(editFrequency.selectedItem.toString())
@@ -189,7 +203,7 @@ class EditChoreFragment : Fragment() {
                     description = description.text.toString(),
                     startDate = startDate.text.toString(),
                     endDate = endDate.text.toString(),
-                    assignee = chore.assignee)
+                    assignee = newAssignee)
 
 
             choreArray[id] = newChore

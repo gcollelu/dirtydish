@@ -62,8 +62,13 @@ class RecyclerAdapter(private val listData: List<Chore>, private val context: Co
         holder.frequency.text = Utilities.intFrequencyToString(currentChore.frequency)
 
         if (currentChore.participants.size > 0) {
-            //TODO: ACTUALLY ROTATE BETWEEN ALL CHORE PARTICIPANTS
-            holder.choreAssignee.text = currentChore.participants[0].name
+            var assigneeName: String = currentChore.participants[0].name;
+            currentChore.participants.forEach {
+                if (it.id === currentChore.assignee){
+                    assigneeName = it.name
+                }
+            }
+            holder.choreAssignee.text = assigneeName
         } else {
             holder.choreAssignee.text = "none"
         }

@@ -53,7 +53,13 @@ class ChoreDetailFragment : Fragment() {
             choreDescription.text = chore!!.description
 
             if (chore!!.participants.size > 0){
-                chore_assignee.text = chore!!.participants[0].name
+                var assigneeName: String = chore!!.participants[0].name
+                chore!!.participants.forEach {
+                    if (it.id === chore!!.assignee){
+                        assigneeName = it.name
+                    }
+                }
+                chore_assignee.text = assigneeName
             }
 
             val participantAdapter = ViewHouseMatesSimpleAdapter(activity!!, chore!!.participants)
