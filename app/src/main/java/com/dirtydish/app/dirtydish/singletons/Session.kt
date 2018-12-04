@@ -16,6 +16,7 @@ object Session {
 
     var userHouse: House? = null
     var housemate: HouseMate? = null
+    var hasHouse = true
 
     private var userRef: DatabaseReference? = null
     private var houseRef: DatabaseReference? = null

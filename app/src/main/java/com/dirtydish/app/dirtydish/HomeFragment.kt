@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.*
 import android.widget.TextView
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.dirtydish.app.dirtydish.data.Chore
 import com.dirtydish.app.dirtydish.data.House
@@ -25,6 +26,7 @@ class HomeFragment : Fragment() {
     private lateinit var listener: ValueEventListener
     private lateinit var houseRef: DatabaseReference
     private lateinit var db: FirebaseDatabase
+    private var navController : NavController? = null
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -37,10 +39,14 @@ class HomeFragment : Fragment() {
         (activity as MainMenuActivity).supportActionBar!!.show()
         setHasOptionsMenu(true)
 
+
+
         if (Session.hasHouse()) {
             houseRef = db.getReference("houses").child(Session.userHouse!!.id)
             houseRef.keepSynced(true)
         }
+
+
 
 //        if (!Session.hasHouse())
 //            view?.findNavController()?.navigate(R.id.selectHouseFragment)
@@ -51,6 +57,9 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         myChoresList.layoutManager = LinearLayoutManager(activity as Context)
+        navController = myView?.findNavController()
+
+        checkHasHouse()
     }
 
 
@@ -144,6 +153,22 @@ class HomeFragment : Fragment() {
             var currChore = data[position]
             holder.choreName?.text = currChore.name
         }
+
+    }
+
+    private fun checkHasHouse() {
+        val currentUserId = FirebaseAuth.getInstance().currentUser?.uid.toString()
+        val houseIdRef = db.getReference("housemates").child(currentUserId).child("houseId")
+        houseIdRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onCancelled(p0: DatabaseError) {}
+            override fun onDataChange(snapshot: DataSnapshot) {
+                Log.d("Snapshot: ", snapshot.toString())
+                if(snapshot.value.toString() == ""){
+                    Log.d("WTF: ", "$snapshot.value")
+                    navController?.navigate(R.id.selectHouseFragment)
+                }
+            }
+        })
 
     }
 

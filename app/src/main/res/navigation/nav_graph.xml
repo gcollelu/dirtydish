@@ -250,7 +250,8 @@
             android:id="@+id/action_joinHouseFragment_to_homeFragment"
             app:destination="@+id/homeFragment"
             app:enterAnim="@anim/slide_in_right"
-            app:popEnterAnim="@anim/slide_in_left" />
+            app:popEnterAnim="@anim/slide_in_left">
+        </action>
     </fragment>
     <fragment
         android:id="@+id/addSupplyFragment"
