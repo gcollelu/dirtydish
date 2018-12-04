@@ -57,8 +57,8 @@ class AddChoreFragment : Fragment() {
     val PICK_IMAGE = 1
     private val RESULT_LOAD_IMAGE = 1
     var previewImageView: ImageView? = null
-    private lateinit var imageName:String
 
+    private lateinit var imageName:String
     internal var storage:FirebaseStorage?=null
     internal var storageReference:StorageReference?=null
 
