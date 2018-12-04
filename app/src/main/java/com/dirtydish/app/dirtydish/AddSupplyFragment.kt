@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.fragment_add_supply.*
 
 class AddSupplyFragment : Fragment() {
 
-    var isMissing = true
+    var isMissing = false
     var supplyName = ""
     var supplyArray: MutableList<Supply> = mutableListOf<Supply>()
     private lateinit var db: FirebaseDatabase
@@ -47,9 +47,14 @@ class AddSupplyFragment : Fragment() {
 
         }
 
-        toggleButton.setOnCheckedChangeListener { _, isChecked ->
-            isMissing = isChecked
+        missingSwitch.setOnCheckedChangeListener{ _, isChecked ->
+            if (isChecked) {
+                isMissing = true
+            } else {
+                isMissing = false
+            }
         }
+
         btnAddSupply.setOnClickListener {
             if (editName.text.isNotEmpty()){
                 supplyName = editName.text.toString()

@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.*
-import android.widget.TextView
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.dirtydish.app.dirtydish.data.Chore
@@ -25,7 +24,7 @@ class HomeFragment : Fragment() {
     private lateinit var listener: ValueEventListener
     private lateinit var houseRef: DatabaseReference
     private lateinit var db: FirebaseDatabase
-    private var navController : NavController? = null
+    private var navController: NavController? = null
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -37,6 +36,14 @@ class HomeFragment : Fragment() {
         myView = view
         (activity as MainMenuActivity).supportActionBar!!.show()
         setHasOptionsMenu(true)
+
+        Session.callOnInitiated {
+            if (Session.userHouse != null) {
+                Log.d("SESSION", "you now have a house")
+            } else {
+                Log.d("SESSION", "didn't work as expected")
+            }
+        }
 
         if (Session.hasHouse()) {
             houseRef = db.getReference("houses").child(Session.userHouse!!.id)
@@ -113,8 +120,17 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun getMissingSupplies(supplies: MutableList<Supply>): MutableList<Supply> {
-        return supplies.filter { supply -> supply.missing } as MutableList<Supply>
+    private fun getMissingSupplies(supplies: MutableList<Supply>): MutableList<Supply>? {
+        return if (supplies.isNotEmpty()) {
+            var mySupplies = supplies.filter { supply -> supply.missing } as MutableList<Supply>
+            if (mySupplies.isEmpty()) {
+                null
+            } else {
+                mySupplies
+            }
+        } else {
+            null
+        }
     }
 
     private fun getPersonalChores(chores: MutableList<Chore>, user: HouseMate): MutableList<Chore>? {
@@ -154,7 +170,7 @@ class HomeFragment : Fragment() {
             override fun onCancelled(p0: DatabaseError) {}
             override fun onDataChange(snapshot: DataSnapshot) {
                 Log.d("Snapshot: ", snapshot.toString())
-                if(snapshot.value.toString() == ""){
+                if (snapshot.value.toString() == "") {
                     Log.d("WTF: ", "$snapshot.value")
                     navController?.navigate(R.id.selectHouseFragment)
                 }
