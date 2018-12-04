@@ -72,7 +72,7 @@ class SuppliesRecyclerAdapter(private val listData: MutableList<Supply>, private
             override fun onClick(view: View, position: Int, isLongClick: Boolean) {
                 listData[position].missing = !currentSupply.missing
                 notifyItemChanged(position)
-                doAsync { houseRef.child("chores").setValue(listData) }
+                doAsync { houseRef.child("supplies").setValue(listData) }
             }
         })
     }
@@ -88,7 +88,7 @@ class SuppliesRecyclerAdapter(private val listData: MutableList<Supply>, private
         for(i in 0 until listData.size) {
             listData[i].id = i.toString()
         }
-        doAsync { houseRef.child("chores").setValue(listData) }
+        doAsync { houseRef.child("supplies").setValue(listData) }
     }
 
     override fun getItemCount(): Int {
