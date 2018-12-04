@@ -162,7 +162,7 @@ class EditChoreFragment : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
+        if (requestCode == 1 && resultCode == Activity.RESULT_OK && data != null && data.data != null) {
             val selectedImage = data.data
 
             val progressDialog = ProgressDialog(context)

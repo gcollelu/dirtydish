@@ -136,7 +136,7 @@ class AddChoreFragment : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK) {
+        if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && data != null && data.data != null) {
             val selectedImage = data.data
             val progressDialog = ProgressDialog(context)
             progressDialog.setTitle("Uploading...")
