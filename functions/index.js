@@ -24,12 +24,12 @@ exports.rotateChores = functions.https.onRequest((request, response) => {
 	        			var i = 0;
 	       				for (var pIndex in currentChores[myChore].participants){
 	       					var participant = currentChores[myChore].participants[pIndex];
-	       					if (currentChores[myChore].assignee.id === participant.id){
+	       					if (currentChores[myChore].assignee === participant.id){
 	       						if (i+1 < currentChores[myChore].participants.length){
-	       							currentChores[myChore].assignee = currentChores[myChore].participants[i+1];
+	       							currentChores[myChore].assignee = currentChores[myChore].participants[i+1].id;
 	       							break;
 	       						} else {
-	       							currentChores[myChore].assignee = currentChores[myChore].participants[0];
+	       							currentChores[myChore].assignee = currentChores[myChore].participants[0].id;
 	       							break;
 	       						}
 	       					}
