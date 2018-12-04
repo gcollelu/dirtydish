@@ -53,7 +53,9 @@ class SharedSuppliesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        btnAddSupply.setOnClickListener { }
+        btnAddSupply.setOnClickListener {
+            view.findNavController().navigate(R.id.action_sharedSuppliesFragment_to_addSupplyFragment)
+        }
 
     }
 

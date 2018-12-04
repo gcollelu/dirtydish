@@ -147,9 +147,12 @@ class AddChoreFragment : Fragment() {
                 frequency *= 30
             }
 
-            var id = Session.userHouse!!.chores.lastIndex + 1
+            var id = 0
 
-            var houseKey = Session.userHouse!!.id;
+            if (!Session.userHouse!!.chores.isEmpty())
+                id = Session.userHouse!!.chores.lastIndex + 1
+
+            val houseKey = Session.userHouse!!.id;
 
             return if (participantsList.isEmpty()) {
                 false

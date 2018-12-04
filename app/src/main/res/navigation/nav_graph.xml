@@ -94,7 +94,15 @@
         android:id="@+id/sharedSuppliesFragment"
         android:name="com.dirtydish.app.dirtydish.SharedSuppliesFragment"
         android:label="Shared Supplies"
-        tools:layout="@layout/fragment_shared_supplies" />
+        tools:layout="@layout/fragment_shared_supplies" >
+        <action
+            android:id="@+id/action_sharedSuppliesFragment_to_addSupplyFragment"
+            app:destination="@id/addSupplyFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
     <fragment
         android:id="@+id/addChoreFragment"
         android:name="com.dirtydish.app.dirtydish.chores.AddChoreFragment"
@@ -236,7 +244,7 @@
     <fragment
         android:id="@+id/joinHouseFragment"
         android:name="com.dirtydish.app.dirtydish.house.JoinHouseFragment"
-        android:label="fragment_join_house"
+        android:label="Join House"
         tools:layout="@layout/fragment_join_house">
         <action
             android:id="@+id/action_joinHouseFragment_to_homeFragment"
@@ -244,4 +252,9 @@
             app:enterAnim="@anim/slide_in_right"
             app:popEnterAnim="@anim/slide_in_left" />
     </fragment>
+    <fragment
+        android:id="@+id/addSupplyFragment"
+        android:name="com.dirtydish.app.dirtydish.AddSupplyFragment"
+        android:label="Add Supply"
+        tools:layout="@layout/fragment_add_supply" />
 </navigation>
