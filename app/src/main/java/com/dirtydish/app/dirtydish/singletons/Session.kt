@@ -16,7 +16,7 @@ object Session {
 
     var userHouse: House? = null
     var housemate: HouseMate? = null
-    var hasHouse = true
+    private var currFunc: (() -> Unit)? = null
 
     private var userRef: DatabaseReference? = null
     private var houseRef: DatabaseReference? = null
@@ -37,6 +37,10 @@ object Session {
         override fun onCancelled(p0: DatabaseError) {}
         override fun onDataChange(p0: DataSnapshot) {
             userHouse = p0.getValue<House>(House::class.java)
+            currFunc.let {
+                it?.invoke()
+                currFunc = null
+            }
         }
     }
 
@@ -85,6 +89,17 @@ object Session {
     fun logout() {
         FirebaseAuth.getInstance().signOut()
         clear()
+    }
+
+    fun callOnInitiated(funct: () -> Unit) {
+        housemate.let { user ->
+            if (user == null || (user.houseId != null && userHouse == null)) {
+                currFunc = funct
+                init()
+            } else {
+                funct.invoke()
+            }
+        }
     }
 
 
