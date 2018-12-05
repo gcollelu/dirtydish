@@ -14,4 +14,5 @@ data class Chore(val name: String = "chore",
                  var startDate: String = "",
                  var endDate: String = "",
                  var assignee: String = "",
-                 var image: String="") : Parcelable
+                 var image: String="",
+                 var imageDBName: String="") : Parcelable

@@ -51,10 +51,10 @@ class EditChoreFragment : Fragment() {
     var previewImageView: ImageView? = null
     var houseName = ""
 
-    private lateinit var imageName:String
+    private lateinit var imageName: String
     private var imageURL = ""
-    internal var storage:FirebaseStorage?=null
-    internal var storageReference:StorageReference?=null
+    internal var storage: FirebaseStorage? = null
+    internal var storageReference: StorageReference? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -102,11 +102,11 @@ class EditChoreFragment : Fragment() {
         when {
             chore!!.frequency % 30 == 0 -> {
                 freqType.setSelection(2)
-                editFrequency.setSelection(chore!!.frequency/30 - 1)
+                editFrequency.setSelection(chore!!.frequency / 30 - 1)
             }
             chore!!.frequency % 7 == 0 -> {
                 freqType.setSelection(1)
-                editFrequency.setSelection(chore!!.frequency/7 - 1)
+                editFrequency.setSelection(chore!!.frequency / 7 - 1)
             }
             else -> {
                 freqType.setSelection(0)
@@ -133,7 +133,7 @@ class EditChoreFragment : Fragment() {
 
         participantsList = chore!!.participants
 
-        if(chore.image != null && chore.image != "")
+        if (chore.image != null && chore.image != "")
             Picasso.get().load(chore.image).into(previewImageView)
 
         val viewManager = LinearLayoutManager(this.requireContext())
@@ -186,12 +186,12 @@ class EditChoreFragment : Fragment() {
                         Toast.makeText(context, "File Uploaded", Toast.LENGTH_SHORT).show()
 
                     }
-                    .addOnFailureListener{
+                    .addOnFailureListener {
                         progressDialog.dismiss()
                         Toast.makeText(context, "Upload Failed", Toast.LENGTH_SHORT).show()
                     }
-                    .addOnProgressListener {taskSnapShot->
-                        val progress = 100.0 * taskSnapShot.bytesTransferred/taskSnapShot.totalByteCount
+                    .addOnProgressListener { taskSnapShot ->
+                        val progress = 100.0 * taskSnapShot.bytesTransferred / taskSnapShot.totalByteCount
                         progressDialog.setMessage("Uploaded " + progress.toInt() + "%...")
                     }
 
@@ -221,22 +221,22 @@ class EditChoreFragment : Fragment() {
         participantsList = mutableListOf()
         for (i in 0 until participants.childCount) {
             val partic = participants.getChildViewHolder(participants.getChildAt(i))
-            if (partic.itemView.background != null){
+            if (partic.itemView.background != null) {
                 participantsList.add(housematesArray[i])
             }
         }
-        if (participantsList.isEmpty()){
+        if (participantsList.isEmpty()) {
             return
         }
 
         var newAssignee = chore.assignee
         var assigneeInList = false;
         participantsList.forEach {
-            if (it.id === newAssignee){
+            if (it.id === newAssignee) {
                 assigneeInList = true
             }
         }
-        if (!assigneeInList){
+        if (!assigneeInList) {
             newAssignee = participantsList[0].id
         }
 
@@ -263,8 +263,10 @@ class EditChoreFragment : Fragment() {
                     endDate = endDate.text.toString(),
                     assignee = newAssignee,
                     image = "")
-            if (imageURL!="")
+            if (imageURL != "")
                 newChore.image = imageURL
+            if (imageName != "")
+                chore.imageDBName = imageName
             choreArray[id] = newChore
             houseRef.child("chores").setValue(choreArray)
         }
@@ -274,6 +276,14 @@ class EditChoreFragment : Fragment() {
         Log.d(tag, key)
         val id = Integer.parseInt(key)
         //choreRef.child(key).removeValue()
+        val photoRef = storageReference!!.child("houses/$houseName/chores/"+chore.imageDBName).delete()
+        /*photoRef.delete()
+                .addOnSuccessListener {
+                    Log.d("DELETE", "onSuccess: deleted file")
+                }
+                .addOnFailureListener {
+                    Log.d("DELETE", "onFailure: did not delete file")
+                }*/
         choreArray.removeAt(id)
         reindexChore()
         houseRef.child("chores").setValue(choreArray)

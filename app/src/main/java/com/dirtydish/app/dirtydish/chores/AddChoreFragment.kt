@@ -224,6 +224,8 @@ class AddChoreFragment : Fragment() {
                         image = "")
                 if (imageURL!="")
                     chore.image = imageURL
+                if (imageName!="")
+                    chore.imageDBName = imageName
                 Log.d(tag_local, chore.toString())
                 choreArray.add(chore)
                 choreRef.child("chores").setValue(choreArray)
